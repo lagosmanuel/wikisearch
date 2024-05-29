@@ -1,4 +1,4 @@
-package dyds.tvseriesinfo.fulllogic;
+package models;
 
 import javax.swing.*;
 
@@ -16,6 +16,4 @@ public class SearchResult extends JMenuItem {
         this.pageID = pageID;
         this.snippet = snippet;
     }
-
-
 }

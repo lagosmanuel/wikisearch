@@ -1,4 +1,4 @@
-package dyds.tvseriesinfo.fulllogic;
+package models;
 
 
 import retrofit2.Call;
