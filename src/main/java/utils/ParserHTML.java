@@ -1,6 +1,6 @@
 package utils;
 
-public class Util {
+public class ParserHTML {
     public static String textToHtml(String text) {
         StringBuilder builder = new StringBuilder();
         builder.append("<font face=\"arial\">");

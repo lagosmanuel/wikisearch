@@ -1,4 +1,4 @@
-package models;
+package models.repos;
 
 
 import retrofit2.Call;
