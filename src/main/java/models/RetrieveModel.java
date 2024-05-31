@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class RetrieveModel {
-    Collection<EventListener> listeners;
-    String lastResult; //TODO: esto está bien?
+    private final Collection<EventListener> listeners;
+    private String lastResult; //TODO: esto está bien?
 
     public RetrieveModel() {
         listeners = new ArrayList<>();
@@ -17,7 +17,7 @@ public class RetrieveModel {
         listeners.add(listener);
     }
 
-    protected void notifyListeners() {
+    private void notifyListeners() {
         for (EventListener listener:listeners) {
             listener.onEvent();
         }

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class SaveModel {
-    protected Collection<EventListener> listeners;
+    private final Collection<EventListener> listeners;
 
     public SaveModel() {
         listeners = new ArrayList<>();
@@ -16,7 +16,7 @@ public class SaveModel {
         listeners.add(listener);
     }
 
-    protected void notifyListeners() {
+    private void notifyListeners() {
         for (EventListener listener:listeners) {
             listener.onEvent();
         }

@@ -5,8 +5,8 @@ import models.repos.APIHelper;
 import java.util.*;
 
 public class SearchModel {
-    Collection<EventListener> listeners;
-    Collection<SearchResult> lastResults; //TODO: esto está bien?
+    private final Collection<EventListener> listeners;
+    private Collection<SearchResult> lastResults; //TODO: esto está bien?
 
     public SearchModel() {
         lastResults = new ArrayList<>();
@@ -17,7 +17,7 @@ public class SearchModel {
         listeners.add(listener);
     }
 
-    public void notifyListeners() {
+    private void notifyListeners() {
         for (EventListener listener: listeners) {
             listener.onEvent();
         }

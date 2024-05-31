@@ -2,20 +2,19 @@ package views;
 
 import models.repos.DataBase;
 import presenters.StoredInfoPresenter;
-import static utils.ParserHTML.textToHtml;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class StoredInfoView implements BaseView {
-    protected JComboBox resultComboBox;
-    protected JTextPane resultTextPane;
-    protected JScrollPane resultScrollPane;
-    protected JPanel contentPane;
+public class StoredInfoView {
+    private JComboBox resultComboBox;
+    private JTextPane resultTextPane;
+    private JScrollPane resultScrollPane;
+    private JPanel contentPane;
 
-    protected StoredInfoPresenter storedInfoPresenter;
-    protected JMenuItem deleteItem;
-    protected JMenuItem saveItem;
+    private StoredInfoPresenter storedInfoPresenter;
+    private final JMenuItem deleteItem;
+    private final JMenuItem saveItem;
 
     public StoredInfoView() {
         resultTextPane.setContentType("text/html");
@@ -38,7 +37,7 @@ public class StoredInfoView implements BaseView {
             storedInfoPresenter.onDelete();
         });
 
-        resultComboBox.addActionListener(actionEvent -> setResultTextPane(textToHtml(DataBase.getExtract(resultComboBox.getSelectedItem().toString()))));
+        resultComboBox.addActionListener(actionEvent -> storedInfoPresenter.onSelectedItem());
     }
 
     public Component getComponent() {
@@ -67,9 +66,5 @@ public class StoredInfoView implements BaseView {
 
     public void showMessageDialog(String msg) {
         JOptionPane.showMessageDialog(contentPane, msg);
-    }
-
-    public void refreshPage() {
-
     }
 }

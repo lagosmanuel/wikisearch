@@ -5,25 +5,30 @@ import models.repos.DataBase;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class DeleteModel {
+public class ExtractModel {
     private final Collection<EventListener> listeners;
+    private String lastExtract;
 
-    public DeleteModel() {
+    public ExtractModel() {
         listeners = new ArrayList<>();
     }
 
-    public void addEventLister(EventListener listener) {
+    public void addEventListener(EventListener listener) {
         listeners.add(listener);
     }
 
     private void notifyListeners() {
-        for (EventListener listener : listeners) {
+        for (EventListener listener:listeners) {
             listener.onEvent();
         }
     }
 
-    public void deletePage(String pageTitle) {
-        DataBase.deleteEntry(pageTitle);
+    public String getLastExtract() {
+        return lastExtract;
+    }
+
+    public void extract(String title) {
+        lastExtract = DataBase.getExtract(title);
         notifyListeners();
     }
 }

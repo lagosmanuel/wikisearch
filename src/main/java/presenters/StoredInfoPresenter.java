@@ -1,23 +1,28 @@
 package presenters;
 
 import models.DeleteModel;
+import models.ExtractModel;
 import models.SaveModel;
 import utils.UIStrings;
 import views.StoredInfoView;
 
+import static utils.ParserHTML.textToHtml;
+
 //TODO tiene muchas responsabilidades?
 public class StoredInfoPresenter {
-    protected StoredInfoView storedInfoView;
-    protected SaveModel saveModel;
-    protected DeleteModel deleteModel;
+    private StoredInfoView storedInfoView;
+    private final SaveModel saveModel;
+    private final DeleteModel deleteModel;
+    private final ExtractModel extractModel;
 
-    public StoredInfoPresenter(SaveModel saveModel, DeleteModel deleteModel) {
+    public StoredInfoPresenter(SaveModel saveModel, DeleteModel deleteModel, ExtractModel extractModel) {
         this.saveModel = saveModel;
         this.deleteModel = deleteModel;
+        this.extractModel = extractModel;
         initListeners();
     }
 
-    protected void initListeners() {
+    private void initListeners() {
         saveModel.addEventListener(() -> {
             storedInfoView.updateComboBox();
             if (storedInfoView.getComponent().isVisible()) {
@@ -28,6 +33,21 @@ public class StoredInfoPresenter {
         deleteModel.addEventLister(() -> {
             storedInfoView.showMessageDialog(UIStrings.DELETE_DIALOG_SUCCESS);
         });
+
+        extractModel.addEventListener(() -> {
+            String extract = extractModel.getLastExtract();
+
+            if (!extract.isEmpty()) {
+                storedInfoView.setResultTextPane(textToHtml(extract));
+            } else {
+                storedInfoView.showMessageDialog(UIStrings.ERROR_EXTRACT_EMPTY);
+            }
+        });
+    }
+
+    public void setStoredInfoView(StoredInfoView storedInfoView) {
+        this.storedInfoView = storedInfoView;
+        storedInfoView.setStoredInfoPresenter(this);
     }
 
     public void onUpdate() {
@@ -40,6 +60,15 @@ public class StoredInfoPresenter {
         }
     }
 
+    public void onSelectedItem() {
+        String title = storedInfoView.getSelectedItem().toString();
+        if (!title.isEmpty()) {
+            extractModel.extract(title);
+        } else {
+            storedInfoView.showMessageDialog(UIStrings.EXTRACT_DIALOG_NOSELECTEDITEM);
+        }
+    }
+
     public void onDelete() {
         Object selectedItem = storedInfoView.getSelectedItem();
         if (selectedItem != null) {
@@ -49,10 +78,5 @@ public class StoredInfoPresenter {
         } else {
             storedInfoView.showMessageDialog(UIStrings.DELETE_DIALOG_NOSELECTEDITEM);
         }
-    }
-
-    public void setStoredInfoView(StoredInfoView storedInfoView) {
-        this.storedInfoView = storedInfoView;
-        storedInfoView.setStoredInfoPresenter(this);
     }
 }

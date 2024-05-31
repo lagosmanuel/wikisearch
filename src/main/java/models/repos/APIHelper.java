@@ -15,8 +15,8 @@ import java.util.*;
 import static utils.ParserHTML.textToHtml;
 
 public class APIHelper {
-    protected WikipediaSearchAPI searchAPI;
-    protected WikipediaPageAPI pageAPI;
+    protected final WikipediaSearchAPI searchAPI;
+    protected final WikipediaPageAPI pageAPI;
     protected static APIHelper instance;
 
     public static APIHelper getInstance() {

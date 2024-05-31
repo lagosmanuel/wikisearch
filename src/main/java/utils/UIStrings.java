@@ -11,8 +11,10 @@ public class UIStrings {
     public static final String UPDATE_DIALOG_NOSELECTEDITEM = "no selected item to save";
     public static final String DELETE_DIALOG_NOSELECTEDITEM = "no selected item to delete";
     public static final String DELETE_DIALOG_SUCCESS = "the page was deleted successfully";
+    public static final String EXTRACT_DIALOG_NOSELECTEDITEM = "the selected item to extract is empty";
 
     public static final String ERROR_DIALOG_UI = "Something went wrong with UI!";
+    public static final String ERROR_EXTRACT_EMPTY = "Something went wrong extracting a page from the DB";
 
     // MainView
     public static final String MAINVIEW_WINDOW_TITLE = "TV Series Info Repo";

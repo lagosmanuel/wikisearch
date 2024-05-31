@@ -1,7 +1,6 @@
 package presenters;
 
 import models.*;
-import models.EventListener;
 import utils.UIStrings;
 import views.SearchView;
 
@@ -9,10 +8,10 @@ import java.util.*;
 
 // TODO: tiene muchas responsabilidades?
 public class SearchPresenter {
-    protected SearchView searchView;
-    protected SearchModel searchModel;
-    protected RetrieveModel retrieveModel;
-    protected SaveModel saveModel;
+    private SearchView searchView;
+    private final SearchModel searchModel;
+    private final RetrieveModel retrieveModel;
+    private final SaveModel saveModel;
 
     public SearchPresenter(SearchModel searchModel, RetrieveModel retrieveModel, SaveModel saveModel) {
         this.searchModel = searchModel;

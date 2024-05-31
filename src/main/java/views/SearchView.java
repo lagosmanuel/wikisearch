@@ -8,7 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Collection;
 
-public class SearchView implements BaseView {
+public class SearchView {
     private JTextField searchTextField;
     private JButton searchButton;
     private JTextPane resultTextPane;
@@ -26,7 +26,7 @@ public class SearchView implements BaseView {
         initListeners();
     }
 
-    public void initListeners() {
+    private void initListeners() {
         searchButton.addActionListener(actionEvent -> {
             searchPresenter.onSearch();
         });

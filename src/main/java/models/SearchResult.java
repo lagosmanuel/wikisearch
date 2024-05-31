@@ -3,9 +3,9 @@ package models;
 import javax.swing.*;
 
 public class SearchResult extends JMenuItem {
-    protected String title;
-    protected String pageID;
-    protected String snippet;
+    private final String title;
+    private final String pageID;
+    private final String snippet;
 
     public SearchResult(String title, String pageID, String snippet) {
         String itemText = "<html><font face=\"arial\">" + title + ": " + snippet;

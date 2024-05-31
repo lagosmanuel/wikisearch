@@ -1,7 +1,5 @@
 package views;
 
-import com.formdev.flatlaf.FlatDarkLaf;
-import com.formdev.flatlaf.FlatLaf;
 import utils.UIStrings;
 
 import java.awt.*;
@@ -11,8 +9,8 @@ public class MainView {
   private JPanel contentPane;
   private JTabbedPane tabbedPane;
 
-  private SearchView searchView;
-  private StoredInfoView storedInfoView;
+  private final SearchView searchView;
+  private final StoredInfoView storedInfoView;
 
   public MainView() {
     searchView = new SearchView();
@@ -27,6 +25,7 @@ public class MainView {
     JFrame frame = new JFrame(UIStrings.MAINVIEW_WINDOW_TITLE);
     frame.setContentPane(contentPane);
     frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    frame.setResizable(false);
     frame.pack();
     frame.setVisible(true);
   }
