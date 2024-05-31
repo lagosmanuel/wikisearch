@@ -3,6 +3,7 @@ package presenters;
 import models.DeleteModel;
 import models.ExtractModel;
 import models.SaveModel;
+import models.TitlesModel;
 import utils.UIStrings;
 import views.StoredInfoView;
 
@@ -14,69 +15,64 @@ public class StoredInfoPresenter {
     private final SaveModel saveModel;
     private final DeleteModel deleteModel;
     private final ExtractModel extractModel;
+    private final TitlesModel titlesModel;
 
-    public StoredInfoPresenter(SaveModel saveModel, DeleteModel deleteModel, ExtractModel extractModel) {
+    public StoredInfoPresenter(SaveModel saveModel, DeleteModel deleteModel, ExtractModel extractModel, TitlesModel titlesModel) {
         this.saveModel = saveModel;
         this.deleteModel = deleteModel;
         this.extractModel = extractModel;
+        this.titlesModel = titlesModel;
         initListeners();
+    }
+
+    public void setStoredInfoView(StoredInfoView view) {
+        storedInfoView = view;
+        storedInfoView.setStoredInfoPresenter(this);
+        titlesModel.getTitles();
     }
 
     private void initListeners() {
         saveModel.addEventListener(() -> {
-            storedInfoView.updateComboBox();
-            if (storedInfoView.getComponent().isVisible()) {
-                storedInfoView.showMessageDialog(UIStrings.SAVE_DIALOG_SUCCESS);
-            }
+            if (storedInfoView.getComponent().isVisible()) storedInfoView.showMessageDialog(UIStrings.SAVE_DIALOG_SUCCESS);
+            else titlesModel.getTitles();
         });
 
-        deleteModel.addEventLister(() -> {
+        deleteModel.addEventListener(() -> {
             storedInfoView.showMessageDialog(UIStrings.DELETE_DIALOG_SUCCESS);
+            titlesModel.getTitles();
         });
 
         extractModel.addEventListener(() -> {
             String extract = extractModel.getLastExtract();
+            if (extract != null && !extract.isEmpty()) storedInfoView.setResultTextPane(textToHtml(extract));
+            else storedInfoView.showMessageDialog(UIStrings.ERROR_EXTRACT_EMPTY);
+        });
 
-            if (!extract.isEmpty()) {
-                storedInfoView.setResultTextPane(textToHtml(extract));
-            } else {
-                storedInfoView.showMessageDialog(UIStrings.ERROR_EXTRACT_EMPTY);
+        titlesModel.addEventListener(() -> {
+            storedInfoView.updateComboBox(titlesModel.getLastResult());
+            if (storedInfoView.comboBoxHasItems()) {
+                storedInfoView.setEnable(true);
+                onSelectedItem();
+            }
+            else {
+                storedInfoView.setEnable(false);
+                storedInfoView.setResultTextPane("");
             }
         });
     }
 
-    public void setStoredInfoView(StoredInfoView storedInfoView) {
-        this.storedInfoView = storedInfoView;
-        storedInfoView.setStoredInfoPresenter(this);
-    }
+    // #TODO: está mal asumir que nunca hay selecteditem null? (la vista me lo manda)
 
     public void onUpdate() {
-        Object selectedItem = storedInfoView.getSelectedItem();
-        if (selectedItem != null) {
-            saveModel.savePage(selectedItem.toString().replace("'", "`"), storedInfoView.getText());
-            storedInfoView.updateComboBox();
-        } else {
-            storedInfoView.showMessageDialog(UIStrings.UPDATE_DIALOG_NOSELECTEDITEM);
-        }
+        saveModel.savePage(storedInfoView.getSelectedItem().toString().replace("'", "`"),
+                           storedInfoView.getText());
     }
 
     public void onSelectedItem() {
-        String title = storedInfoView.getSelectedItem().toString();
-        if (!title.isEmpty()) {
-            extractModel.extract(title);
-        } else {
-            storedInfoView.showMessageDialog(UIStrings.EXTRACT_DIALOG_NOSELECTEDITEM);
-        }
+        extractModel.extract(storedInfoView.getSelectedItem().toString());
     }
 
     public void onDelete() {
-        Object selectedItem = storedInfoView.getSelectedItem();
-        if (selectedItem != null) {
-            deleteModel.deletePage(selectedItem.toString());
-            storedInfoView.updateComboBox();
-            storedInfoView.setResultTextPane("");
-        } else {
-            storedInfoView.showMessageDialog(UIStrings.DELETE_DIALOG_NOSELECTEDITEM);
-        }
+        deleteModel.deletePage(storedInfoView.getSelectedItem().toString());
     }
 }

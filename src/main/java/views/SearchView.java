@@ -34,7 +34,6 @@ public class SearchView {
         saveLocallyButton.addActionListener(actionEvent -> {
             searchPresenter.onSave();
         });
-
     }
 
     public Component getComponent() {
@@ -71,7 +70,7 @@ public class SearchView {
                 searchPresenter.onRetrieve();
             });
         }
-        searchOptionsMenu.show(searchTextField, searchTextField.getX(), searchTextField.getY());
+        searchOptionsMenu.show(searchTextField, searchTextField.getX(), searchTextField.getY()+searchTextField.getHeight());
     }
 
     public void setWorkingStatus() {

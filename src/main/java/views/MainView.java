@@ -11,16 +11,19 @@ public class MainView {
 
   private final SearchView searchView;
   private final StoredInfoView storedInfoView;
+  private final RankingView rankingView;
 
   public MainView() {
     searchView = new SearchView();
     storedInfoView = new StoredInfoView();
+    rankingView = new RankingView();
     tabbedPane.addTab(UIStrings.SEARCHVIEW_TAB_TITLE, searchView.getComponent());
     tabbedPane.addTab(UIStrings.STOREDINFOVIEW_TAB_TITLE, storedInfoView.getComponent());
+    tabbedPane.addTab(UIStrings.RANKINGVIEW_TAB_TITLE, rankingView.getComponent());
+    init();
   }
 
-  // TODO: esta bien tener el init o va en el consturctor?
-  public void init() {
+  private void init() {
     setLookAndFeel();
     JFrame frame = new JFrame(UIStrings.MAINVIEW_WINDOW_TITLE);
     frame.setContentPane(contentPane);
@@ -36,6 +39,10 @@ public class MainView {
 
   public StoredInfoView getStoredInfoView() {
     return storedInfoView;
+  }
+
+  public RankingView getRankingView() {
+    return rankingView;
   }
 
   private void setLookAndFeel() {

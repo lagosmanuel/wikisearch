@@ -1,6 +1,5 @@
 package views;
 
-import models.repos.DataBase;
 import presenters.StoredInfoPresenter;
 
 import javax.swing.*;
@@ -25,7 +24,6 @@ public class StoredInfoView {
         storedInfoPopup.add(deleteItem);
         resultTextPane.setComponentPopupMenu(storedInfoPopup);
         initListeners();
-        updateComboBox();
     }
 
     private void initListeners() {
@@ -48,8 +46,8 @@ public class StoredInfoView {
         storedInfoPresenter = presenter;
     }
 
-    public void updateComboBox() {
-        resultComboBox.setModel(new DefaultComboBoxModel(DataBase.getTitles().stream().sorted().toArray()));
+    public void updateComboBox(Object[] items) {
+        resultComboBox.setModel(new DefaultComboBoxModel(items));
     }
 
     public void setResultTextPane(String text) {
@@ -66,5 +64,14 @@ public class StoredInfoView {
 
     public void showMessageDialog(String msg) {
         JOptionPane.showMessageDialog(contentPane, msg);
+    }
+
+    public boolean comboBoxHasItems() {
+        return resultComboBox.getItemAt(0) != null;
+    }
+
+    public void setEnable(boolean editable) {
+        resultComboBox.setEnabled(editable);
+        resultTextPane.setEnabled(editable);
     }
 }

@@ -27,4 +27,7 @@ public class UIStrings {
 
     // StoredInfoView
     public static final String STOREDINFOVIEW_TAB_TITLE = "StoredInfo";
+
+    // RankingView
+    public static final String RANKINGVIEW_TAB_TITLE = "Ranking";
 }

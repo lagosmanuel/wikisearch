@@ -1,7 +1,10 @@
 package models.repos;
 
+import models.SearchResult;
+
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Collection;
 
 public class DataBase {
 
@@ -221,4 +224,14 @@ public class DataBase {
   public static int getScore(String pageId) {
     return Math.random() < 0.7? (int) (Math.random() * 10):0;
   }
+
+  public static Collection<SearchResult> getItems() {
+    Collection<SearchResult> results = new ArrayList<>();
+    results.add(new SearchResult("tile1", "1", "hola"));
+    results.add(new SearchResult("tile2", "1", "hola"));
+    results.add(new SearchResult("tile3", "1", "hola"));
+    results.add(new SearchResult("tile4", "1", "hola"));
+    return results;
+  }
 }
+

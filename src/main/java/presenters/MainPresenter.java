@@ -6,25 +6,25 @@ import views.MainView;
 
 public class MainPresenter {
 
-    private final SearchPresenter searchPresenter;
-    private final StoredInfoPresenter storedInfoPresenter;
-
     public MainPresenter() {
-        SearchModel searchModel = new SearchModel(); // TODO: el director debe conocer a los modelos?
+        DataBase.loadDatabase();
+
+        SearchModel searchModel = new SearchModel();
         RetrieveModel retrieveModel = new RetrieveModel();
         SaveModel saveModel = new SaveModel();
         DeleteModel deleteModel = new DeleteModel();
         ExtractModel extractModel = new ExtractModel();
-
-        DataBase.loadDatabase(); //TODO: hay que cargar la base de datos? cuando? donde? una sola vez?
+        TitlesModel titlesModel = new TitlesModel();
+        ItemsModel itemsModel = new ItemsModel();
 
         MainView mainView = new MainView();
-        mainView.init();
 
-        searchPresenter = new SearchPresenter(searchModel, retrieveModel, saveModel);
+        SearchPresenter searchPresenter = new SearchPresenter(searchModel, retrieveModel, saveModel);
+        StoredInfoPresenter storedInfoPresenter = new StoredInfoPresenter(saveModel, deleteModel, extractModel, titlesModel);
+        RankingPresenter rankingPresenter = new RankingPresenter(itemsModel);
+
         searchPresenter.setSearchView(mainView.getSearchView());
-
-        storedInfoPresenter = new StoredInfoPresenter(saveModel, deleteModel, extractModel);
         storedInfoPresenter.setStoredInfoView(mainView.getStoredInfoView());
+        rankingPresenter.setStoredInfoView(mainView.getRankingView());
     }
 }
