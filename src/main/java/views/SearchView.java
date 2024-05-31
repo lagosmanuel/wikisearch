@@ -62,15 +62,14 @@ public class SearchView {
         resultTextPane.setCaretPosition(0);
     }
 
-    //TODO: la vista no es tan boba
-    public void showSearchOptions(Collection<SearchResult> searchResults) {
+    // #TODO la vista no es tan tonta
+    public void showOptionsMenu(Collection<SearchResult> results) {
         JPopupMenu searchOptionsMenu = new JPopupMenu(UIStrings.SEARCHVIEW_POPUP_LABEL);
-        for (SearchResult searchResult:searchResults) {
-            searchResult.addActionListener(actionEvent -> {
-                selectedResult = searchResult;
+        for (SearchResult result : results) {
+            searchOptionsMenu.add(result).addActionListener(actionEvent -> {
+                selectedResult = result;
                 searchPresenter.onRetrieve();
             });
-            searchOptionsMenu.add(searchResult);
         }
         searchOptionsMenu.show(searchTextField, searchTextField.getX(), searchTextField.getY());
     }

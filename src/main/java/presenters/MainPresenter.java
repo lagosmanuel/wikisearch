@@ -5,7 +5,6 @@ import models.repos.DataBase;
 import views.MainView;
 
 public class MainPresenter {
-    private final MainView mainView;
 
     private final SearchPresenter searchPresenter;
     private final StoredInfoPresenter storedInfoPresenter;
@@ -19,7 +18,7 @@ public class MainPresenter {
 
         DataBase.loadDatabase(); //TODO: hay que cargar la base de datos? cuando? donde? una sola vez?
 
-        mainView = new MainView();
+        MainView mainView = new MainView();
         mainView.init();
 
         searchPresenter = new SearchPresenter(searchModel, retrieveModel, saveModel);

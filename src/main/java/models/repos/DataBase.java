@@ -218,5 +218,7 @@ public class DataBase {
     }
   }
 
-
+  public static int getScore(String pageId) {
+    return Math.random() < 0.7? (int) (Math.random() * 10):0;
+  }
 }

@@ -24,7 +24,7 @@ public class SearchPresenter {
         searchModel.addEventListener(() -> {
             Collection<SearchResult> results = searchModel.getLastResults();
             if (!results.isEmpty()) {
-                searchView.showSearchOptions(results);
+                searchView.showOptionsMenu(results);
             } else {
                 searchView.showMessageDialog(UIStrings.SEARCH_DIALOG_NORESULT);
             }
