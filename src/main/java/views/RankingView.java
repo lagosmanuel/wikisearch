@@ -8,13 +8,14 @@ import java.awt.*;
 public class RankingView {
     private RankingPresenter rankingPresenter;
     private JPanel contentPane;
-    private JComboBox comboBox;
-    private StarsView starsView;
     private JButton searchButton;
+    private JComboBox comboBox;
+    private JScrollPane resultScrollPane;
+    private JTextPane descriptionTextPane;
+    private StarsView starsView;
 
     public RankingView() {
         starsView = new StarsView();
-        contentPane.add(starsView);
         initListeners();
     }
 
@@ -54,5 +55,9 @@ public class RankingView {
 
     public boolean isItemSelected() {
         return comboBox.getSelectedIndex() > -1;
+    }
+
+    public void setDescription(String text) {
+        descriptionTextPane.setText(text);
     }
 }

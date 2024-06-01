@@ -40,7 +40,9 @@ public class RankingPresenter {
     }
 
     public void onSelectedEntry() {
-        rankingView.setScore(entries.get(rankingView.getSelectedEntry()).getScore());
+        SearchResult result = entries.get(rankingView.getSelectedEntry());
+        rankingView.setScore(result.getScore());
+        rankingView.setDescription(result.getSnippet());
     }
 
     public void onChangedScore() {

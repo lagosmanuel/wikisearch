@@ -227,10 +227,10 @@ public class DataBase {
 
   public static Collection<SearchResult> getEntries() {
     Collection<SearchResult> results = new ArrayList<>();
-    results.add(new SearchResult("tile1", "1", "hola"));
-    results.add(new SearchResult("tile2", "1", "hola"));
-    results.add(new SearchResult("tile3", "1", "hola"));
-    results.add(new SearchResult("tile4", "1", "hola"));
+    results.add(new SearchResult("The X-Files", "1", "The X-Files is an American science fiction drama television series created by Chris Carter. The original television series aired from September 1993 to May 2002 on Fox. During its original run, the program spanned nine seasons, with 202 episodes. A short tenth season consisting of six episodes ran from January to February 2016. Following the ratings success of this revival, The X-Files returned for an eleventh season of ten episodes, which ran from January to March 2018. In addition to the television series, two feature films have been released: The 1998 film The X-Files and the stand-alone film The X-Files: I Want to Believe, released in 2008, six years after the original television run had ended."));
+    results.add(new SearchResult("Twin Peaks", "2", "Twin Peaks tv show description.."));
+    results.add(new SearchResult("Wayward Pines", "3", "Wayward Pines tv show description.."));
+    results.add(new SearchResult("True Detective", "4", "True Detective tv show description.."));
     return results;
   }
 }
