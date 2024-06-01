@@ -1,10 +1,6 @@
 package models;
 
-import utils.ParserHTML;
-
-import javax.swing.*;
-
-public class SearchResult extends JMenuItem {
+public class SearchResult {
     private final String title;
     private final String pageID;
     private final String snippet;
@@ -14,7 +10,6 @@ public class SearchResult extends JMenuItem {
         this.title = title;
         this.pageID = pageID;
         this.snippet = snippet;
-        updateText();
     }
 
     public String getTitle() {
@@ -35,10 +30,5 @@ public class SearchResult extends JMenuItem {
 
     public void setScore(int score) {
         this.score = score;
-        updateText();
-    }
-
-    private void updateText() {
-        this.setText(ParserHTML.searchResultToHtml(this));
     }
 }

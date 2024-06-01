@@ -35,7 +35,7 @@ public class APIHelper {
     }
 
     public Collection<SearchResult> searchTerm(String term) {
-        Collection<SearchResult> results = new ArrayList<>(); //TODO: mientras está buscando no modifica los results
+        Collection<SearchResult> results = new ArrayList<>();
         Response<String> callForSearchResponse;
         try {
             callForSearchResponse = searchAPI.searchForTerm(term + " (Tv series) articletopic:\"television\"").execute();

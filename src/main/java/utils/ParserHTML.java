@@ -15,7 +15,7 @@ public class ParserHTML {
 
     public static String searchResultToHtml(SearchResult searchResult) {
         int score = searchResult.getScore();
-        String stars = score>0?"★".repeat(searchResult.getScore()) + "☆".repeat(10 - searchResult.getScore()) + " ":"";
+        String stars = score>0?"★".repeat(score) + "☆".repeat(10 - score) + " ":"";
         String rate = "<span style=\"color: #e3c153; font-size: 18px;\">"+stars+"</span><br/>";
         String title = "<span style=\"color: black; font-weight: bold; font-size: 10px; font-family: arial;\">"+searchResult.getTitle()+": </span>";
         String snippet = "<span style=\"font-weight: normal;\">"+ searchResult.getSnippet() +"</span>";

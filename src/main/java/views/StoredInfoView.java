@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class StoredInfoView {
-    private JComboBox resultComboBox;
+    private JComboBox comboBox;
     private JTextPane resultTextPane;
     private JScrollPane resultScrollPane;
     private JPanel contentPane;
@@ -28,14 +28,14 @@ public class StoredInfoView {
 
     private void initListeners() {
         saveItem.addActionListener(actionEvent -> {
-            storedInfoPresenter.onUpdate();
+            storedInfoPresenter.onUpdatePage();
         });
 
         deleteItem.addActionListener(actionEvent -> {
-            storedInfoPresenter.onDelete();
+            storedInfoPresenter.onDeletePage();
         });
 
-        resultComboBox.addActionListener(actionEvent -> storedInfoPresenter.onSelectedItem());
+        comboBox.addActionListener(actionEvent -> storedInfoPresenter.onSelectedItem());
     }
 
     public Component getComponent() {
@@ -47,7 +47,7 @@ public class StoredInfoView {
     }
 
     public void updateComboBox(Object[] items) {
-        resultComboBox.setModel(new DefaultComboBoxModel(items));
+        comboBox.setModel(new DefaultComboBoxModel(items));
     }
 
     public void setResultTextPane(String text) {
@@ -55,7 +55,7 @@ public class StoredInfoView {
     }
 
     public Object getSelectedItem() {
-        return resultComboBox.getSelectedItem();
+        return comboBox.getSelectedItem();
     }
 
     public String getText() {
@@ -67,11 +67,11 @@ public class StoredInfoView {
     }
 
     public boolean comboBoxHasItems() {
-        return resultComboBox.getItemAt(0) != null;
+        return comboBox.getItemAt(0) != null;
     }
 
     public void setEnable(boolean editable) {
-        resultComboBox.setEnabled(editable);
+        comboBox.setEnabled(editable);
         resultTextPane.setEnabled(editable);
     }
 }

@@ -1,6 +1,9 @@
 package presenters;
 
 import models.*;
+import models.pages.RetrievePageModel;
+import models.pages.SavePageModel;
+import models.entries.SearchTermModel;
 import utils.UIStrings;
 import views.SearchView;
 
@@ -8,67 +11,67 @@ import java.util.*;
 
 public class SearchPresenter {
     private SearchView searchView;
-    private final SearchModel searchModel;
-    private final RetrieveModel retrieveModel;
-    private final SaveModel saveModel;
+    private final SearchTermModel searchTermModel;
+    private final RetrievePageModel retrievePageModel;
+    private final SavePageModel savePageModel;
 
-    public SearchPresenter(SearchModel searchModel, RetrieveModel retrieveModel, SaveModel saveModel) {
-        this.searchModel = searchModel;
-        this.retrieveModel = retrieveModel;
-        this.saveModel = saveModel;
+    public SearchPresenter(SearchTermModel searchTermModel, RetrievePageModel retrievePageModel, SavePageModel savePageModel) {
+        this.searchTermModel = searchTermModel;
+        this.retrievePageModel = retrievePageModel;
+        this.savePageModel = savePageModel;
         initListeners();
     }
 
-    public void setSearchView(SearchView searchView) {
-        this.searchView = searchView;
+    public void setSearchView(SearchView view) {
+        searchView = view;
         searchView.setSearchPresenter(this);
     }
 
     private void initListeners() {
-        searchModel.addEventListener(() -> {
-            Collection<SearchResult> results = searchModel.getLastResults();
+        searchTermModel.addEventListener(() -> {
+            Collection<SearchResult> results = searchTermModel.getLastResults();
             if (!results.isEmpty()) searchView.showOptionsMenu(results);
             else searchView.showMessageDialog(UIStrings.SEARCH_DIALOG_NORESULT);
         });
 
-        retrieveModel.addEventListener(() -> {
-            String result = retrieveModel.getLastResult();
+        retrievePageModel.addEventListener(() -> {
+            String result = retrievePageModel.getLastResult();
             if (!result.isEmpty()) searchView.setResultTextPane(result);
             else searchView.showMessageDialog(UIStrings.RETRIEVE_DIALOG_NOPAGEFOUND);
         });
 
-        saveModel.addEventListener(() -> {
+        savePageModel.addEventListener(() -> {
             if (searchView.getComponent().isVisible()) searchView.showMessageDialog(UIStrings.SAVE_DIALOG_SUCCESS);
         });
     }
 
-    public void onSearch() {
+    public void onSearchTerm() {
         new Thread(() -> {
             searchView.setWorkingStatus();
             String termToSearch = searchView.getSearchText();
-            if (!termToSearch.isEmpty()) searchModel.searchTerm(termToSearch);
+            if (!termToSearch.isEmpty()) searchTermModel.searchTerm(termToSearch);
             else searchView.showMessageDialog(UIStrings.SEARCH_DIALOG_EMPTYTERM);
             searchView.setWaitingStatus();
         }).start();
     }
 
-    public void onRetrieve() {
+    public void onRetrievePage() {
         new Thread(() -> {
             SearchResult selectedResult = searchView.getSelectedResult();
             if (selectedResult != null) {
                 searchView.setWorkingStatus();
-                retrieveModel.retrievePage(selectedResult.getPageID());
+                retrievePageModel.retrievePage(selectedResult.getPageID());
                 searchView.setWaitingStatus();
             } else searchView.showMessageDialog(UIStrings.RETRIEVE_DIALOG_NOSELECTEDITEM);
         }).start();
     }
 
-    public void onSave() {
+    public void onSavePage() {
         new Thread(() -> {
             SearchResult selectedResult = searchView.getSelectedResult();
             if (selectedResult != null) {
                 String formatedTitle = selectedResult.getTitle().replace("'", "`");
-                saveModel.savePage(formatedTitle, searchView.getResultText());
+                savePageModel.savePage(formatedTitle, searchView.getResultText());
             } else searchView.showMessageDialog(UIStrings.SAVE_DIALOG_NOSELECTEDITEM);
         }).start();
     }

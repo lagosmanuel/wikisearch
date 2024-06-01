@@ -1,24 +1,31 @@
 package views;
 
-import models.SearchResult;
 import presenters.RankingPresenter;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 public class RankingView {
     private RankingPresenter rankingPresenter;
     private JPanel contentPane;
-    private JMenuBar menu;
+    private JComboBox comboBox;
+    private StarsView starsView;
+    private JButton searchButton;
 
     public RankingView() {
-        contentPane = new JPanel();
-        menu = new JMenuBar();
-        menu.setLayout(new BoxLayout(menu, BoxLayout.Y_AXIS));
-        contentPane.add(menu);
+        starsView = new StarsView();
+        contentPane.add(starsView);
+        initListeners();
+    }
+
+    private void initListeners() {
+        comboBox.addActionListener(actionEvent -> {
+            rankingPresenter.onSelectedEntry();
+        });
+
+        starsView.setEventListener(() -> {
+            rankingPresenter.onChangedScore();
+        });
     }
 
     public Component getComponent() {
@@ -29,32 +36,23 @@ public class RankingView {
         rankingPresenter = presenter;
     }
 
-    public void addEntry(SearchResult entry) {
-        menu.add(entry).addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                System.out.println("hola" + entry.getTitle());
-            }
+    public void updateComboBox(Object[] results) {
+        comboBox.setModel(new DefaultComboBoxModel(results));
+    }
 
-            @Override
-            public void mousePressed(MouseEvent e) {
+    public String getSelectedEntry() {
+        return comboBox.getSelectedItem().toString();
+    }
 
-            }
+    public void setScore(int score) {
+        starsView.setScore(score);
+    }
 
-            @Override
-            public void mouseReleased(MouseEvent e) {
+    public int getScore() {
+        return starsView.getScore();
+    }
 
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-
-            }
-        });
+    public boolean isItemSelected() {
+        return comboBox.getSelectedIndex() > -1;
     }
 }

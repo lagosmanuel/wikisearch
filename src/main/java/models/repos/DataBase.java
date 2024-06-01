@@ -225,7 +225,7 @@ public class DataBase {
     return Math.random() < 0.7? (int) (Math.random() * 10):0;
   }
 
-  public static Collection<SearchResult> getItems() {
+  public static Collection<SearchResult> getEntries() {
     Collection<SearchResult> results = new ArrayList<>();
     results.add(new SearchResult("tile1", "1", "hola"));
     results.add(new SearchResult("tile2", "1", "hola"));

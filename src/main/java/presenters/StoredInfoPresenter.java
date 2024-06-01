@@ -1,55 +1,54 @@
 package presenters;
 
-import models.DeleteModel;
-import models.ExtractModel;
-import models.SaveModel;
-import models.TitlesModel;
+import models.pages.DeletePageModel;
+import models.pages.PageExtractModel;
+import models.pages.SavePageModel;
+import models.entries.SavedTitlesModel;
 import utils.UIStrings;
 import views.StoredInfoView;
 
 import static utils.ParserHTML.textToHtml;
 
-//TODO tiene muchas responsabilidades?
 public class StoredInfoPresenter {
     private StoredInfoView storedInfoView;
-    private final SaveModel saveModel;
-    private final DeleteModel deleteModel;
-    private final ExtractModel extractModel;
-    private final TitlesModel titlesModel;
+    private final SavePageModel savePageModel;
+    private final DeletePageModel deletePageModel;
+    private final PageExtractModel pageExtractModel;
+    private final SavedTitlesModel savedTitlesModel;
 
-    public StoredInfoPresenter(SaveModel saveModel, DeleteModel deleteModel, ExtractModel extractModel, TitlesModel titlesModel) {
-        this.saveModel = saveModel;
-        this.deleteModel = deleteModel;
-        this.extractModel = extractModel;
-        this.titlesModel = titlesModel;
+    public StoredInfoPresenter(SavePageModel savePageModel, DeletePageModel deletePageModel, PageExtractModel pageExtractModel, SavedTitlesModel savedTitlesModel) {
+        this.savePageModel = savePageModel;
+        this.deletePageModel = deletePageModel;
+        this.pageExtractModel = pageExtractModel;
+        this.savedTitlesModel = savedTitlesModel;
         initListeners();
     }
 
     public void setStoredInfoView(StoredInfoView view) {
         storedInfoView = view;
         storedInfoView.setStoredInfoPresenter(this);
-        titlesModel.getTitles();
+        savedTitlesModel.getSavedTitles();
     }
 
     private void initListeners() {
-        saveModel.addEventListener(() -> {
+        savePageModel.addEventListener(() -> {
             if (storedInfoView.getComponent().isVisible()) storedInfoView.showMessageDialog(UIStrings.SAVE_DIALOG_SUCCESS);
-            else titlesModel.getTitles();
+            else savedTitlesModel.getSavedTitles();
         });
 
-        deleteModel.addEventListener(() -> {
+        deletePageModel.addEventListener(() -> {
             storedInfoView.showMessageDialog(UIStrings.DELETE_DIALOG_SUCCESS);
-            titlesModel.getTitles();
+            savedTitlesModel.getSavedTitles();
         });
 
-        extractModel.addEventListener(() -> {
-            String extract = extractModel.getLastExtract();
+        pageExtractModel.addEventListener(() -> {
+            String extract = pageExtractModel.getLastResult();
             if (extract != null && !extract.isEmpty()) storedInfoView.setResultTextPane(textToHtml(extract));
             else storedInfoView.showMessageDialog(UIStrings.ERROR_EXTRACT_EMPTY);
         });
 
-        titlesModel.addEventListener(() -> {
-            storedInfoView.updateComboBox(titlesModel.getLastResult());
+        savedTitlesModel.addEventListener(() -> {
+            storedInfoView.updateComboBox(savedTitlesModel.getLastResults());
             if (storedInfoView.comboBoxHasItems()) {
                 storedInfoView.setEnable(true);
                 onSelectedItem();
@@ -61,18 +60,22 @@ public class StoredInfoPresenter {
         });
     }
 
-    // #TODO: está mal asumir que nunca hay selecteditem null? (la vista me lo manda)
-
-    public void onUpdate() {
-        saveModel.savePage(storedInfoView.getSelectedItem().toString().replace("'", "`"),
-                           storedInfoView.getText());
+    public void onUpdatePage() {
+        new Thread(() -> {
+            savePageModel.savePage(storedInfoView.getSelectedItem().toString().replace("'", "`"),
+                    storedInfoView.getText());
+        }).start();
     }
 
     public void onSelectedItem() {
-        extractModel.extract(storedInfoView.getSelectedItem().toString());
+        new Thread(() -> {
+            pageExtractModel.getPageExtract(storedInfoView.getSelectedItem().toString());
+        }).start();
     }
 
-    public void onDelete() {
-        deleteModel.deletePage(storedInfoView.getSelectedItem().toString());
+    public void onDeletePage() {
+        new Thread(() -> {
+            deletePageModel.deletePage(storedInfoView.getSelectedItem().toString());
+        }).start();
     }
 }

@@ -28,11 +28,11 @@ public class SearchView {
 
     private void initListeners() {
         searchButton.addActionListener(actionEvent -> {
-            searchPresenter.onSearch();
+            searchPresenter.onSearchTerm();
         });
 
         saveLocallyButton.addActionListener(actionEvent -> {
-            searchPresenter.onSave();
+            searchPresenter.onSavePage();
         });
     }
 
@@ -61,13 +61,12 @@ public class SearchView {
         resultTextPane.setCaretPosition(0);
     }
 
-    // #TODO la vista no es tan tonta
     public void showOptionsMenu(Collection<SearchResult> results) {
         JPopupMenu searchOptionsMenu = new JPopupMenu(UIStrings.SEARCHVIEW_POPUP_LABEL);
         for (SearchResult result : results) {
-            searchOptionsMenu.add(result).addActionListener(actionEvent -> {
+            searchOptionsMenu.add(new SearchResultView(result)).addActionListener(actionEvent -> {
                 selectedResult = result;
-                searchPresenter.onRetrieve();
+                searchPresenter.onRetrievePage();
             });
         }
         searchOptionsMenu.show(searchTextField, searchTextField.getX(), searchTextField.getY()+searchTextField.getHeight());
