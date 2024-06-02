@@ -75,4 +75,5 @@ public class UIStrings {
 
     // EventListener
     public static final String EVENTLISTENER_TOPIC_DEFAULT = "all";
+    public static final String EVENTLISTENER_TOPIC_CURRENTRESULT = "current_result";
 }

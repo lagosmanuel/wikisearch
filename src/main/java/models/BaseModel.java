@@ -15,7 +15,8 @@ public abstract class BaseModel {
     }
 
     public void addEventListener(EventListener listener) {
-        if (!listeners.containsKey(UIStrings.EVENTLISTENER_TOPIC_DEFAULT)) listeners.put(UIStrings.EVENTLISTENER_TOPIC_DEFAULT, new ArrayList<>());
+        if (!listeners.containsKey(UIStrings.EVENTLISTENER_TOPIC_DEFAULT))
+            listeners.put(UIStrings.EVENTLISTENER_TOPIC_DEFAULT, new ArrayList<>());
         listeners.get(UIStrings.EVENTLISTENER_TOPIC_DEFAULT).add(listener);
     }
 

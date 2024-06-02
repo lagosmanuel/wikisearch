@@ -3,6 +3,7 @@ package models.entries;
 import models.BaseModel;
 import models.SearchResult;
 import models.repos.DataBase;
+import utils.UIStrings;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,18 +24,15 @@ public class GetSearchResultsModel extends BaseModel {
         return currentResult;
     }
 
-    public void getSavedEntryByTitle(String title) {
+    public void getSavedSearchResultByTitle(String title) {
         currentResult = lastResults.get(title);
-        notifyListeners("single");
+        notifyListeners(UIStrings.EVENTLISTENER_TOPIC_CURRENTRESULT);
     }
 
-    public void getSavedEntries() {
+    public void getSavedSearchResults() {
         lastResults.clear();
-
-        for (SearchResult result:DataBase.getSearchResults()) {
+        for (SearchResult result:DataBase.getSearchResults())
             lastResults.put(result.getTitle(), result);
-        }
-
         notifyListeners();
     }
 }

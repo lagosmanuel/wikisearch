@@ -3,6 +3,7 @@ package presenters;
 import models.SearchResult;
 import models.entries.GetSearchResultsModel;
 import models.entries.UpdateSearchResultsModel;
+import utils.UIStrings;
 import views.RankingView;
 
 public class RankingPresenter {
@@ -19,20 +20,21 @@ public class RankingPresenter {
     public void setStoredInfoView(RankingView view) {
         view.setRankingPresenter(this);
         rankingView = view;
-        getSearchResultsModel.getSavedEntries();
+        getSearchResultsModel.getSavedSearchResults();
     }
 
     private void initListeners() {
         getSearchResultsModel.addEventListener(() -> {
             showResult(getSearchResultsModel.getCurrentResult());
-        }, "single");
+        }, UIStrings.EVENTLISTENER_TOPIC_CURRENTRESULT);
 
         getSearchResultsModel.addEventListener(() -> {
-            if (!rankingView.getComponent().isVisible()) rankingView.updateComboBox(getSearchResultsModel.getLastResults().keySet().toArray());
+            if (!rankingView.getComponent().isVisible())
+                rankingView.updateComboBox(getSearchResultsModel.getLastResults().keySet().toArray());
             onSelectedEntry();
         });
 
-        updateSearchResultsModel.addEventListener(getSearchResultsModel::getSavedEntries);
+        updateSearchResultsModel.addEventListener(getSearchResultsModel::getSavedSearchResults);
     }
 
     private void showResult(SearchResult result) {
@@ -44,13 +46,15 @@ public class RankingPresenter {
 
     public void onSelectedEntry() {
         new Thread(() -> {
-            if(rankingView.isItemSelected()) getSearchResultsModel.getSavedEntryByTitle(rankingView.getSelectedEntry());
+            if(rankingView.isItemSelected())
+                getSearchResultsModel.getSavedSearchResultByTitle(rankingView.getSelectedEntry());
         }).start();
     }
 
     public void onChangedScore() {
         new Thread(() -> {
-            if(rankingView.isItemSelected()) updateSearchResultsModel.changeScore(rankingView.getSelectedEntry(), rankingView.getScore());
+            if(rankingView.isItemSelected())
+                updateSearchResultsModel.changeScore(rankingView.getSelectedEntry(), rankingView.getScore());
         }).start();
     }
 }
