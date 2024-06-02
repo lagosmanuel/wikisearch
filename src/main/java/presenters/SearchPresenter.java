@@ -81,10 +81,11 @@ public class SearchPresenter {
         return new PageResult(
                 pageResult.getTitle(),
                 pageResult.getPageID(),
-                pageResult.getText().isEmpty()? "no results":
+                pageResult.getText().isEmpty()?
+                        UIStrings.PAGE_PAGENOTFOUND_EXTRACT:
                         textToHtml(
-                            "<h1>" + pageResult.getTitle() + "</h1>" +
-                                    pageResult.getText().replace("\\n", "\n"
+                            "<h1>" + pageResult.getTitle() + "</h1>"
+                                   + pageResult.getText().replace("\\n", "\n"
                 )
         ));
     }

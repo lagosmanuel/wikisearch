@@ -41,7 +41,7 @@ public class RankingPresenter {
         rankingView.setTitle(result.getTitle());
         rankingView.setScore(result.getScore());
         rankingView.setDescription(result.getSnippet());
-        rankingView.setLastModified(result.getLastmoddifed());
+        rankingView.setLastModified(result.getLastmodified());
     }
 
     public void onSelectedEntry() {

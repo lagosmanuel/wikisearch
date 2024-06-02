@@ -37,7 +37,7 @@ public class SearchResult {
         return score;
     }
 
-    public String getLastmoddifed() {
+    public String getLastmodified() {
         return lastmoddifed;
     }
 

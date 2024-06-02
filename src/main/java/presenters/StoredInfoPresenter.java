@@ -45,7 +45,7 @@ public class StoredInfoPresenter {
         loadPageModel.addEventListener(() -> {
             PageResult pageResult = loadPageModel.getLastResult();
             if (pageResult != null) storedInfoView.setResultTextPane(textToHtml(pageResult.getText()));
-            else storedInfoView.showMessageDialog(UIStrings.ERROR_EXTRACT_EMPTY);
+            else storedInfoView.showMessageDialog(UIStrings.ERROR_DIALOG_EXTRACTEMPTY);
         });
 
         savedTitlesModel.addEventListener(() -> {

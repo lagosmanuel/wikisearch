@@ -10,9 +10,8 @@ public class UIStrings {
     public static final String SAVE_DIALOG_NOSELECTEDITEM = "no selected item to save";
     public static final String SAVE_DIALOG_SUCCESS = "the page was saved successfully";
     public static final String DELETE_DIALOG_SUCCESS = "the page was deleted successfully";
-
     public static final String ERROR_DIALOG_UI = "Something went wrong with UI!";
-    public static final String ERROR_EXTRACT_EMPTY = "Something went wrong extracting a page from the DB";
+    public static final String ERROR_DIALOG_EXTRACTEMPTY = "Something went wrong extracting a page from the DB";
 
     // MainView
     public static final String MAINVIEW_WINDOW_TITLE = "TV Series Info Repo";
@@ -76,4 +75,7 @@ public class UIStrings {
     // EventListener
     public static final String EVENTLISTENER_TOPIC_DEFAULT = "all";
     public static final String EVENTLISTENER_TOPIC_CURRENTRESULT = "current_result";
+
+    // Page
+    public static final String PAGE_PAGENOTFOUND_EXTRACT = "no result";
 }
