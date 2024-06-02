@@ -9,6 +9,7 @@ import models.SearchResult;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
+import utils.UIStrings;
 
 import java.io.IOException;
 import java.util.*;
@@ -25,7 +26,7 @@ public class APIHelper {
 
     private APIHelper() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://en.wikipedia.org/w/")
+                .baseUrl(UIStrings.API_BASEURL)
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .build();
 
@@ -37,18 +38,18 @@ public class APIHelper {
         Collection<SearchResult> results = new ArrayList<>();
         Response<String> callForSearchResponse;
         try {
-            callForSearchResponse = searchAPI.searchForTerm(term + " (Tv series) articletopic:\"television\"").execute();
+            callForSearchResponse = searchAPI.searchForTerm(term + UIStrings.API_FILTER).execute();
             Gson gson = new Gson();
-            JsonObject jobj = gson.fromJson(callForSearchResponse.body(), JsonObject.class);
-            JsonObject query = jobj.get("query").getAsJsonObject();
-            JsonArray jsonResults = query.get("search").getAsJsonArray();
+            JsonObject jsonObject = gson.fromJson(callForSearchResponse.body(), JsonObject.class);
+            JsonObject query = jsonObject.get(UIStrings.API_QUERY_KEYWORD).getAsJsonObject();
+            JsonArray jsonResults = query.get(UIStrings.API_SEARCH_KEYWORD).getAsJsonArray();
 
             for (JsonElement jsonElement : jsonResults) {
                 JsonObject searchResult = jsonElement.getAsJsonObject();
                 results.add(new SearchResult(
-                        searchResult.get("title").getAsString(),
-                        searchResult.get("pageid").getAsInt(),
-                        searchResult.get("snippet").getAsString()));
+                        searchResult.get(UIStrings.API_TITLE_KEYWORD).getAsString(),
+                        searchResult.get(UIStrings.API_ID_KEYWORD).getAsInt(),
+                        searchResult.get(UIStrings.API_SNIPPET_KEYWORD).getAsString()));
             }
         } catch (IOException e) {e.printStackTrace();}
         return results;
@@ -59,17 +60,17 @@ public class APIHelper {
         try {
             Response<String> callForPageResponse = pageAPI.getExtractByPageID(String.valueOf(pageId)).execute();
             Gson gson = new Gson();
-            JsonObject jobj2 = gson.fromJson(callForPageResponse.body(), JsonObject.class);
-            JsonObject query2 = jobj2.get("query").getAsJsonObject();
-            JsonObject pages = query2.get("pages").getAsJsonObject();
+            JsonObject jsonObject = gson.fromJson(callForPageResponse.body(), JsonObject.class);
+            JsonObject query = jsonObject.get(UIStrings.API_QUERY_KEYWORD).getAsJsonObject();
+            JsonObject pages = query.get(UIStrings.API_PAGES_KEYWORD).getAsJsonObject();
             Set<Map.Entry<String, JsonElement>> pagesSet = pages.entrySet();
             Map.Entry<String, JsonElement> first = pagesSet.iterator().next();
             JsonObject page = first.getValue().getAsJsonObject();
 
             pageResult = new PageResult(
-                    page.get("title").getAsString(),
-                    page.get("pageid").getAsInt(),
-                    page.get("extract").getAsString());
+                    page.get(UIStrings.API_TITLE_KEYWORD).getAsString(),
+                    page.get(UIStrings.API_ID_KEYWORD).getAsInt(),
+                    page.get(UIStrings.API_EXTRACT_KEYWORD).getAsString());
 
         } catch (Exception e) {System.out.println(e.getMessage());}
         return pageResult;

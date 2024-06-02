@@ -1,6 +1,7 @@
 package views.components;
 
 import models.EventListener;
+import utils.UIStrings;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -31,31 +32,30 @@ public class StarsPanel extends JPanel {
     }
 
     public void init() {
-        for (int i = 0; i < 10; ++i) {
-            JButton button = new JButton(i<lastScore?"\u2605":"\u2606");
-            button.setFont(new Font("Arial", Font.PLAIN, 40));
+        for (int i = 0; i < UIStrings.SCORE_MAXSCORE; ++i) {
+            JButton button = new JButton(i<lastScore? UIStrings.STAR_CHAR_FULL:UIStrings.STAR_CHAR_EMPTY);
+            button.setFont(new Font(UIStrings.STAR_FONT_FAMILY, Font.PLAIN, UIStrings.STAR_FONT_SIZE));
             button.setBorder(new EmptyBorder(0,0,0,0));
-            button.setForeground(Color.ORANGE);
+            button.setForeground(UIStrings.STAR_COLOR);
             button.setContentAreaFilled(false);
-
             int aux = i+1;
 
             button.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseEntered(MouseEvent e) {
                     changeScore(aux);
-                    button.setForeground(Color.RED);
+                    button.setForeground(UIStrings.STAR_ALTCOLOR);
                 }
 
                 @Override
                 public void mouseExited(MouseEvent e) {
                     changeScore(lastScore);
-                    button.setForeground(Color.ORANGE);
+                    button.setForeground(UIStrings.STAR_COLOR);
                 }
 
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    button.setForeground(Color.ORANGE);
+                    button.setForeground(UIStrings.STAR_COLOR);
                     listener.onEvent();
                 }
             });
@@ -67,7 +67,7 @@ public class StarsPanel extends JPanel {
     private void changeScore(int score) {
         for (int i = 0; i < this.getComponentCount(); ++i) {
             JButton button = (JButton) this.getComponent(i);
-            button.setText(i<score?"\u2605":"\u2606");
+            button.setText(i<score? UIStrings.STAR_CHAR_FULL:UIStrings.STAR_CHAR_EMPTY);
         }
         newScore = score;
     }

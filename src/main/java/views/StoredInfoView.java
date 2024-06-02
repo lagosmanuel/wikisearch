@@ -1,6 +1,7 @@
 package views;
 
 import presenters.StoredInfoPresenter;
+import utils.UIStrings;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,8 +19,8 @@ public class StoredInfoView {
     public StoredInfoView() {
         resultTextPane.setContentType("text/html");
         JPopupMenu storedInfoPopup = new JPopupMenu();
-        saveItem = new JMenuItem("Save Changes!");
-        deleteItem = new JMenuItem("Delete!");
+        saveItem = new JMenuItem(UIStrings.STOREDINFOVIEW_SAVEITEM_TITLE);
+        deleteItem = new JMenuItem(UIStrings.STOREDINFOVIEW_DELETEITEM_TITLE);
         storedInfoPopup.add(saveItem);
         storedInfoPopup.add(deleteItem);
         resultTextPane.setComponentPopupMenu(storedInfoPopup);

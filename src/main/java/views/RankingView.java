@@ -1,6 +1,7 @@
 package views;
 
 import presenters.RankingPresenter;
+import utils.UIStrings;
 import views.components.StarsPanel;
 
 import javax.swing.*;
@@ -21,6 +22,7 @@ public class RankingView {
     public RankingView() {
         starsPanel = new StarsPanel();
         scorePanel.add(starsPanel);
+        searchButton.setText(UIStrings.RANKINGVIEW_SEARCHBUTTON_LABEL);
         initListeners();
     }
 
@@ -63,7 +65,7 @@ public class RankingView {
     }
 
     public void setLastModified(String lastEdited) {
-        lastEditedLabel.setText("last modified: " + lastEdited);
+        lastEditedLabel.setText(UIStrings.RANKINGVIEW_LASTMODIFIED_LABEL + lastEdited);
     }
 
     public void setScore(int score) {
