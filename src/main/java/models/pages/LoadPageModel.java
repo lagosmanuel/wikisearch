@@ -1,17 +1,18 @@
 package models.pages;
 
 import models.BaseModel;
+import models.PageResult;
 import models.repos.DataBase;
 
-public class PageExtractModel extends BaseModel {
-    private String lastResult;
+public class LoadPageModel extends BaseModel {
+    private PageResult lastResult;
 
-    public String getLastResult() {
+    public PageResult getLastResult() {
         return lastResult;
     }
 
     public void getPageExtract(String title) {
-        lastResult = DataBase.getExtract(title);
+        lastResult = DataBase.getPage(title);
         notifyListeners();
     }
 }

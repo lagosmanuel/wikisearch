@@ -1,7 +1,8 @@
 package presenters;
 
+import models.PageResult;
 import models.pages.DeletePageModel;
-import models.pages.PageExtractModel;
+import models.pages.LoadPageModel;
 import models.pages.SavePageModel;
 import models.pages.SavedTitlesModel;
 import utils.UIStrings;
@@ -13,13 +14,13 @@ public class StoredInfoPresenter {
     private StoredInfoView storedInfoView;
     private final SavePageModel savePageModel;
     private final DeletePageModel deletePageModel;
-    private final PageExtractModel pageExtractModel;
+    private final LoadPageModel loadPageModel;
     private final SavedTitlesModel savedTitlesModel;
 
-    public StoredInfoPresenter(SavePageModel savePageModel, DeletePageModel deletePageModel, PageExtractModel pageExtractModel, SavedTitlesModel savedTitlesModel) {
+    public StoredInfoPresenter(SavePageModel savePageModel, DeletePageModel deletePageModel, LoadPageModel loadPageModel, SavedTitlesModel savedTitlesModel) {
         this.savePageModel = savePageModel;
         this.deletePageModel = deletePageModel;
-        this.pageExtractModel = pageExtractModel;
+        this.loadPageModel = loadPageModel;
         this.savedTitlesModel = savedTitlesModel;
         initListeners();
     }
@@ -41,9 +42,9 @@ public class StoredInfoPresenter {
             savedTitlesModel.getSavedTitles();
         });
 
-        pageExtractModel.addEventListener(() -> {
-            String extract = pageExtractModel.getLastResult();
-            if (extract != null && !extract.isEmpty()) storedInfoView.setResultTextPane(textToHtml(extract));
+        loadPageModel.addEventListener(() -> {
+            PageResult pageResult = loadPageModel.getLastResult();
+            if (pageResult != null) storedInfoView.setResultTextPane(textToHtml(pageResult.getText()));
             else storedInfoView.showMessageDialog(UIStrings.ERROR_EXTRACT_EMPTY);
         });
 
@@ -69,7 +70,7 @@ public class StoredInfoPresenter {
 
     public void onSelectedItem() {
         new Thread(() -> {
-            pageExtractModel.getPageExtract(storedInfoView.getSelectedItem().toString());
+            loadPageModel.getPageExtract(storedInfoView.getSelectedItem().toString());
         }).start();
     }
 

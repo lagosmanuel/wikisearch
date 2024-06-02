@@ -1,12 +1,13 @@
 package models.pages;
 
 import models.BaseModel;
+import models.PageResult;
 import models.repos.APIHelper;
 
 public class RetrievePageModel extends BaseModel {
-    private String lastResult;
+    private PageResult lastResult;
 
-    public String getLastResult() {
+    public PageResult getLastResult() {
         return lastResult;
     }
 

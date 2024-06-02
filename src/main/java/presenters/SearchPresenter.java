@@ -9,6 +9,8 @@ import views.SearchView;
 
 import java.util.*;
 
+import static utils.ParserHTML.textToHtml;
+
 public class SearchPresenter {
     private SearchView searchView;
     private final SearchTermModel searchTermModel;
@@ -35,9 +37,8 @@ public class SearchPresenter {
         });
 
         retrievePageModel.addEventListener(() -> {
-            String result = retrievePageModel.getLastResult();
-            if (!result.isEmpty()) searchView.setResultTextPane(result);
-            else searchView.showMessageDialog(UIStrings.RETRIEVE_DIALOG_NOPAGEFOUND);
+            PageResult pageResult = formatPageResult(retrievePageModel.getLastResult());
+            searchView.setResultTextPane(pageResult.getText());
         });
 
         savePageModel.addEventListener(() -> {
@@ -74,5 +75,17 @@ public class SearchPresenter {
                 savePageModel.savePage(formatedTitle, searchView.getResultText());
             } else searchView.showMessageDialog(UIStrings.SAVE_DIALOG_NOSELECTEDITEM);
         }).start();
+    }
+
+    private PageResult formatPageResult(PageResult pageResult) {
+        return new PageResult(
+                pageResult.getTitle(),
+                pageResult.getPageID(),
+                pageResult.getText().isEmpty()? "no results":
+                        textToHtml(
+                            "<h1>" + pageResult.getTitle() + "</h1>" +
+                                    pageResult.getText().replace("\\n", "\n"
+                )
+        ));
     }
 }
