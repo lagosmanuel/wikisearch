@@ -10,7 +10,7 @@ public class RetrievePageModel extends BaseModel {
         return lastResult;
     }
 
-    public void retrievePage(String pageID) {
+    public void retrievePage(int pageID) {
         lastResult = APIHelper.getInstance().retrievePage(pageID);
         notifyListeners();
     }

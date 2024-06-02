@@ -3,6 +3,7 @@ package views;
 import models.SearchResult;
 import presenters.SearchPresenter;
 import utils.UIStrings;
+import views.components.SearchResultItem;
 
 import javax.swing.*;
 import java.awt.*;
@@ -64,7 +65,7 @@ public class SearchView {
     public void showOptionsMenu(Collection<SearchResult> results) {
         JPopupMenu searchOptionsMenu = new JPopupMenu(UIStrings.SEARCHVIEW_POPUP_LABEL);
         for (SearchResult result : results) {
-            searchOptionsMenu.add(new SearchResultView(result)).addActionListener(actionEvent -> {
+            searchOptionsMenu.add(new SearchResultItem(result)).addActionListener(actionEvent -> {
                 selectedResult = result;
                 searchPresenter.onRetrievePage();
             });

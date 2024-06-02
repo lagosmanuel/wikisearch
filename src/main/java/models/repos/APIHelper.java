@@ -48,7 +48,7 @@ public class APIHelper {
             for (JsonElement je : jsonResults) {
                 JsonObject searchResult = je.getAsJsonObject();
                 String searchResultTitle = searchResult.get("title").getAsString();
-                String searchResultPageId = searchResult.get("pageid").getAsString();
+                int searchResultPageId = searchResult.get("pageid").getAsInt();
                 String searchResultSnippet = searchResult.get("snippet").getAsString();
                 results.add(new SearchResult(searchResultTitle, searchResultPageId, searchResultSnippet));
             }
@@ -59,11 +59,11 @@ public class APIHelper {
         return results;
     }
 
-    public String retrievePage(String pageId) {
+    public String retrievePage(int pageId) {
         String text = "";
 
         try {
-            Response<String> callForPageResponse = pageAPI.getExtractByPageID(pageId).execute();
+            Response<String> callForPageResponse = pageAPI.getExtractByPageID(String.valueOf(pageId)).execute();
 
             Gson gson = new Gson();
             JsonObject jobj2 = gson.fromJson(callForPageResponse.body(), JsonObject.class);

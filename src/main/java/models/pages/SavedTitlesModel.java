@@ -1,4 +1,4 @@
-package models.entries;
+package models.pages;
 
 import models.BaseModel;
 import models.repos.DataBase;

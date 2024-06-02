@@ -3,7 +3,7 @@ package presenters;
 import models.pages.DeletePageModel;
 import models.pages.PageExtractModel;
 import models.pages.SavePageModel;
-import models.entries.SavedTitlesModel;
+import models.pages.SavedTitlesModel;
 import utils.UIStrings;
 import views.StoredInfoView;
 

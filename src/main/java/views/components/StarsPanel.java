@@ -1,4 +1,4 @@
-package views;
+package views.components;
 
 import models.EventListener;
 
@@ -8,11 +8,12 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class StarsView extends JPanel {
-    private int score;
+public class StarsPanel extends JPanel {
+    private int lastScore;
+    private int newScore;
     EventListener listener;
 
-    public StarsView() {
+    public StarsPanel() {
         init();
     }
 
@@ -21,40 +22,39 @@ public class StarsView extends JPanel {
     }
 
     public void setScore(int score) {
-        this.score = score;
-        refreshStars(score);
+        lastScore = score;
+        changeScore(score);
     }
 
-    public int getScore() {
-        return score;
+    public int getSelectedScore() {
+        return newScore;
     }
 
     public void init() {
         for (int i = 0; i < 10; ++i) {
-            JButton button = new JButton(i<score?"\u2605":"\u2606");
+            JButton button = new JButton(i<lastScore?"\u2605":"\u2606");
             button.setFont(new Font("Arial", Font.PLAIN, 40));
             button.setBorder(new EmptyBorder(0,0,0,0));
             button.setForeground(Color.ORANGE);
             button.setContentAreaFilled(false);
 
-            int newScore = i+1;
+            int aux = i+1;
 
             button.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseEntered(MouseEvent e) {
-                    refreshStars(newScore);
+                    changeScore(aux);
                     button.setForeground(Color.RED);
                 }
 
                 @Override
                 public void mouseExited(MouseEvent e) {
-                    refreshStars(score);
+                    changeScore(lastScore);
                     button.setForeground(Color.ORANGE);
                 }
 
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    setScore(newScore);
                     button.setForeground(Color.ORANGE);
                     listener.onEvent();
                 }
@@ -64,10 +64,11 @@ public class StarsView extends JPanel {
         }
     }
 
-    private void refreshStars(int score) {
+    private void changeScore(int score) {
         for (int i = 0; i < this.getComponentCount(); ++i) {
             JButton button = (JButton) this.getComponent(i);
             button.setText(i<score?"\u2605":"\u2606");
         }
+        newScore = score;
     }
 }

@@ -1,51 +1,51 @@
 package presenters;
 
 import models.SearchResult;
-import models.entries.SavedEntriesModel;
+import models.entries.GetSearchResultsModel;
+import models.entries.UpdateSearchResultsModel;
 import views.RankingView;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
 public class RankingPresenter {
     private RankingView rankingView;
-    private final SavedEntriesModel savedEntriesModel;
-    private Map<String, SearchResult> entries;
+    private final GetSearchResultsModel getSearchResultsModel;
+    private final UpdateSearchResultsModel updateSearchResultsModel;
 
-    public RankingPresenter(SavedEntriesModel model) {
-        savedEntriesModel = model;
-        entries = new HashMap<>();
+    public RankingPresenter(GetSearchResultsModel getSearchResultsModel, UpdateSearchResultsModel updateSearchResultsModel) {
+        this.getSearchResultsModel = getSearchResultsModel;
+        this.updateSearchResultsModel = updateSearchResultsModel;
         initListeners();
     }
 
     public void setStoredInfoView(RankingView view) {
         view.setRankingPresenter(this);
         rankingView = view;
-        savedEntriesModel.getSavedEntries();
+        getSearchResultsModel.getSavedEntries();
     }
 
     private void initListeners() {
-        savedEntriesModel.addEventListener(() -> {
-            Collection<SearchResult> results = savedEntriesModel.getLastResults();
-            ArrayList<String> titles = new ArrayList<>();
-            for (SearchResult result:results) {
-                titles.add(result.getTitle());
-                entries.put(result.getTitle(), result);
-            }
-            rankingView.updateComboBox(titles.toArray());
-            if (rankingView.isItemSelected()) onSelectedEntry();
+        getSearchResultsModel.addEventListener(() -> {
+            if (!rankingView.getComponent().isVisible()) rankingView.updateComboBox(getSearchResultsModel.getLastResults().keySet().toArray());
+            if (rankingView.isItemSelected()) showResult(getSearchResultsModel.getLastResultByTitle(rankingView.getSelectedEntry()));
         });
+        updateSearchResultsModel.addEventListener(getSearchResultsModel::getSavedEntries);
+    }
+
+    private void showResult(SearchResult result) {
+        rankingView.setTitle(result.getTitle());
+        rankingView.setScore(result.getScore());
+        rankingView.setDescription(result.getSnippet());
+        rankingView.setLastModified(result.getLastmoddifed());
     }
 
     public void onSelectedEntry() {
-        SearchResult result = entries.get(rankingView.getSelectedEntry());
-        rankingView.setScore(result.getScore());
-        rankingView.setDescription(result.getSnippet());
+        new Thread(() -> {
+            if(rankingView.isItemSelected()) showResult(getSearchResultsModel.getLastResultByTitle(rankingView.getSelectedEntry()));
+        }).start();
     }
 
     public void onChangedScore() {
-        entries.get(rankingView.getSelectedEntry()).setScore(rankingView.getScore());
+        new Thread(() -> {
+            if(rankingView.isItemSelected()) updateSearchResultsModel.changeScore(rankingView.getSelectedEntry(), rankingView.getScore());
+        }).start();
     }
 }

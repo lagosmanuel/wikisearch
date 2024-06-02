@@ -17,7 +17,7 @@ public class SearchTermModel extends BaseModel {
     public void searchTerm(String term) {
         lastResults = APIHelper.getInstance().searchTerm(term);
         for (SearchResult result: lastResults)
-            result.setScore(DataBase.getScore(result.getPageID()));
+            result.setScore(DataBase.getSearchResultByTitle(result.getTitle()));
 
         notifyListeners();
     }
