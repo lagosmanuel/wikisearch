@@ -24,9 +24,14 @@ public class RankingPresenter {
 
     private void initListeners() {
         getSearchResultsModel.addEventListener(() -> {
+            showResult(getSearchResultsModel.getCurrentResult());
+        }, "single");
+
+        getSearchResultsModel.addEventListener(() -> {
             if (!rankingView.getComponent().isVisible()) rankingView.updateComboBox(getSearchResultsModel.getLastResults().keySet().toArray());
-            if (rankingView.isItemSelected()) showResult(getSearchResultsModel.getLastResultByTitle(rankingView.getSelectedEntry()));
+            onSelectedEntry();
         });
+
         updateSearchResultsModel.addEventListener(getSearchResultsModel::getSavedEntries);
     }
 
@@ -39,7 +44,7 @@ public class RankingPresenter {
 
     public void onSelectedEntry() {
         new Thread(() -> {
-            if(rankingView.isItemSelected()) showResult(getSearchResultsModel.getLastResultByTitle(rankingView.getSelectedEntry()));
+            if(rankingView.isItemSelected()) getSearchResultsModel.getSavedEntryByTitle(rankingView.getSelectedEntry());
         }).start();
     }
 

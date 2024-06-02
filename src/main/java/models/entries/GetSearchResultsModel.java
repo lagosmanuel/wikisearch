@@ -9,6 +9,7 @@ import java.util.Map;
 
 public class GetSearchResultsModel extends BaseModel {
     private final Map<String, SearchResult> lastResults;
+    private SearchResult currentResult;
 
     public GetSearchResultsModel() {
         lastResults = new HashMap<>();
@@ -18,8 +19,13 @@ public class GetSearchResultsModel extends BaseModel {
         return lastResults;
     }
 
-    public SearchResult getLastResultByTitle(String title) {
-        return lastResults.get(title);
+    public SearchResult getCurrentResult() {
+        return currentResult;
+    }
+
+    public void getSavedEntryByTitle(String title) {
+        currentResult = lastResults.get(title);
+        notifyListeners("single");
     }
 
     public void getSavedEntries() {

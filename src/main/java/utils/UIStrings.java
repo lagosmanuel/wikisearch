@@ -72,4 +72,7 @@ public class UIStrings {
     public static final String DB_GETTITLES_ERROR = "error getting titles: ";
     public static final String DB_GETPAGE_ERROR = "error getting a page: ";
     public static final String DB_GETSEARCHRESULTS_ERROR = "error getting search results: ";
+
+    // EventListener
+    public static final String EVENTLISTENER_TOPIC_DEFAULT = "all";
 }
