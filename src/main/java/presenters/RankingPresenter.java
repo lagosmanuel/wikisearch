@@ -11,7 +11,7 @@ import java.util.*;
 
 public class RankingPresenter {
     private RankingView rankingView;
-    private SearchPresenter searchPresenter;
+    private final SearchPresenter searchPresenter;
     private final GetSearchResultsModel getSearchResultsModel;
     private final UpdateSearchResultsModel updateSearchResultsModel;
 
@@ -30,10 +30,7 @@ public class RankingPresenter {
     }
 
     private void initListeners() {
-        getSearchResultsModel.addEventListener(() -> {
-            rankingView.updateRankingList(orderResults(filterResultsWithoutScore(getSearchResultsModel.getLastResults())));
-        });
-
+        getSearchResultsModel.addEventListener(() -> rankingView.updateRankingList(orderResults(filterResultsWithoutScore(getSearchResultsModel.getLastResults()))));
         updateSearchResultsModel.addEventListener(getSearchResultsModel::getSavedSearchResults);
     }
 

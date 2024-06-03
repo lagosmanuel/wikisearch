@@ -16,7 +16,7 @@ public class SearchResultDataBase extends DataBase {
 
     public static SearchResult getSearchResultByTitle(String title) {
         SearchResult searchResult = null;
-        try (Connection connection = getConnection();) {
+        try (Connection connection = getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement("select * from searches where title=?");
             preparedStatement.setString(1, title);
             preparedStatement.setQueryTimeout(UIStrings.DB_QUERY_TIMEOUT);

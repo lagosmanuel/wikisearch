@@ -49,18 +49,9 @@ public class SearchView {
     }
 
     private void initListeners() {
-        searchButton.addActionListener(actionEvent -> {
-            searchPresenter.onSearchTerm();
-        });
-
-        saveLocallyButton.addActionListener(actionEvent -> {
-            searchPresenter.onSavePage();
-        });
-
-        starsPanel.setEventListener(() -> {
-            searchPresenter.onChangedScore();
-        });
-
+        searchButton.addActionListener(actionEvent -> searchPresenter.onSearchTerm());
+        saveLocallyButton.addActionListener(actionEvent -> searchPresenter.onSavePage());
+        starsPanel.setEventListener(() -> searchPresenter.onChangedScore());
         searchTextField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {

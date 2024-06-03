@@ -45,11 +45,7 @@ public class RankingView {
             rankingPresenter.onChangedScore();
             hideStarsPanelDialog();
         });
-
-        searchButton.addActionListener(actionEvent -> {
-            rankingPresenter.onSearch();
-        });
-
+        searchButton.addActionListener(actionEvent -> rankingPresenter.onSearch());
         rankingList.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {

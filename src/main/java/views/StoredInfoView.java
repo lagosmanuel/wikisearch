@@ -28,14 +28,8 @@ public class StoredInfoView {
     }
 
     private void initListeners() {
-        saveItem.addActionListener(actionEvent -> {
-            storedInfoPresenter.onUpdatePage();
-        });
-
-        deleteItem.addActionListener(actionEvent -> {
-            storedInfoPresenter.onDeletePage();
-        });
-
+        saveItem.addActionListener(actionEvent -> storedInfoPresenter.onUpdatePage());
+        deleteItem.addActionListener(actionEvent -> storedInfoPresenter.onDeletePage());
         comboBox.addActionListener(actionEvent -> storedInfoPresenter.onSelectedItem());
     }
 

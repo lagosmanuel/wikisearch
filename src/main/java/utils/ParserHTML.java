@@ -4,11 +4,7 @@ import models.SearchResult;
 
 public class ParserHTML {
     public static String textToHtml(String text) {
-        StringBuilder builder = new StringBuilder();
-        builder.append("<font face=\"arial\">");
-        builder.append(text);
-        builder.append("</font>");
-        return builder.toString();
+        return "<font face=\"arial\">" + text + "</font>";
     }
 
     public static String searchResultToHtml(SearchResult searchResult) {

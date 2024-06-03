@@ -20,8 +20,7 @@ public class GetSearchResultsModel extends BaseModel {
 
     public void getSavedSearchResults() {
         lastResults.clear();
-        for (SearchResult result: SearchResultDataBase.getSearchResults())
-            lastResults.add(result);
+        lastResults.addAll(SearchResultDataBase.getSearchResults());
         notifyListeners();
     }
 }

@@ -63,20 +63,14 @@ public class StoredInfoPresenter {
     }
 
     public void onUpdatePage() {
-        new Thread(() -> {
-            savePageModel.savePage(lastPageResult.setExtract(storedInfoView.getText()));
-        }).start();
+        new Thread(() -> savePageModel.savePage(lastPageResult.setExtract(storedInfoView.getText()))).start();
     }
 
     public void onSelectedItem() {
-        new Thread(() -> {
-            loadPageModel.getPageExtract(storedInfoView.getSelectedItem().toString());
-        }).start();
+        new Thread(() -> loadPageModel.getPageExtract(storedInfoView.getSelectedItem().toString())).start();
     }
 
     public void onDeletePage() {
-        new Thread(() -> {
-            deletePageModel.deletePage(storedInfoView.getSelectedItem().toString());
-        }).start();
+        new Thread(() -> deletePageModel.deletePage(storedInfoView.getSelectedItem().toString())).start();
     }
 }
