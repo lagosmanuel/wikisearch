@@ -4,6 +4,7 @@ import models.SearchResult;
 import presenters.SearchPresenter;
 import utils.UIStrings;
 import views.components.SearchResultItem;
+import views.components.StarsPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,6 +17,8 @@ public class SearchView {
     private JButton saveLocallyButton;
     private JPanel contentPane;
     private JScrollPane resultScrollPane;
+    private JPanel scorePanel;
+    private final StarsPanel starsPanel;
 
     private SearchPresenter searchPresenter;
     private SearchResult selectedResult;
@@ -24,6 +27,8 @@ public class SearchView {
         resultTextPane.setContentType("text/html");
         searchButton.setText(UIStrings.SEARCHVIEW_SEARCHBUTTON_TEXT);
         saveLocallyButton.setText(UIStrings.SEARCHVIEW_SAVELOCALLYBUTTON_TEXT);
+        starsPanel = new StarsPanel();
+        scorePanel.add(starsPanel);
         initListeners();
     }
 
@@ -34,6 +39,10 @@ public class SearchView {
 
         saveLocallyButton.addActionListener(actionEvent -> {
             searchPresenter.onSavePage();
+        });
+
+        starsPanel.setEventListener(() -> {
+            searchPresenter.onChangedScore();
         });
     }
 
@@ -85,5 +94,13 @@ public class SearchView {
 
     public void showMessageDialog(String msg) {
         JOptionPane.showMessageDialog(contentPane, msg);
+    }
+
+    public void setScore(int score) {
+        starsPanel.setScore(score);
+    }
+
+    public int getScore() {
+        return starsPanel.getSelectedScore();
     }
 }

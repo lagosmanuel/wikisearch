@@ -22,6 +22,7 @@ public class RankingView {
     public RankingView() {
         starsPanel = new StarsPanel();
         scorePanel.add(starsPanel);
+        descriptionTextPane.setContentType("text/html");
         searchButton.setText(UIStrings.RANKINGVIEW_SEARCHBUTTON_LABEL);
         initListeners();
     }
@@ -64,8 +65,8 @@ public class RankingView {
         descriptionTextPane.setText(text);
     }
 
-    public void setLastModified(String lastEdited) {
-        lastEditedLabel.setText(UIStrings.RANKINGVIEW_LASTMODIFIED_LABEL + lastEdited);
+    public void setLastModified(String lastModified) {
+        lastEditedLabel.setText(lastModified);
     }
 
     public void setScore(int score) {
@@ -74,5 +75,9 @@ public class RankingView {
 
     public int getScore() {
         return starsPanel.getSelectedScore();
+    }
+
+    public void showDialog(String dialog) {
+        JOptionPane.showMessageDialog(contentPane, dialog);
     }
 }

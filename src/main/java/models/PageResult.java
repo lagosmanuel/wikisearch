@@ -3,12 +3,14 @@ package models;
 public class PageResult {
     private final String title;
     private final int pageID;
-    private final String text;
+    private String extract;
+    private final int source;
 
-    public PageResult(String title, int pageID, String text) {
+    public PageResult(String title, int pageID, String extract, int source) {
         this.title = title;
         this.pageID = pageID;
-        this.text = text;
+        this.extract = extract;
+        this.source = source;
     }
 
     public String getTitle() {
@@ -19,7 +21,16 @@ public class PageResult {
         return pageID;
     }
 
-    public String getText() {
-        return text;
+    public String getExtract() {
+        return extract;
+    }
+
+    public int getSource() {
+        return source;
+    }
+
+    public PageResult setExtract(String extract) {
+        this.extract = extract;
+        return this;
     }
 }

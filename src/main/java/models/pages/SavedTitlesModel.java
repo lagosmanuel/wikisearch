@@ -1,13 +1,13 @@
 package models.pages;
 
 import models.BaseModel;
-import models.repos.DataBase;
+import models.repos.databases.CatalogDataBase;
 
 public class SavedTitlesModel extends BaseModel {
     private Object[] lastResults;
 
     public void getSavedTitles() {
-        lastResults = DataBase.getTitles().stream().sorted().toArray();
+        lastResults = CatalogDataBase.getPageTitles().stream().sorted().toArray();
         notifyListeners();
     }
 

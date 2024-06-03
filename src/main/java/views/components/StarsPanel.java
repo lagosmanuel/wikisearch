@@ -44,28 +44,36 @@ public class StarsPanel extends JPanel {
                 @Override
                 public void mouseEntered(MouseEvent e) {
                     changeScore(aux);
-                    button.setForeground(UIStrings.STAR_ALTCOLOR);
+                    button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
                 }
 
                 @Override
                 public void mouseExited(MouseEvent e) {
                     changeScore(lastScore);
-                    button.setForeground(UIStrings.STAR_COLOR);
                 }
 
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    button.setForeground(UIStrings.STAR_COLOR);
                     listener.onEvent();
                 }
             });
 
             this.add(button);
         }
+
+        JButton deleteScoreButton = new JButton("⌫");
+        deleteScoreButton.setFont(new Font(UIStrings.STAR_FONT_FAMILY, Font.PLAIN, UIStrings.STAR_FONT_SIZE));
+        deleteScoreButton.setBorder(new EmptyBorder(0,0,0,0));
+        deleteScoreButton.addActionListener(actionEvent -> {
+            changeScore(0);
+            listener.onEvent();
+        });
+
+        this.add(deleteScoreButton);
     }
 
     private void changeScore(int score) {
-        for (int i = 0; i < this.getComponentCount(); ++i) {
+        for (int i = 0; i < this.getComponentCount()-1; ++i) {
             JButton button = (JButton) this.getComponent(i);
             button.setText(i<score? UIStrings.STAR_CHAR_FULL:UIStrings.STAR_CHAR_EMPTY);
         }

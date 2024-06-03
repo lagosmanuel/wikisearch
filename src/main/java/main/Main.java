@@ -1,15 +1,15 @@
 package main;
 
-import models.SearchResult;
-import models.entries.UpdateSearchResultsModel;
+import models.search.UpdateSearchResultsModel;
 import models.pages.DeletePageModel;
 import models.pages.RetrievePageModel;
 import models.pages.SavePageModel;
-import models.entries.SearchTermModel;
+import models.search.SearchTermModel;
 import models.pages.LoadPageModel;
-import models.entries.GetSearchResultsModel;
+import models.search.GetSearchResultsModel;
 import models.pages.SavedTitlesModel;
-import models.repos.DataBase;
+import models.repos.databases.CatalogDataBase;
+import models.repos.databases.SearchResultDataBase;
 import presenters.RankingPresenter;
 import presenters.SearchPresenter;
 import presenters.StoredInfoPresenter;
@@ -18,8 +18,9 @@ import views.MainView;
 import java.sql.SQLException;
 
 public class Main {
-    public static void main(String[] args) throws SQLException {
-        DataBase.loadDatabase();
+    public static void main(String[] args) {
+        CatalogDataBase.load();
+        SearchResultDataBase.load();
 
         SearchTermModel searchTermModel = new SearchTermModel();
         RetrievePageModel retrievePageModel = new RetrievePageModel();
@@ -32,7 +33,7 @@ public class Main {
 
         MainView mainView = new MainView();
 
-        SearchPresenter searchPresenter = new SearchPresenter(searchTermModel, retrievePageModel, savePageModel);
+        SearchPresenter searchPresenter = new SearchPresenter(searchTermModel, retrievePageModel, savePageModel, updateSearchResultsModel);
         StoredInfoPresenter storedInfoPresenter = new StoredInfoPresenter(savePageModel, deletePageModel, loadPageModel, savedTitlesModel);
         RankingPresenter rankingPresenter = new RankingPresenter(getSearchResultsModel, updateSearchResultsModel);
 

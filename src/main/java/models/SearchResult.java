@@ -41,7 +41,8 @@ public class SearchResult {
         return lastmoddifed;
     }
 
-    public void setScore(int score) {
+    public SearchResult setScore(int score) {
        this.score = score;
+       return this;
     }
 }

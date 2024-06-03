@@ -16,6 +16,7 @@ public class StoredInfoPresenter {
     private final DeletePageModel deletePageModel;
     private final LoadPageModel loadPageModel;
     private final SavedTitlesModel savedTitlesModel;
+    private PageResult lastPageResult;
 
     public StoredInfoPresenter(SavePageModel savePageModel, DeletePageModel deletePageModel, LoadPageModel loadPageModel, SavedTitlesModel savedTitlesModel) {
         this.savePageModel = savePageModel;
@@ -43,8 +44,8 @@ public class StoredInfoPresenter {
         });
 
         loadPageModel.addEventListener(() -> {
-            PageResult pageResult = loadPageModel.getLastResult();
-            if (pageResult != null) storedInfoView.setResultTextPane(textToHtml(pageResult.getText()));
+            lastPageResult = loadPageModel.getLastResult();
+            if (lastPageResult != null) storedInfoView.setResultTextPane(textToHtml(lastPageResult.getExtract()));
             else storedInfoView.showMessageDialog(UIStrings.ERROR_DIALOG_EXTRACTEMPTY);
         });
 
@@ -63,8 +64,7 @@ public class StoredInfoPresenter {
 
     public void onUpdatePage() {
         new Thread(() -> {
-            savePageModel.savePage(storedInfoView.getSelectedItem().toString().replace("'", "`"),
-                    storedInfoView.getText());
+            savePageModel.savePage(lastPageResult.setExtract(storedInfoView.getText()));
         }).start();
     }
 

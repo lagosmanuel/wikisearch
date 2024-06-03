@@ -1,11 +1,11 @@
 package models.pages;
 
 import models.BaseModel;
-import models.repos.DataBase;
+import models.repos.databases.CatalogDataBase;
 
 public class DeletePageModel extends BaseModel {
     public void deletePage(String title) {
-        DataBase.deleteEntry(title);
+        CatalogDataBase.deletePageByTitle(title);
         notifyListeners();
     }
 }

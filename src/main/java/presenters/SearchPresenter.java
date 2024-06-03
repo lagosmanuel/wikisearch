@@ -1,9 +1,10 @@
 package presenters;
 
 import models.*;
+import models.search.UpdateSearchResultsModel;
 import models.pages.RetrievePageModel;
 import models.pages.SavePageModel;
-import models.entries.SearchTermModel;
+import models.search.SearchTermModel;
 import utils.UIStrings;
 import views.SearchView;
 
@@ -16,11 +17,14 @@ public class SearchPresenter {
     private final SearchTermModel searchTermModel;
     private final RetrievePageModel retrievePageModel;
     private final SavePageModel savePageModel;
+    private final UpdateSearchResultsModel updateSearchResultsModel;
+    private PageResult lastPageResult;
 
-    public SearchPresenter(SearchTermModel searchTermModel, RetrievePageModel retrievePageModel, SavePageModel savePageModel) {
+    public SearchPresenter(SearchTermModel searchTermModel, RetrievePageModel retrievePageModel, SavePageModel savePageModel, UpdateSearchResultsModel updateSearchResultsModel) {
         this.searchTermModel = searchTermModel;
         this.retrievePageModel = retrievePageModel;
         this.savePageModel = savePageModel;
+        this.updateSearchResultsModel = updateSearchResultsModel;
         initListeners();
     }
 
@@ -37,12 +41,18 @@ public class SearchPresenter {
         });
 
         retrievePageModel.addEventListener(() -> {
-            PageResult pageResult = formatPageResult(retrievePageModel.getLastResult());
-            searchView.setResultTextPane(pageResult.getText());
+            lastPageResult = formatPageResult(retrievePageModel.getLastResult());
+            searchView.setResultTextPane(lastPageResult.getExtract());
+            searchView.setScore(searchView.getSelectedResult().getScore());
         });
 
         savePageModel.addEventListener(() -> {
             if (searchView.getComponent().isVisible()) searchView.showMessageDialog(UIStrings.SAVE_DIALOG_SUCCESS);
+        });
+
+        updateSearchResultsModel.addEventListener(() -> {
+            if (searchView.getSelectedResult() != null && searchView.getSelectedResult().getTitle().equals(updateSearchResultsModel.getLastSearchResult().getTitle()))
+                searchView.setScore(updateSearchResultsModel.getLastSearchResult().getScore());
         });
     }
 
@@ -58,10 +68,9 @@ public class SearchPresenter {
 
     public void onRetrievePage() {
         new Thread(() -> {
-            SearchResult selectedResult = searchView.getSelectedResult();
-            if (selectedResult != null) {
+            if (searchView.getSelectedResult() != null) {
                 searchView.setWorkingStatus();
-                retrievePageModel.retrievePage(selectedResult.getPageID());
+                retrievePageModel.retrievePage(searchView.getSelectedResult().getPageID());
                 searchView.setWaitingStatus();
             } else searchView.showMessageDialog(UIStrings.RETRIEVE_DIALOG_NOSELECTEDITEM);
         }).start();
@@ -70,10 +79,15 @@ public class SearchPresenter {
     public void onSavePage() {
         new Thread(() -> {
             SearchResult selectedResult = searchView.getSelectedResult();
-            if (selectedResult != null) {
-                String formatedTitle = selectedResult.getTitle().replace("'", "`");
-                savePageModel.savePage(formatedTitle, searchView.getResultText());
-            } else searchView.showMessageDialog(UIStrings.SAVE_DIALOG_NOSELECTEDITEM);
+            if (selectedResult != null) savePageModel.savePage(lastPageResult.setExtract(searchView.getResultText()));
+            else searchView.showMessageDialog(UIStrings.SAVE_DIALOG_NOSELECTEDITEM);
+        }).start();
+    }
+
+    public void onChangedScore() {
+        new Thread(() -> {
+            if (searchView.getSelectedResult() != null) updateSearchResultsModel.updateSearchResult(searchView.getSelectedResult().setScore(searchView.getScore()));
+            else searchView.showMessageDialog(UIStrings.SEARCH_DIALOG_RATEDNULLPAGE);
         }).start();
     }
 
@@ -81,12 +95,13 @@ public class SearchPresenter {
         return new PageResult(
                 pageResult.getTitle(),
                 pageResult.getPageID(),
-                pageResult.getText().isEmpty()?
+                pageResult.getExtract().isEmpty()?
                         UIStrings.PAGE_PAGENOTFOUND_EXTRACT:
                         textToHtml(
                             "<h1>" + pageResult.getTitle() + "</h1>"
-                                   + pageResult.getText().replace("\\n", "\n"
-                )
-        ));
+                                   + pageResult.getExtract().replace("\\n", "\n")
+                        ),
+               pageResult.getSource()
+        );
     }
 }

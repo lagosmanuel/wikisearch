@@ -2,7 +2,7 @@ package models.pages;
 
 import models.BaseModel;
 import models.PageResult;
-import models.repos.DataBase;
+import models.repos.databases.CatalogDataBase;
 
 public class LoadPageModel extends BaseModel {
     private PageResult lastResult;
@@ -12,7 +12,7 @@ public class LoadPageModel extends BaseModel {
     }
 
     public void getPageExtract(String title) {
-        lastResult = DataBase.getPage(title);
+        lastResult = CatalogDataBase.getPageByTitle(title);
         notifyListeners();
     }
 }

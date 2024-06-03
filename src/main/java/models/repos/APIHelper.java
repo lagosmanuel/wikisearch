@@ -51,7 +51,7 @@ public class APIHelper {
                         searchResult.get(UIStrings.API_ID_KEYWORD).getAsInt(),
                         searchResult.get(UIStrings.API_SNIPPET_KEYWORD).getAsString()));
             }
-        } catch (IOException e) {e.printStackTrace();}
+        } catch (IOException e) {System.out.println(UIStrings.API_SEARCHTERM_ERROR + e.getMessage());}
         return results;
     }
 
@@ -70,9 +70,10 @@ public class APIHelper {
             pageResult = new PageResult(
                     page.get(UIStrings.API_TITLE_KEYWORD).getAsString(),
                     page.get(UIStrings.API_ID_KEYWORD).getAsInt(),
-                    page.get(UIStrings.API_EXTRACT_KEYWORD).getAsString());
+                    page.get(UIStrings.API_EXTRACT_KEYWORD).getAsString(),
+                    page.get(UIStrings.API_SOURCE_KEYWORD).getAsInt());
 
-        } catch (Exception e) {System.out.println(e.getMessage());}
+        } catch (IOException e) {System.out.println(UIStrings.API_RETRIEVEPAGE_ERROR + e.getMessage());}
         return pageResult;
     }
 }
