@@ -35,8 +35,8 @@ public class SearchPresenter {
 
     private void initListeners() {
         searchTermModel.addEventListener(() -> {
-            Collection<SearchResult> results = searchTermModel.getLastResults();
-            if (!results.isEmpty()) searchView.showOptionsMenu(results);
+            Collection<SearchResult> searchResults = searchTermModel.getLastSearchResults();
+            if (!searchResults.isEmpty()) searchView.showOptionsMenu(searchResults);
             else searchView.showMessageDialog(UIStrings.SEARCH_DIALOG_NORESULT);
         });
 
@@ -51,8 +51,10 @@ public class SearchPresenter {
         });
 
         updateSearchResultsModel.addEventListener(() -> {
-            if (searchView.getSelectedResult() != null && searchView.getSelectedResult().getTitle().equals(updateSearchResultsModel.getLastSearchResult().getTitle()))
-                searchView.setScore(updateSearchResultsModel.getLastSearchResult().getScore());
+            SearchResult selectedSearchResult = searchView.getSelectedResult();
+            SearchResult lastUpdatedSearchResult = updateSearchResultsModel.getLastUpdatedSearchResult();
+            if (selectedSearchResult != null && selectedSearchResult.getTitle().equals(lastUpdatedSearchResult.getTitle()))
+                searchView.setScore(lastUpdatedSearchResult.getScore());
         });
     }
 

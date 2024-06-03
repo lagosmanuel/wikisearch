@@ -5,15 +5,15 @@ import models.SearchResult;
 import models.repos.databases.SearchResultDataBase;
 
 public class UpdateSearchResultsModel extends BaseModel {
-    private SearchResult lastSearchResult;
+    private SearchResult lastUpdatedSearchResult;
 
-    public SearchResult getLastSearchResult() {
-        return lastSearchResult;
+    public SearchResult getLastUpdatedSearchResult() {
+        return lastUpdatedSearchResult;
     }
 
     public void updateSearchResult(SearchResult searchResult) {
         SearchResultDataBase.updateSearchResult(searchResult);
-        lastSearchResult = searchResult;
+        lastUpdatedSearchResult = searchResult;
         notifyListeners();
     }
 }

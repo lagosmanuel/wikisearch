@@ -8,17 +8,17 @@ import models.repos.databases.SearchResultDataBase;
 import java.util.*;
 
 public class SearchTermModel extends BaseModel {
-    private Collection<SearchResult> lastResults;
+    private Collection<SearchResult> lastSearchResults;
 
-    public Collection<SearchResult> getLastResults() {
-        return lastResults;
+    public Collection<SearchResult> getLastSearchResults() {
+        return lastSearchResults;
     }
 
     public void searchTerm(String term) {
-        lastResults = APIHelper.getInstance().searchTerm(term);
-        for (SearchResult result: lastResults) {
-            SearchResult searchResult = SearchResultDataBase.getSearchResultByTitle(result.getTitle());
-            if (searchResult != null) result.setScore(searchResult.getScore());
+        lastSearchResults = APIHelper.getInstance().searchTerm(term);
+        for (SearchResult searchResult: lastSearchResults) {
+            SearchResult savedSearchResult = SearchResultDataBase.getSearchResultByTitle(searchResult.getTitle());
+            if (savedSearchResult != null) searchResult.setScore(savedSearchResult.getScore());
         }
         notifyListeners();
     }
