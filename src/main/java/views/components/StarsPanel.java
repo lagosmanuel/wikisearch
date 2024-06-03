@@ -8,11 +8,15 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 public class StarsPanel extends JPanel {
     private int lastScore;
     private int newScore;
     EventListener listener;
+    List<JButton> starButtons;
+    JButton deleteScoreButton;
 
     public StarsPanel() {
         init();
@@ -32,38 +36,57 @@ public class StarsPanel extends JPanel {
     }
 
     public void init() {
+        SwingUtilities.invokeLater(() -> {
+            createStarButtons();
+            createDeleteButton();
+        });
+    }
+
+    private void createStarButtons() {
+        starButtons = new ArrayList<>();
         for (int i = 0; i < UIStrings.SCORE_MAXSCORE; ++i) {
-            JButton button = new JButton(i<lastScore? UIStrings.STAR_CHAR_FULL:UIStrings.STAR_CHAR_EMPTY);
-            button.setFont(new Font(UIStrings.STAR_FONT_FAMILY, Font.PLAIN, UIStrings.STAR_FONT_SIZE));
-            button.setBorder(new EmptyBorder(0,0,0,0));
-            button.setForeground(UIStrings.STAR_COLOR);
-            button.setContentAreaFilled(false);
-            int aux = i+1;
-
-            button.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseEntered(MouseEvent e) {
-                    changeScore(aux);
-                    button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-                }
-
-                @Override
-                public void mouseExited(MouseEvent e) {
-                    changeScore(lastScore);
-                }
-
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    listener.onEvent();
-                }
-            });
-
-            this.add(button);
+            JButton starButton = createStarButton();
+            starButton.addMouseListener(createStarButtonMouseAdapter(i+1));
+            starButtons.add(starButton);
+            this.add(starButton);
         }
+    }
 
-        JButton deleteScoreButton = new JButton("⌫");
+    private JButton createStarButton() {
+        JButton button = new JButton(UIStrings.STAR_CHAR_EMPTY);
+        button.setFont(new Font(UIStrings.STAR_FONT_FAMILY, Font.PLAIN, UIStrings.STAR_FONT_SIZE));
+        button.setBorder(new EmptyBorder(0,0,0,0));
+        button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        button.setForeground(UIStrings.STAR_COLOR);
+        button.setContentAreaFilled(false);
+        return button;
+    }
+
+    private MouseAdapter createStarButtonMouseAdapter(int score) {
+        return new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                changeScore(score);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                changeScore(lastScore);
+            }
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                listener.onEvent();
+            }
+        };
+    }
+
+    private void createDeleteButton() {
+        deleteScoreButton = new JButton(UIStrings.STAR_CHAR_DELETE);
         deleteScoreButton.setFont(new Font(UIStrings.STAR_FONT_FAMILY, Font.PLAIN, UIStrings.STAR_FONT_SIZE));
         deleteScoreButton.setBorder(new EmptyBorder(0,0,0,0));
+        deleteScoreButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
         deleteScoreButton.addActionListener(actionEvent -> {
             changeScore(0);
             listener.onEvent();
@@ -73,10 +96,8 @@ public class StarsPanel extends JPanel {
     }
 
     private void changeScore(int score) {
-        for (int i = 0; i < this.getComponentCount()-1; ++i) {
-            JButton button = (JButton) this.getComponent(i);
-            button.setText(i<score? UIStrings.STAR_CHAR_FULL:UIStrings.STAR_CHAR_EMPTY);
-        }
+        for (int i = 0; i < starButtons.size(); ++i)
+            starButtons.get(i).setText(i<score? UIStrings.STAR_CHAR_FULL:UIStrings.STAR_CHAR_EMPTY);
         newScore = score;
     }
 }

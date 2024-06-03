@@ -78,6 +78,14 @@ public class SearchPresenter {
         }).start();
     }
 
+    public void onRetrievePage(SearchResult searchResult) {
+        new Thread(() -> {
+            searchView.clearSearchTextField();
+            searchView.setSelectedResult(searchResult);
+            onRetrievePage();
+        }).start();
+    }
+
     public void onSavePage() {
         new Thread(() -> {
             SearchResult selectedResult = searchView.getSelectedResult();

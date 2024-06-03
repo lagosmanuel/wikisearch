@@ -33,10 +33,10 @@ public class Main {
 
         SearchPresenter searchPresenter = new SearchPresenter(searchTermModel, retrievePageModel, savePageModel, updateSearchResultsModel);
         StoredInfoPresenter storedInfoPresenter = new StoredInfoPresenter(savePageModel, deletePageModel, loadPageModel, savedTitlesModel);
-        RankingPresenter rankingPresenter = new RankingPresenter(getSearchResultsModel, updateSearchResultsModel);
+        RankingPresenter rankingPresenter = new RankingPresenter(getSearchResultsModel, updateSearchResultsModel, searchPresenter);
 
         searchPresenter.setSearchView(mainView.getSearchView());
         storedInfoPresenter.setStoredInfoView(mainView.getStoredInfoView());
-        rankingPresenter.setStoredInfoView(mainView.getRankingView());
+        rankingPresenter.setRankingView(mainView.getRankingView(), mainView);
     }
 }

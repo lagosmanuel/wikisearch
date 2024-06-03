@@ -8,6 +8,8 @@ import views.components.StarsPanel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.Collection;
 
 public class SearchView {
@@ -24,12 +26,26 @@ public class SearchView {
     private SearchResult selectedResult;
 
     public SearchView() {
+        starsPanel = new StarsPanel();
+        init();
+    }
+
+    private void init() {
         resultTextPane.setContentType("text/html");
         searchButton.setText(UIStrings.SEARCHVIEW_SEARCHBUTTON_TEXT);
+        searchButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         saveLocallyButton.setText(UIStrings.SEARCHVIEW_SAVELOCALLYBUTTON_TEXT);
-        starsPanel = new StarsPanel();
+        saveLocallyButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         scorePanel.add(starsPanel);
         initListeners();
+    }
+
+    public Component getComponent() {
+        return contentPane;
+    }
+
+    public void setSearchPresenter(SearchPresenter presenter) {
+        searchPresenter = presenter;
     }
 
     private void initListeners() {
@@ -44,14 +60,15 @@ public class SearchView {
         starsPanel.setEventListener(() -> {
             searchPresenter.onChangedScore();
         });
-    }
 
-    public Component getComponent() {
-        return contentPane;
-    }
-
-    public void setSearchPresenter(SearchPresenter presenter) {
-        searchPresenter = presenter;
+        searchTextField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                super.keyPressed(e);
+                if (e.getKeyChar() == UIStrings.SEARCHVIEW_SEARCHBUTTON_KEY)
+                    searchPresenter.onSearchTerm();
+            }
+        });
     }
 
     public String getSearchText() {
@@ -66,20 +83,21 @@ public class SearchView {
         return selectedResult;
     }
 
+    public int getScore() {
+        return starsPanel.getSelectedScore();
+    }
+
+    public void setScore(int score) {
+        starsPanel.setScore(score);
+    }
+
+    public void setSelectedResult(SearchResult searchResult) {
+        selectedResult = searchResult;
+    }
+
     public void setResultTextPane(String text) {
         resultTextPane.setText(text);
         resultTextPane.setCaretPosition(0);
-    }
-
-    public void showOptionsMenu(Collection<SearchResult> results) {
-        JPopupMenu searchOptionsMenu = new JPopupMenu(UIStrings.SEARCHVIEW_POPUP_LABEL);
-        for (SearchResult result : results) {
-            searchOptionsMenu.add(new SearchResultItem(result)).addActionListener(actionEvent -> {
-                selectedResult = result;
-                searchPresenter.onRetrievePage();
-            });
-        }
-        searchOptionsMenu.show(searchTextField, searchTextField.getX(), searchTextField.getY()+searchTextField.getHeight());
     }
 
     public void setWorkingStatus() {
@@ -92,15 +110,21 @@ public class SearchView {
         resultTextPane.setEnabled(true);
     }
 
+    public void clearSearchTextField() {
+        searchTextField.setText("");
+    }
+
     public void showMessageDialog(String msg) {
         JOptionPane.showMessageDialog(contentPane, msg);
     }
 
-    public void setScore(int score) {
-        starsPanel.setScore(score);
-    }
-
-    public int getScore() {
-        return starsPanel.getSelectedScore();
+    public void showOptionsMenu(Collection<SearchResult> results) {
+        JPopupMenu searchOptionsMenu = new JPopupMenu(UIStrings.SEARCHVIEW_POPUP_LABEL);
+        for (SearchResult result : results)
+            searchOptionsMenu.add(new SearchResultItem(result)).addActionListener(actionEvent -> {
+                selectedResult = result;
+                searchPresenter.onRetrievePage();
+            });
+        searchOptionsMenu.show(searchTextField, searchTextField.getX(), searchTextField.getY()+searchTextField.getHeight());
     }
 }

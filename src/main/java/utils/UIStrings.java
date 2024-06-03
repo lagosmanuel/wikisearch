@@ -1,6 +1,7 @@
 package utils;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 
 public class UIStrings {
     // Dialogs
@@ -14,32 +15,44 @@ public class UIStrings {
     public static final String ERROR_DIALOG_UI = "Something went wrong with UI!";
     public static final String ERROR_DIALOG_EXTRACTEMPTY = "Something went wrong extracting a page from the DB";
     public static final String RANKINGVIEW_RATENULLRESULT_DIALOG = "cannot rank null search result";
+    public static final String RANKINGVIEW_SEARCHNULL_DIALOG = "cannot search null search result";
 
     // MainView
     public static final String MAINVIEW_WINDOW_TITLE = "TV Series Info Repo";
+    public static final int MAINVIEW_WINDOW_WIDTH = 400;
+    public static final int MAINVIEW_WINDOW_HEIGHT = 400;
 
     // SearchView
     public static final String SEARCHVIEW_TAB_TITLE = "Search";
+    public static final int SEARCHVIEW_TAB_INDEX = 0;
     public static final String SEARCHVIEW_SEARCHBUTTON_TEXT = "Search!";
     public static final String SEARCHVIEW_SAVELOCALLYBUTTON_TEXT = "Save locally!";
     public static final String SEARCHVIEW_POPUP_LABEL = "Search Results";
+    public static final int SEARCHVIEW_SEARCHBUTTON_KEY = KeyEvent.VK_ENTER;
 
     // StoredInfoView
     public static final String STOREDINFOVIEW_TAB_TITLE = "StoredInfo";
+    public static final int STOREDINFOVIEW_TAB_INDEX = 1;
     public static final String STOREDINFOVIEW_SAVEITEM_TITLE = "Save!";
     public static final String STOREDINFOVIEW_DELETEITEM_TITLE = "Delete!";
 
     // RankingView
     public static final String RANKINGVIEW_TAB_TITLE = "Ranking";
+    public static final int RANKINGVIEW_TAB_INDEX = 2;
     public static final String RANKINGVIEW_LASTMODIFIED_LABEL = "Last Modified: ";
     public static final String RANKINGVIEW_SEARCHBUTTON_LABEL = "search";
+    public static final int RANKINGVIEW_SEARCHBUTTON_KEY = KeyEvent.VK_ENTER;
+    public static final String RANKINGVIEW_STARSPANEL_TITLE = "change score";
+    public static final int RANKINGVIEW_STARSPANEL_WIDTH = 300;
+    public static final int RANKINGVIEW_STARSPANEL_HEIGHT = 65;
 
     // Stars
     public static final String STAR_CHAR_EMPTY = "☆";
     public static final String STAR_CHAR_FULL = "★";
+    public static final String STAR_CHAR_DELETE = "⌫";
     public static final Color STAR_COLOR = Color.ORANGE;
     public static final String STAR_FONT_FAMILY = "Arial";
-    public static final int STAR_FONT_SIZE = 40;
+    public static final int STAR_FONT_SIZE = 20;
     public static final int SCORE_MAXSCORE = 10;
 
     // Wikipedia API
@@ -78,7 +91,6 @@ public class UIStrings {
 
     // EventListener
     public static final String EVENTLISTENER_TOPIC_DEFAULT = "all";
-    public static final String EVENTLISTENER_TOPIC_CURRENTRESULT = "current_result";
 
     // Page
     public static final String PAGE_PAGENOTFOUND_EXTRACT = "no result";

@@ -4,24 +4,24 @@ import models.BaseModel;
 import models.SearchResult;
 import models.repos.databases.SearchResultDataBase;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.Collection;
 
 public class GetSearchResultsModel extends BaseModel {
-    private final Map<String, SearchResult> lastResults;
+    private final Collection<SearchResult> lastResults;
 
     public GetSearchResultsModel() {
-        lastResults = new HashMap<>();
+        lastResults = new ArrayList<>();
     }
 
-    public Map<String, SearchResult> getLastResults() {
+    public Collection<SearchResult> getLastResults() {
         return lastResults;
     }
 
     public void getSavedSearchResults() {
         lastResults.clear();
         for (SearchResult result: SearchResultDataBase.getSearchResults())
-            lastResults.put(result.getTitle(), result);
+            lastResults.add(result);
         notifyListeners();
     }
 }
