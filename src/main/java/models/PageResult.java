@@ -6,13 +6,15 @@ public class PageResult {
     private String extract;
     private final int source;
     private byte[] thumbnail;
+    private String url;
 
-    public PageResult(String title, int pageID, String extract, int source, byte[] thumbnail) {
+    public PageResult(String title, int pageID, String extract, int source, byte[] thumbnail, String url) {
         this.title = title;
         this.pageID = pageID;
         this.extract = extract;
         this.source = source;
         this.thumbnail = thumbnail;
+        this.url = url;
     }
 
     public String getTitle() {
@@ -33,6 +35,10 @@ public class PageResult {
 
     public byte[] getThumbnail() {
         return thumbnail;
+    }
+
+    public String getUrl() {
+        return url;
     }
 
     public PageResult setExtract(String extract) {

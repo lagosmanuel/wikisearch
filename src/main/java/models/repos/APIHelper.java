@@ -71,13 +71,15 @@ public class APIHelper {
             JsonObject page = first.getValue().getAsJsonObject();
             String imageUrl = getPageImageUrl(pageId);
             byte[] thumbnail = fetchImage(imageUrl);
+            String pageUrl = UIStrings.API_BASEURL + "?curid=%d".formatted(pageId);
 
             pageResult = new PageResult(
                     page.get(UIStrings.API_TITLE_KEYWORD).getAsString(),
                     page.get(UIStrings.API_ID_KEYWORD).getAsInt(),
                     page.get(UIStrings.API_EXTRACT_KEYWORD).getAsString(),
                     page.get(UIStrings.API_SOURCE_KEYWORD).getAsInt(),
-                    thumbnail
+                    thumbnail,
+                    pageUrl
             );
 
         } catch (IOException e) {System.out.println(UIStrings.API_RETRIEVEPAGE_ERROR + e.getMessage());}

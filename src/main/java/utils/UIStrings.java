@@ -8,6 +8,7 @@ public class UIStrings {
     public static final String SEARCH_DIALOG_EMPTYTERM = "no term to search";
     public static final String SEARCH_DIALOG_NORESULT = "no term has found";
     public static final String SEARCH_DIALOG_RATEDNULLPAGE = "no page to rate";
+    public static final String SEARCH_DIALOG_NODESKTOP = "desktop is not supported";
     public static final String RETRIEVE_DIALOG_NOSELECTEDITEM = "no selected item to retrieve";
     public static final String SAVE_DIALOG_NOSELECTEDITEM = "no selected item to save";
     public static final String SAVE_DIALOG_SUCCESS = "the page was saved successfully";
@@ -80,6 +81,7 @@ public class UIStrings {
     public static final String DB_EXTRACT_KEYWORD = "extract";
     public static final String DB_SOURCE_KEYWORD = "source";
     public static final String DB_THUMBNAIL_KEYWORD = "thumbnail";
+    public static final String DB_URL_KEYWORD = "url";
     public static final String DB_LOADDB_ERROR = "error loading the database: ";
     public static final String DB_UPDATEPAGE_ERROR = "error updating a page: ";
     public static final String DB_UPDATESEARCHRESULT_ERROR = "error saving the results: ";
@@ -94,4 +96,5 @@ public class UIStrings {
 
     // Page
     public static final String PAGE_PAGENOTFOUND_EXTRACT = "no result";
+    public static final String PAGE_LINK_MSG = "view in wikipedia";
 }

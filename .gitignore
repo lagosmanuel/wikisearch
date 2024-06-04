@@ -38,3 +38,4 @@ gradlew.bat
 # Project
 .project
 .settings/
+*.MF

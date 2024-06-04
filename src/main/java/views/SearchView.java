@@ -7,9 +7,13 @@ import views.components.SearchResultItem;
 import views.components.StarsPanel;
 
 import javax.swing.*;
+import javax.swing.event.HyperlinkEvent;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.Collection;
 
 public class SearchView {
@@ -36,6 +40,7 @@ public class SearchView {
         searchButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         saveLocallyButton.setText(UIStrings.SEARCHVIEW_SAVELOCALLYBUTTON_TEXT);
         saveLocallyButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        resultTextPane.setEditable(false);
         scorePanel.add(starsPanel);
         initListeners();
     }
@@ -59,6 +64,9 @@ public class SearchView {
                 if (e.getKeyChar() == UIStrings.SEARCHVIEW_SEARCHBUTTON_KEY)
                     searchPresenter.onSearchTerm();
             }
+        });
+        resultTextPane.addHyperlinkListener(e -> {
+            if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) openLinkInBrowser(e.getURL());
         });
     }
 
@@ -117,5 +125,12 @@ public class SearchView {
                 searchPresenter.onRetrievePage();
             });
         searchOptionsMenu.show(searchTextField, searchTextField.getX(), searchTextField.getY()+searchTextField.getHeight());
+    }
+
+    private void openLinkInBrowser(URL url) {
+        try {
+            if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) Desktop.getDesktop().browse(url.toURI());
+            else showMessageDialog(UIStrings.SEARCH_DIALOG_NODESKTOP);
+        } catch (IOException | URISyntaxException e) {throw new RuntimeException(e);}
     }
 }

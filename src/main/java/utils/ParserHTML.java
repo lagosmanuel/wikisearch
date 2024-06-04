@@ -35,9 +35,11 @@ public class ParserHTML {
                         textToHtml(
                                 "<h1>" + pageResult.getTitle() + "</h1>"
                                         + pageResult.getExtract().replace("\\n", "\n")
+                                        + "<a href=\"%s\">%s</a>".formatted(pageResult.getUrl(), UIStrings.PAGE_LINK_MSG)
                         ),
                 pageResult.getSource(),
-                pageResult.getThumbnail()
+                pageResult.getThumbnail(),
+                pageResult.getUrl()
         );
     }
 }
