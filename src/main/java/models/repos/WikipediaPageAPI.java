@@ -8,5 +8,8 @@ public interface WikipediaPageAPI {
   //The parameter explaintext=1 was removed to get a html formated answer... //TODO
   //It should work as intended, but we didn't test it properly.
   @GET("api.php?format=json&action=query&prop=extracts&exlimit=1&exintro=1")
-  Call<String> getExtractByPageID(@Query("pageids") String term);
+  Call<String> getExtractByPageID(@Query("pageids") int pageid);
+
+  @GET("https://en.wikipedia.org/w/api.php?action=query&prop=pageimages&format=json&piprop=original&pageids=30304&pilicense=any")
+  Call<String> getPageByPageId(@Query("pageids") int pageid);
 }

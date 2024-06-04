@@ -16,7 +16,7 @@ public class SearchTermModel extends BaseModel {
 
     public void searchTerm(String term) {
         lastSearchResults = APIHelper.getInstance().searchTerm(term);
-        for (SearchResult searchResult: lastSearchResults) {
+        for (SearchResult searchResult:lastSearchResults) {
             SearchResult savedSearchResult = SearchResultDataBase.getSearchResultByTitle(searchResult.getTitle());
             if (savedSearchResult != null) searchResult.setScore(savedSearchResult.getScore());
         }

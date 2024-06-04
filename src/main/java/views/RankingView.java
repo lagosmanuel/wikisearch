@@ -70,7 +70,7 @@ public class RankingView {
     public void updateRankingList(Collection<SearchResult> results) {
         SwingUtilities.invokeLater(() -> {
             DefaultListModel listModel = new DefaultListModel<SearchResult>();
-            for (SearchResult result : results) listModel.addElement(result);
+            for (SearchResult result:results) listModel.addElement(result);
             rankingList.setModel(listModel);
         });
     }

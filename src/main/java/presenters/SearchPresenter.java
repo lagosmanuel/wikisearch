@@ -5,12 +5,11 @@ import models.search.UpdateSearchResultsModel;
 import models.pages.RetrievePageModel;
 import models.pages.SavePageModel;
 import models.search.SearchTermModel;
+import utils.ParserHTML;
 import utils.UIStrings;
 import views.SearchView;
 
 import java.util.*;
-
-import static utils.ParserHTML.textToHtml;
 
 public class SearchPresenter {
     private SearchView searchView;
@@ -41,7 +40,7 @@ public class SearchPresenter {
         });
 
         retrievePageModel.addEventListener(() -> {
-            lastPageResult = formatPageResult(retrievePageModel.getLastResult());
+            lastPageResult = ParserHTML.formatPageResult(retrievePageModel.getLastResult());
             searchView.setResultTextPane(lastPageResult.getExtract());
             searchView.setScore(searchView.getSelectedResult().getScore());
         });
@@ -99,19 +98,5 @@ public class SearchPresenter {
             if (searchView.getSelectedResult() != null) updateSearchResultsModel.updateSearchResult(searchView.getSelectedResult().setScore(searchView.getScore()));
             else searchView.showMessageDialog(UIStrings.SEARCH_DIALOG_RATEDNULLPAGE);
         }).start();
-    }
-
-    private PageResult formatPageResult(PageResult pageResult) {
-        return new PageResult(
-                pageResult.getTitle(),
-                pageResult.getPageID(),
-                pageResult.getExtract().isEmpty()?
-                        UIStrings.PAGE_PAGENOTFOUND_EXTRACT:
-                        textToHtml(
-                            "<h1>" + pageResult.getTitle() + "</h1>"
-                                   + pageResult.getExtract().replace("\\n", "\n")
-                        ),
-               pageResult.getSource()
-        );
     }
 }

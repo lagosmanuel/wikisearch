@@ -11,7 +11,10 @@ import retrofit2.Retrofit;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 import utils.UIStrings;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.*;
 
 public class APIHelper {
@@ -58,7 +61,7 @@ public class APIHelper {
     public PageResult retrievePage(int pageId) {
         PageResult pageResult = null;
         try {
-            Response<String> callForPageResponse = pageAPI.getExtractByPageID(String.valueOf(pageId)).execute();
+            Response<String> callForPageResponse = pageAPI.getExtractByPageID(pageId).execute();
             Gson gson = new Gson();
             JsonObject jsonObject = gson.fromJson(callForPageResponse.body(), JsonObject.class);
             JsonObject query = jsonObject.get(UIStrings.API_QUERY_KEYWORD).getAsJsonObject();
@@ -66,14 +69,47 @@ public class APIHelper {
             Set<Map.Entry<String, JsonElement>> pagesSet = pages.entrySet();
             Map.Entry<String, JsonElement> first = pagesSet.iterator().next();
             JsonObject page = first.getValue().getAsJsonObject();
+            String imageUrl = getPageImageUrl(pageId);
+            byte[] thumbnail = fetchImage(imageUrl);
 
             pageResult = new PageResult(
                     page.get(UIStrings.API_TITLE_KEYWORD).getAsString(),
                     page.get(UIStrings.API_ID_KEYWORD).getAsInt(),
                     page.get(UIStrings.API_EXTRACT_KEYWORD).getAsString(),
-                    page.get(UIStrings.API_SOURCE_KEYWORD).getAsInt());
+                    page.get(UIStrings.API_SOURCE_KEYWORD).getAsInt(),
+                    thumbnail
+            );
 
         } catch (IOException e) {System.out.println(UIStrings.API_RETRIEVEPAGE_ERROR + e.getMessage());}
         return pageResult;
+    }
+
+    private String getPageImageUrl(int pageId) {
+        String imageurl = "";
+        try {
+            Response<String> callForPageResponse = pageAPI.getPageByPageId(pageId).execute();
+            Gson gson = new Gson();
+            JsonObject jsonObject = gson.fromJson(callForPageResponse.body(), JsonObject.class);
+            JsonObject query = jsonObject.get(UIStrings.API_QUERY_KEYWORD).getAsJsonObject();
+            JsonObject pages = query.get(UIStrings.API_PAGES_KEYWORD).getAsJsonObject();
+            Set<Map.Entry<String, JsonElement>> pagesSet = pages.entrySet();
+            Map.Entry<String, JsonElement> first = pagesSet.iterator().next();
+            JsonObject page = first.getValue().getAsJsonObject();
+            imageurl = page.getAsJsonObject().get("original").getAsJsonObject().get("source").getAsString();
+        } catch (IOException e) {System.out.println(UIStrings.API_RETRIEVEPAGE_ERROR + e.getMessage());}
+        return imageurl;
+    }
+
+    private byte[] fetchImage(String url) throws IOException {
+        URL imageUrl = new URL(url);
+        InputStream inputStream = imageUrl.openStream();
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
+        int bytesRead;
+        while ((bytesRead = inputStream.read(buffer)) != -1)
+            outputStream.write(buffer, 0, bytesRead);
+        System.out.println(url);
+        System.out.println(Base64.getEncoder().encodeToString(outputStream.toByteArray()));
+        return outputStream.toByteArray();
     }
 }

@@ -5,12 +5,14 @@ public class PageResult {
     private final int pageID;
     private String extract;
     private final int source;
+    private byte[] thumbnail;
 
-    public PageResult(String title, int pageID, String extract, int source) {
+    public PageResult(String title, int pageID, String extract, int source, byte[] thumbnail) {
         this.title = title;
         this.pageID = pageID;
         this.extract = extract;
         this.source = source;
+        this.thumbnail = thumbnail;
     }
 
     public String getTitle() {
@@ -27,6 +29,10 @@ public class PageResult {
 
     public int getSource() {
         return source;
+    }
+
+    public byte[] getThumbnail() {
+        return thumbnail;
     }
 
     public PageResult setExtract(String extract) {

@@ -8,8 +8,6 @@ import models.pages.SavedTitlesModel;
 import utils.UIStrings;
 import views.StoredInfoView;
 
-import static utils.ParserHTML.textToHtml;
-
 public class StoredInfoPresenter {
     private StoredInfoView storedInfoView;
     private final SavePageModel savePageModel;
@@ -45,7 +43,7 @@ public class StoredInfoPresenter {
 
         loadPageModel.addEventListener(() -> {
             lastPageResult = loadPageModel.getLastResult();
-            if (lastPageResult != null) storedInfoView.setResultTextPane(textToHtml(lastPageResult.getExtract()));
+            if (lastPageResult != null) storedInfoView.setResultTextPane(lastPageResult.getExtract());
             else storedInfoView.showMessageDialog(UIStrings.ERROR_DIALOG_EXTRACTEMPTY);
         });
 

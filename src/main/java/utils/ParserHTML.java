@@ -1,8 +1,10 @@
 package utils;
 
+import models.PageResult;
 import models.SearchResult;
 
 public class ParserHTML {
+    // todo: esto vuela
     public static String textToHtml(String text) {
         return "<font face=\"arial\">" + text + "</font>";
     }
@@ -22,5 +24,20 @@ public class ParserHTML {
 
         return searchResultHTML.replace("<span class=\"searchmatch\">", "")
                                .replace("</span>", ""); //TODO: que es esto;
+    }
+
+    public static PageResult formatPageResult(PageResult pageResult) {
+        return new PageResult(
+                pageResult.getTitle(),
+                pageResult.getPageID(),
+                pageResult.getExtract().isEmpty()?
+                        UIStrings.PAGE_PAGENOTFOUND_EXTRACT:
+                        textToHtml(
+                                "<h1>" + pageResult.getTitle() + "</h1>"
+                                        + pageResult.getExtract().replace("\\n", "\n")
+                        ),
+                pageResult.getSource(),
+                pageResult.getThumbnail()
+        );
     }
 }

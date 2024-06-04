@@ -10,7 +10,7 @@ import java.util.Collection;
 
 public class CatalogDataBase extends DataBase {
     public static void load() {
-        try{ executeUpdate("create table if not exists catalog (id integer, title string primary key, extract string, source integer)");
+        try{ executeUpdate("create table if not exists catalog (id integer, title string primary key, extract string, source integer, thumbnail blob)");
         } catch (SQLException e) {System.err.println(UIStrings.DB_LOADDB_ERROR + e.getMessage());}
     }
 
@@ -38,11 +38,12 @@ public class CatalogDataBase extends DataBase {
     }
 
     public static void updatePage(PageResult pageResult) {
-        try (PreparedStatement preparedStatement = getConnection().prepareStatement("replace into catalog values(?, ?, ?, ?)")){
+        try (PreparedStatement preparedStatement = getConnection().prepareStatement("replace into catalog values(?, ?, ?, ?, ?)")){
             preparedStatement.setInt(1, pageResult.getPageID());
             preparedStatement.setString(2, pageResult.getTitle());
             preparedStatement.setString(3, pageResult.getExtract());
             preparedStatement.setInt(4, pageResult.getSource());
+            preparedStatement.setBytes(5, pageResult.getThumbnail());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {System.err.println(UIStrings.DB_UPDATEPAGE_ERROR + e.getMessage());}
     }
@@ -61,7 +62,8 @@ public class CatalogDataBase extends DataBase {
             resultSet.getString(UIStrings.DB_TITLE_KEYWORD),
             resultSet.getInt(UIStrings.DB_ID_KEYWORD),
             resultSet.getString(UIStrings.DB_EXTRACT_KEYWORD),
-            resultSet.getInt(UIStrings.DB_SOURCE_KEYWORD)
+            resultSet.getInt(UIStrings.DB_SOURCE_KEYWORD),
+            resultSet.getBytes(UIStrings.DB_THUMBNAIL_KEYWORD)
         );
     }
 }

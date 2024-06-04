@@ -79,7 +79,7 @@ public class UIStrings {
     public static final String DB_LASTMODIFIED_KEYWORD = "lastmodified";
     public static final String DB_EXTRACT_KEYWORD = "extract";
     public static final String DB_SOURCE_KEYWORD = "source";
-
+    public static final String DB_THUMBNAIL_KEYWORD = "thumbnail";
     public static final String DB_LOADDB_ERROR = "error loading the database: ";
     public static final String DB_UPDATEPAGE_ERROR = "error updating a page: ";
     public static final String DB_UPDATESEARCHRESULT_ERROR = "error saving the results: ";
