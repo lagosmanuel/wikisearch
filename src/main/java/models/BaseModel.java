@@ -31,6 +31,8 @@ public abstract class BaseModel {
     }
 
     public void notifyListeners() {
-        for (EventListener listener:listeners.get(UIStrings.EVENTLISTENER_TOPIC_DEFAULT)) listener.onEvent();
+        if (!listeners.containsKey(UIStrings.EVENTLISTENER_TOPIC_DEFAULT)) return;
+        for (EventListener listener:listeners.get(UIStrings.EVENTLISTENER_TOPIC_DEFAULT))
+            listener.onEvent();
     }
 }

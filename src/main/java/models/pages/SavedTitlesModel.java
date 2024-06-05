@@ -3,20 +3,22 @@ package models.pages;
 import models.BaseModel;
 import models.repos.databases.CatalogDataBase;
 
+import java.util.Collection;
+
 public class SavedTitlesModel extends BaseModel {
     private final CatalogDataBase catalogDataBase;
-    private Object[] lastResults;
+    private Collection<String> lastResults;
 
     public SavedTitlesModel(CatalogDataBase catalogDataBase) {
         this.catalogDataBase = catalogDataBase;
     }
 
     public void getSavedTitles() {
-        lastResults = catalogDataBase.getPageTitles().stream().sorted().toArray();
+        lastResults = catalogDataBase.getPageTitles();
         notifyListeners();
     }
 
-    public Object[] getLastResults() {
+    public Collection<String> getLastResults() {
         return lastResults;
     }
 }

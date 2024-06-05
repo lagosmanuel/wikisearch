@@ -50,7 +50,7 @@ public class StoredInfoPresenter {
         });
 
         savedTitlesModel.addEventListener(() -> {
-            storedInfoView.updateComboBox(savedTitlesModel.getLastResults());
+            storedInfoView.updateComboBox(savedTitlesModel.getLastResults().toArray());
             if (storedInfoView.comboBoxHasItems()) {
                 storedInfoView.setEnable(true);
                 onSelectedItem();

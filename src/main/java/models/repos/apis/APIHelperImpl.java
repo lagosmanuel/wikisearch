@@ -90,7 +90,7 @@ public class APIHelperImpl implements APIHelper {
             Map.Entry<String, JsonElement> first = pagesSet.iterator().next();
             JsonObject page = first.getValue().getAsJsonObject();
             JsonElement original = page.getAsJsonObject().get(UIStrings.API_ORIGINAL_KEYWORD);
-            if (original == null) return ""; // TODO: no tiene imagen
+            if (original == null) return "";
             JsonElement source = original.getAsJsonObject().get(UIStrings.API_SOURCE_KEYWORD);
             imageurl = source.getAsString();
         } catch (IOException e) {System.out.println(UIStrings.API_RETRIEVEPAGE_ERROR + e.getMessage());}

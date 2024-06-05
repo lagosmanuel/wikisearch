@@ -19,13 +19,13 @@ public class ParserHTML {
         String searchResultHTML = "<html>"+rateHTML+titleHTML+": "+snippetHTML+lastmodifiedHTML+"</html>";
 
         return searchResultHTML.replace("<span class=\"searchmatch\">", "")
-                               .replace("</span>", ""); //TODO: que es esto;
+                               .replace("</span>", "");
     }
 
     public static PageResult formatPageResult(PageResult pageResult) {
         return pageResult.setExtract(
             "<font face=\"arial\">"
-                + (pageResult.hasThumbnail()?"<img src=\"%s/%d\">".formatted(UIStrings.IMAGECACHE_BASEURL, pageResult.getPageID()):"") // TODO: esta feo?
+                + (pageResult.hasThumbnail()?"<img src=\"%s/%d\">".formatted(UIStrings.IMAGECACHE_BASEURL, pageResult.getPageID()):"")
                 + "<h1>" + pageResult.getTitle() + "</h1>"
                 + pageResult.getExtract().replace("\\n", "\n")
                 + "<a href=\"%s\">%s</a>".formatted(pageResult.getUrl(), UIStrings.PAGE_LINK_MSG)
