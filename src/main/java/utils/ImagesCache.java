@@ -10,20 +10,28 @@ import java.util.Hashtable;
 
 @SuppressWarnings({"unchecked", "rawtypes"})
 public class ImagesCache {
-    static Dictionary cache;
+    private Dictionary cache;
+    private static ImagesCache instance;
 
-    public static void saveImageToCache(byte[] image, String key) {
+    private ImagesCache() {
+        cache = new Hashtable();
+    }
+
+    public static ImagesCache getInstance() {
+        if (instance == null) instance = new ImagesCache();
+        return instance;
+    }
+
+    public void saveImageToCache(byte[] image, String key) {
         try {
             String url = UIStrings.IMAGECACHE_BASEURL + "/%s".formatted(key);
-            if (cache == null) cache = new Hashtable();
             if (cache.get(url) != null || image == null) return;
             BufferedImage bufferedImage = ImageIO.read(new ByteArrayInputStream(image));
             cache.put(new URL(url), bufferedImage);
         } catch (IOException e) {System.err.println(UIStrings.IMAGECACHE_DIALOG_SAVEERROR);}
     }
 
-    public static Dictionary getCache() {
-        if (cache == null) cache = new Hashtable();
+    public Dictionary getCache() {
         return cache;
     }
 }

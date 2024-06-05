@@ -42,7 +42,7 @@ public class SearchView {
         saveLocallyButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         resultTextPane.setContentType("text/html");
         resultTextPane.setEditable(false);
-        resultTextPane.getDocument().putProperty("imageCache", ImagesCache.getCache());
+        resultTextPane.getDocument().putProperty("imageCache", ImagesCache.getInstance().getCache());
         scorePanel.add(starsPanel);
         initListeners();
     }

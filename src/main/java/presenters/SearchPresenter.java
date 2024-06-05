@@ -42,7 +42,7 @@ public class SearchPresenter {
 
         retrievePageModel.addEventListener(() -> {
             lastPageResult = ParserHTML.formatPageResult(retrievePageModel.getLastResult());
-            ImagesCache.saveImageToCache(lastPageResult.getThumbnail(), String.valueOf(lastPageResult.getPageID()));
+            ImagesCache.getInstance().saveImageToCache(lastPageResult.getThumbnail(), String.valueOf(lastPageResult.getPageID()));
             searchView.setResultTextPane(lastPageResult.getExtract());
             searchView.setScore(searchView.getSelectedResult().getScore());
         });

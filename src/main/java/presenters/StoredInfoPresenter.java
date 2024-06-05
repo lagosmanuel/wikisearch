@@ -44,7 +44,7 @@ public class StoredInfoPresenter {
 
         loadPageModel.addEventListener(() -> {
             lastPageResult = loadPageModel.getLastResult();
-            ImagesCache.saveImageToCache(lastPageResult.getThumbnail(), String.valueOf(lastPageResult.getPageID()));
+            ImagesCache.getInstance().saveImageToCache(lastPageResult.getThumbnail(), String.valueOf(lastPageResult.getPageID()));
             if (lastPageResult != null) storedInfoView.setResultTextPane(lastPageResult.getExtract());
             else storedInfoView.showMessageDialog(UIStrings.ERROR_DIALOG_EXTRACTEMPTY);
         });

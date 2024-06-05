@@ -25,7 +25,7 @@ public class StoredInfoView {
         storedInfoPopup.add(deleteItem);
         resultTextPane.setContentType("text/html");
         resultTextPane.setComponentPopupMenu(storedInfoPopup);
-        resultTextPane.getDocument().putProperty("imageCache", ImagesCache.getCache());
+        resultTextPane.getDocument().putProperty("imageCache", ImagesCache.getInstance().getCache());
         initListeners();
     }
 
