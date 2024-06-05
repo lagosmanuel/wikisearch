@@ -108,4 +108,7 @@ public class UIStrings {
 
     // Fonts
     public static final Font DEFAULT_FONT = new Font("arial", Font.BOLD, 18);
+
+    // Icons
+    public static final String IMAGEICON_PATH = "images/icon.png";
 }

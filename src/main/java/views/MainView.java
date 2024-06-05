@@ -47,7 +47,7 @@ public class MainView {
     private void setupFrameWindow() {
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame(UIStrings.MAINVIEW_WINDOW_TITLE);
-
+            frame.setIconImage(new ImageIcon(UIStrings.IMAGEICON_PATH).getImage());
             frame.setContentPane(contentPane);
             frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
             frame.setResizable(false);
