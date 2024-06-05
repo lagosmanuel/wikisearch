@@ -10,7 +10,7 @@ import java.util.Hashtable;
 
 @SuppressWarnings({"unchecked", "rawtypes"})
 public class ImagesCache {
-    private Dictionary cache;
+    private final Dictionary cache;
     private static ImagesCache instance;
 
     private ImagesCache() {

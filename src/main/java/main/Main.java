@@ -1,5 +1,9 @@
 package main;
 
+import models.repos.apis.APIHelperImpl;
+import models.repos.apis.APIHelper;
+import models.repos.databases.CatalogDataBase;
+import models.repos.databases.SearchResultDataBase;
 import models.search.UpdateSearchResultsModel;
 import models.pages.DeletePageModel;
 import models.pages.RetrievePageModel;
@@ -8,8 +12,8 @@ import models.search.SearchTermModel;
 import models.pages.LoadPageModel;
 import models.search.GetSearchResultsModel;
 import models.pages.SavedTitlesModel;
-import models.repos.databases.CatalogDataBase;
-import models.repos.databases.SearchResultDataBase;
+import models.repos.databases.CatalogDataBaseImpl;
+import models.repos.databases.SearchResultDataBaseImpl;
 import presenters.RankingPresenter;
 import presenters.SearchPresenter;
 import presenters.StoredInfoPresenter;
@@ -17,17 +21,18 @@ import views.MainView;
 
 public class Main {
     public static void main(String[] args) {
-        CatalogDataBase.load();
-        SearchResultDataBase.load();
+        CatalogDataBase catalogDataBase = new CatalogDataBaseImpl();
+        SearchResultDataBase searchResultDataBase = new SearchResultDataBaseImpl();
+        APIHelper apiHelper = new APIHelperImpl();
 
-        SearchTermModel searchTermModel = new SearchTermModel();
-        RetrievePageModel retrievePageModel = new RetrievePageModel();
-        SavePageModel savePageModel = new SavePageModel();
-        DeletePageModel deletePageModel = new DeletePageModel();
-        LoadPageModel loadPageModel = new LoadPageModel();
-        SavedTitlesModel savedTitlesModel = new SavedTitlesModel();
-        GetSearchResultsModel getSearchResultsModel = new GetSearchResultsModel();
-        UpdateSearchResultsModel updateSearchResultsModel = new UpdateSearchResultsModel();
+        SearchTermModel searchTermModel = new SearchTermModel(searchResultDataBase, apiHelper);
+        RetrievePageModel retrievePageModel = new RetrievePageModel(apiHelper);
+        SavePageModel savePageModel = new SavePageModel(catalogDataBase);
+        DeletePageModel deletePageModel = new DeletePageModel(catalogDataBase);
+        LoadPageModel loadPageModel = new LoadPageModel(catalogDataBase);
+        SavedTitlesModel savedTitlesModel = new SavedTitlesModel(catalogDataBase);
+        GetSearchResultsModel getSearchResultsModel = new GetSearchResultsModel(searchResultDataBase);
+        UpdateSearchResultsModel updateSearchResultsModel = new UpdateSearchResultsModel(searchResultDataBase);
 
         MainView mainView = new MainView();
 

@@ -1,6 +1,5 @@
-package models.repos;
+package models.repos.apis;
 
-import com.formdev.flatlaf.json.Json;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -17,18 +16,12 @@ import java.io.*;
 import java.util.*;
 
 
-public class APIHelper {
+public class APIHelperImpl implements APIHelper {
     protected final WikipediaSearchAPI searchAPI;
     protected final WikipediaPageAPI pageAPI;
-    protected static APIHelper instance;
-    protected static Gson gson;
+    protected final Gson gson;
 
-    public static APIHelper getInstance() {
-        if (instance == null) instance = new APIHelper();
-        return instance;
-    }
-
-    private APIHelper() {
+    public APIHelperImpl() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(UIStrings.API_BASEURL)
                 .addConverterFactory(ScalarsConverterFactory.create())

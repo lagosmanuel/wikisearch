@@ -8,9 +8,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class GetSearchResultsModel extends BaseModel {
+    private final SearchResultDataBase searchResultDataBase;
     private final Collection<SearchResult> lastResults;
 
-    public GetSearchResultsModel() {
+    public GetSearchResultsModel(SearchResultDataBase searchResultDataBase) {
+        this.searchResultDataBase = searchResultDataBase;
         lastResults = new ArrayList<>();
     }
 
@@ -20,7 +22,7 @@ public class GetSearchResultsModel extends BaseModel {
 
     public void getSavedSearchResults() {
         lastResults.clear();
-        lastResults.addAll(SearchResultDataBase.getSearchResults());
+        lastResults.addAll(searchResultDataBase.getSearchResults());
         notifyListeners();
     }
 }

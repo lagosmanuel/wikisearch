@@ -1,4 +1,4 @@
-package models.repos;
+package models.repos.apis;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
