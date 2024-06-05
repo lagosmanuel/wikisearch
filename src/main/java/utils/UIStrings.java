@@ -17,6 +17,7 @@ public class UIStrings {
     public static final String ERROR_DIALOG_EXTRACTEMPTY = "Something went wrong extracting a page from the DB";
     public static final String RANKINGVIEW_RATENULLRESULT_DIALOG = "cannot rank null search result";
     public static final String RANKINGVIEW_SEARCHNULL_DIALOG = "cannot search null search result";
+    public static final String IMAGECACHE_DIALOG_SAVEERROR = "error saving the image in the cache";
 
     // MainView
     public static final String MAINVIEW_WINDOW_TITLE = "TV Series Info Repo";
@@ -63,10 +64,12 @@ public class UIStrings {
     public static final String API_PAGES_KEYWORD = "pages";
     public static final String API_SEARCH_KEYWORD = "search";
     public static final String API_TITLE_KEYWORD = "title";
+    public static final String API_ORIGINAL_KEYWORD = "original";
+    public static final String API_SOURCE_KEYWORD = "source";
     public static final String API_ID_KEYWORD = "pageid";
     public static final String API_SNIPPET_KEYWORD = "snippet";
     public static final String API_EXTRACT_KEYWORD = "extract";
-    public static final String API_SOURCE_KEYWORD = "ns";
+    public static final String API_NS_KEYWORD = "ns";
     public static final String API_SEARCHTERM_ERROR = "error searching term in api";
     public static final String API_RETRIEVEPAGE_ERROR = "error retrieven page";
 
@@ -97,4 +100,7 @@ public class UIStrings {
     // Page
     public static final String PAGE_PAGENOTFOUND_EXTRACT = "no result";
     public static final String PAGE_LINK_MSG = "view in wikipedia";
+
+    // ImageCacje
+    public static final String IMAGECACHE_BASEURL = "http://buffered";
 }

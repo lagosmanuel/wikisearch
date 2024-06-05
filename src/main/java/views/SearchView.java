@@ -2,6 +2,7 @@ package views;
 
 import models.SearchResult;
 import presenters.SearchPresenter;
+import utils.ImagesCache;
 import utils.UIStrings;
 import views.components.SearchResultItem;
 import views.components.StarsPanel;
@@ -35,12 +36,13 @@ public class SearchView {
     }
 
     private void init() {
-        resultTextPane.setContentType("text/html");
         searchButton.setText(UIStrings.SEARCHVIEW_SEARCHBUTTON_TEXT);
         searchButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         saveLocallyButton.setText(UIStrings.SEARCHVIEW_SAVELOCALLYBUTTON_TEXT);
         saveLocallyButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        resultTextPane.setContentType("text/html");
         resultTextPane.setEditable(false);
+        resultTextPane.getDocument().putProperty("imageCache", ImagesCache.getCache());
         scorePanel.add(starsPanel);
         initListeners();
     }

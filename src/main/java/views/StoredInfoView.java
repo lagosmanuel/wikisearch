@@ -1,6 +1,7 @@
 package views;
 
 import presenters.StoredInfoPresenter;
+import utils.ImagesCache;
 import utils.UIStrings;
 
 import javax.swing.*;
@@ -17,13 +18,14 @@ public class StoredInfoView {
     private final JMenuItem saveItem;
 
     public StoredInfoView() {
-        resultTextPane.setContentType("text/html");
         JPopupMenu storedInfoPopup = new JPopupMenu();
         saveItem = new JMenuItem(UIStrings.STOREDINFOVIEW_SAVEITEM_TITLE);
         deleteItem = new JMenuItem(UIStrings.STOREDINFOVIEW_DELETEITEM_TITLE);
         storedInfoPopup.add(saveItem);
         storedInfoPopup.add(deleteItem);
+        resultTextPane.setContentType("text/html");
         resultTextPane.setComponentPopupMenu(storedInfoPopup);
+        resultTextPane.getDocument().putProperty("imageCache", ImagesCache.getCache());
         initListeners();
     }
 
@@ -41,6 +43,7 @@ public class StoredInfoView {
         storedInfoPresenter = presenter;
     }
 
+    @SuppressWarnings({"unchecked", "rawtypes"})
     public void updateComboBox(Object[] items) {
         comboBox.setModel(new DefaultComboBoxModel(items));
     }

@@ -3,7 +3,6 @@ package views;
 import models.SearchResult;
 import presenters.RankingPresenter;
 import utils.UIStrings;
-import views.components.SearchResultRender;
 import views.components.StarsPanel;
 
 import javax.swing.*;
@@ -36,7 +35,6 @@ public class RankingView {
         starsPanelDialog.setResizable(false);
         searchButton.setText(UIStrings.RANKINGVIEW_SEARCHBUTTON_LABEL);
         searchButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        rankingList.setCellRenderer(new SearchResultRender());
         initListeners();
     }
 
@@ -67,6 +65,7 @@ public class RankingView {
         mainView = view;
     }
 
+    @SuppressWarnings({"unchecked", "rawtypes"})
     public void updateRankingList(Collection<SearchResult> results) {
         SwingUtilities.invokeLater(() -> {
             DefaultListModel listModel = new DefaultListModel<SearchResult>();

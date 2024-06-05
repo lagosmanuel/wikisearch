@@ -5,6 +5,7 @@ import models.pages.DeletePageModel;
 import models.pages.LoadPageModel;
 import models.pages.SavePageModel;
 import models.pages.SavedTitlesModel;
+import utils.ImagesCache;
 import utils.UIStrings;
 import views.StoredInfoView;
 
@@ -43,6 +44,7 @@ public class StoredInfoPresenter {
 
         loadPageModel.addEventListener(() -> {
             lastPageResult = loadPageModel.getLastResult();
+            ImagesCache.saveImageToCache(lastPageResult.getThumbnail(), String.valueOf(lastPageResult.getPageID()));
             if (lastPageResult != null) storedInfoView.setResultTextPane(lastPageResult.getExtract());
             else storedInfoView.showMessageDialog(UIStrings.ERROR_DIALOG_EXTRACTEMPTY);
         });

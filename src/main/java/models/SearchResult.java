@@ -1,5 +1,7 @@
 package models;
 
+import utils.ParserHTML;
+
 public class SearchResult {
     private final String title;
     private final int pageID;
@@ -44,5 +46,10 @@ public class SearchResult {
     public SearchResult setScore(int score) {
        this.score = score;
        return this;
+    }
+
+    @Override
+    public String toString() {
+        return ParserHTML.searchResultToHtml(this);
     }
 }

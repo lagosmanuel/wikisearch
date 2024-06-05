@@ -5,6 +5,7 @@ import models.search.UpdateSearchResultsModel;
 import models.pages.RetrievePageModel;
 import models.pages.SavePageModel;
 import models.search.SearchTermModel;
+import utils.ImagesCache;
 import utils.ParserHTML;
 import utils.UIStrings;
 import views.SearchView;
@@ -41,6 +42,7 @@ public class SearchPresenter {
 
         retrievePageModel.addEventListener(() -> {
             lastPageResult = ParserHTML.formatPageResult(retrievePageModel.getLastResult());
+            ImagesCache.saveImageToCache(lastPageResult.getThumbnail(), String.valueOf(lastPageResult.getPageID()));
             searchView.setResultTextPane(lastPageResult.getExtract());
             searchView.setScore(searchView.getSelectedResult().getScore());
         });

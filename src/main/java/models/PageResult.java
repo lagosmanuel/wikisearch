@@ -5,8 +5,8 @@ public class PageResult {
     private final int pageID;
     private String extract;
     private final int source;
-    private byte[] thumbnail;
-    private String url;
+    private final byte[] thumbnail;
+    private final String url;
 
     public PageResult(String title, int pageID, String extract, int source, byte[] thumbnail, String url) {
         this.title = title;
@@ -39,6 +39,10 @@ public class PageResult {
 
     public String getUrl() {
         return url;
+    }
+
+    public boolean hasThumbnail() {
+        return thumbnail != null;
     }
 
     public PageResult setExtract(String extract) {

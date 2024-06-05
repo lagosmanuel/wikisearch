@@ -4,10 +4,6 @@ import models.PageResult;
 import models.SearchResult;
 
 public class ParserHTML {
-    // todo: esto vuela
-    public static String textToHtml(String text) {
-        return "<font face=\"arial\">" + text + "</font>";
-    }
 
     public static String searchResultToHtml(SearchResult searchResult) {
         String title = searchResult.getTitle();
@@ -27,19 +23,13 @@ public class ParserHTML {
     }
 
     public static PageResult formatPageResult(PageResult pageResult) {
-        return new PageResult(
-                pageResult.getTitle(),
-                pageResult.getPageID(),
-                pageResult.getExtract().isEmpty()?
-                        UIStrings.PAGE_PAGENOTFOUND_EXTRACT:
-                        textToHtml(
-                                "<h1>" + pageResult.getTitle() + "</h1>"
-                                        + pageResult.getExtract().replace("\\n", "\n")
-                                        + "<a href=\"%s\">%s</a>".formatted(pageResult.getUrl(), UIStrings.PAGE_LINK_MSG)
-                        ),
-                pageResult.getSource(),
-                pageResult.getThumbnail(),
-                pageResult.getUrl()
+        return pageResult.setExtract(
+                "<font face=\"arial\">"
+                        + (pageResult.hasThumbnail()?"<img src=\"%s/%d\">".formatted(UIStrings.IMAGECACHE_BASEURL, pageResult.getPageID()):"") // TODO: esta feo?
+                        + "<h1>" + pageResult.getTitle() + "</h1>"
+                        + pageResult.getExtract().replace("\\n", "\n")
+                        + "<a href=\"%s\">%s</a>".formatted(pageResult.getUrl(), UIStrings.PAGE_LINK_MSG)
+                +"</font>"
         );
     }
 }
