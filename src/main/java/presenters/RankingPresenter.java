@@ -43,10 +43,12 @@ public class RankingPresenter {
     }
 
     public void onSearch() {
-        if( rankingView.isItemSelected()) {
-            searchPresenter.onRetrievePage(rankingView.getSelectedResult());
-            rankingView.showSearchView();
-        } else rankingView.showDialog(UIStrings.RANKINGVIEW_SEARCHNULL_DIALOG);
+        new Thread(() -> {
+            if (rankingView.isItemSelected()) {
+                searchPresenter.onRetrievePage(rankingView.getSelectedResult());
+                rankingView.showSearchView();
+            } else rankingView.showDialog(UIStrings.RANKINGVIEW_SEARCHNULL_DIALOG);
+        }).start();
     }
 
     private Collection<SearchResult> orderResults(Collection<SearchResult> searchResults) {
