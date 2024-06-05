@@ -2,9 +2,11 @@ package views;
 
 import presenters.StoredInfoPresenter;
 import utils.ImagesCache;
+import utils.ParserHTML;
 import utils.UIStrings;
 
 import javax.swing.*;
+import javax.swing.text.html.HTMLEditorKit;
 import java.awt.*;
 
 public class StoredInfoView {
@@ -26,6 +28,8 @@ public class StoredInfoView {
         resultTextPane.setContentType("text/html");
         resultTextPane.setComponentPopupMenu(storedInfoPopup);
         resultTextPane.getDocument().putProperty("imageCache", ImagesCache.getInstance().getCache());
+        resultTextPane.setBackground(UIManager.getColor("TextPane.disabledBackground"));
+        ((HTMLEditorKit) resultTextPane.getEditorKit()).getStyleSheet().addRule(ParserHTML.getStyleSheet());
         initListeners();
     }
 

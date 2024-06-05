@@ -3,12 +3,14 @@ package views;
 import models.SearchResult;
 import presenters.SearchPresenter;
 import utils.ImagesCache;
+import utils.ParserHTML;
 import utils.UIStrings;
 import views.components.SearchResultItem;
 import views.components.StarsPanel;
 
 import javax.swing.*;
 import javax.swing.event.HyperlinkEvent;
+import javax.swing.text.html.HTMLEditorKit;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -38,11 +40,14 @@ public class SearchView {
     private void init() {
         searchButton.setText(UIStrings.SEARCHVIEW_SEARCHBUTTON_TEXT);
         searchButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        searchButton.setFont(UIStrings.DEFAULT_FONT);
         saveLocallyButton.setText(UIStrings.SEARCHVIEW_SAVELOCALLYBUTTON_TEXT);
         saveLocallyButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        saveLocallyButton.setFont(UIStrings.DEFAULT_FONT);
         resultTextPane.setContentType("text/html");
         resultTextPane.setEditable(false);
         resultTextPane.getDocument().putProperty("imageCache", ImagesCache.getInstance().getCache());
+        ((HTMLEditorKit) resultTextPane.getEditorKit()).getStyleSheet().addRule(ParserHTML.getStyleSheet());
         scorePanel.add(starsPanel);
         initListeners();
     }

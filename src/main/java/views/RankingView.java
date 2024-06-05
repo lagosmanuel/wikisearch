@@ -35,6 +35,7 @@ public class RankingView {
         starsPanelDialog.setResizable(false);
         searchButton.setText(UIStrings.RANKINGVIEW_SEARCHBUTTON_LABEL);
         searchButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        searchButton.setFont(UIStrings.DEFAULT_FONT);
         initListeners();
     }
 

@@ -1,5 +1,7 @@
 package utils;
 
+import views.components.StarsPanel;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
@@ -21,8 +23,8 @@ public class UIStrings {
 
     // MainView
     public static final String MAINVIEW_WINDOW_TITLE = "TV Series Info Repo";
-    public static final int MAINVIEW_WINDOW_WIDTH = 400;
-    public static final int MAINVIEW_WINDOW_HEIGHT = 400;
+    public static final int MAINVIEW_WINDOW_WIDTH = 700;
+    public static final int MAINVIEW_WINDOW_HEIGHT = 1000;
 
     // SearchView
     public static final String SEARCHVIEW_TAB_TITLE = "Search";
@@ -38,6 +40,15 @@ public class UIStrings {
     public static final String STOREDINFOVIEW_SAVEITEM_TITLE = "Save!";
     public static final String STOREDINFOVIEW_DELETEITEM_TITLE = "Delete!";
 
+    // Stars
+    public static final String STAR_CHAR_EMPTY = "☆";
+    public static final String STAR_CHAR_FULL = "★";
+    public static final String STAR_CHAR_DELETE = "⌫";
+    public static final Color STAR_COLOR = new Color(0xE3C153);
+    public static final String STAR_FONT_FAMILY = "Arial";
+    public static final int STAR_FONT_SIZE = 30;
+    public static final int SCORE_MAXSCORE = 10;
+
     // RankingView
     public static final String RANKINGVIEW_TAB_TITLE = "Ranking";
     public static final int RANKINGVIEW_TAB_INDEX = 2;
@@ -45,17 +56,8 @@ public class UIStrings {
     public static final String RANKINGVIEW_SEARCHBUTTON_LABEL = "search";
     public static final int RANKINGVIEW_SEARCHBUTTON_KEY = KeyEvent.VK_ENTER;
     public static final String RANKINGVIEW_STARSPANEL_TITLE = "change score";
-    public static final int RANKINGVIEW_STARSPANEL_WIDTH = 300;
-    public static final int RANKINGVIEW_STARSPANEL_HEIGHT = 65;
-
-    // Stars
-    public static final String STAR_CHAR_EMPTY = "☆";
-    public static final String STAR_CHAR_FULL = "★";
-    public static final String STAR_CHAR_DELETE = "⌫";
-    public static final Color STAR_COLOR = Color.ORANGE;
-    public static final String STAR_FONT_FAMILY = "Arial";
-    public static final int STAR_FONT_SIZE = 20;
-    public static final int SCORE_MAXSCORE = 10;
+    public static final int RANKINGVIEW_STARSPANEL_WIDTH = STAR_FONT_SIZE * (SCORE_MAXSCORE + 1);
+    public static final int RANKINGVIEW_STARSPANEL_HEIGHT = STAR_FONT_SIZE + 10;
 
     // Wikipedia API
     public static final String API_BASEURL = "https://en.wikipedia.org/w/";
@@ -101,6 +103,9 @@ public class UIStrings {
     public static final String PAGE_PAGENOTFOUND_EXTRACT = "no result";
     public static final String PAGE_LINK_MSG = "view in wikipedia";
 
-    // ImageCacje
+    // ImageCache
     public static final String IMAGECACHE_BASEURL = "http://buffered";
+
+    // Fonts
+    public static final Font DEFAULT_FONT = new Font("arial", Font.BOLD, 18);
 }

@@ -1,5 +1,6 @@
 package views;
 
+import com.formdev.flatlaf.FlatDarkLaf;
 import utils.UIStrings;
 
 import java.awt.*;
@@ -14,14 +15,11 @@ public class MainView {
     private final RankingView rankingView;
 
     public MainView() {
+        setLookAndFeel();
         searchView = new SearchView();
         storedInfoView = new StoredInfoView();
         rankingView = new RankingView();
-        init();
-    }
-
-    private void init() {
-        setLookAndFeel();
+        tabbedPane.setFont(UIStrings.DEFAULT_FONT);
         setupFrameWindow();
         insertTabs();
     }
@@ -65,17 +63,10 @@ public class MainView {
     }
 
     private void setLookAndFeel() {
-        SwingUtilities.invokeLater(() -> {
-            try {
-                UIManager.put("nimbusSelection", new Color(247,248,250));
-                for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-                    if ("Nimbus".equals(info.getName())) {
-                        UIManager.setLookAndFeel(info.getClassName());
-                        break;
-                    }
-                }
-            } catch (Exception e) {System.out.println(UIStrings.ERROR_DIALOG_UI);}
-        });
+        try {
+            UIManager.setLookAndFeel(new FlatDarkLaf());
+            SwingUtilities.updateComponentTreeUI(contentPane);
+        } catch (Exception e) {System.out.println(UIStrings.ERROR_DIALOG_UI);}
     }
 
     private void insertTabs() {

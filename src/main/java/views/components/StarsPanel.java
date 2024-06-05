@@ -53,13 +53,14 @@ public class StarsPanel extends JPanel {
     }
 
     private JButton createStarButton() {
-        JButton button = new JButton(UIStrings.STAR_CHAR_EMPTY);
-        button.setFont(new Font(UIStrings.STAR_FONT_FAMILY, Font.PLAIN, UIStrings.STAR_FONT_SIZE));
-        button.setBorder(new EmptyBorder(0,0,0,0));
-        button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        button.setForeground(UIStrings.STAR_COLOR);
-        button.setContentAreaFilled(false);
-        return button;
+        JButton starButton = new JButton(UIStrings.STAR_CHAR_EMPTY);
+        starButton.setFont(new Font(UIStrings.STAR_FONT_FAMILY, Font.PLAIN, UIStrings.STAR_FONT_SIZE));
+        starButton.setBorder(new EmptyBorder(0,0,0,0));
+        starButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        starButton.setForeground(UIStrings.STAR_COLOR);
+        starButton.setContentAreaFilled(false);
+        starButton.setPreferredSize(new Dimension(UIStrings.STAR_FONT_SIZE - 10, UIStrings.STAR_FONT_SIZE));
+        return starButton;
     }
 
     private MouseAdapter createStarButtonMouseAdapter(int score) {
@@ -86,6 +87,8 @@ public class StarsPanel extends JPanel {
         deleteScoreButton.setFont(new Font(UIStrings.STAR_FONT_FAMILY, Font.PLAIN, UIStrings.STAR_FONT_SIZE));
         deleteScoreButton.setBorder(new EmptyBorder(0,0,0,0));
         deleteScoreButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        deleteScoreButton.setContentAreaFilled(false);
+        deleteScoreButton.setPreferredSize(new Dimension(UIStrings.STAR_FONT_SIZE, UIStrings.STAR_FONT_SIZE));
 
         deleteScoreButton.addActionListener(actionEvent -> {
             changeScore(0);
