@@ -64,7 +64,7 @@ public class APIHelperImpl implements APIHelper {
             String pageUrl = UIStrings.API_BASEURL + "?curid=%d".formatted(pageId);
             String imageurl = getPageImageUrl(pageId);
             byte[] thumbnail = null;
-            if (!imageurl.isEmpty()) thumbnail = ImageDownloader.fetchImage(getPageImageUrl(pageId));
+            if (!imageurl.isEmpty() && !imageurl.contains(".svg")) thumbnail = ImageDownloader.fetchImage(getPageImageUrl(pageId));
 
             pageResult = new PageResult(
                     page.get(UIStrings.API_TITLE_KEYWORD).getAsString(),
