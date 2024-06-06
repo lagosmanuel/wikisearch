@@ -97,9 +97,13 @@ public class StarsPanel extends JPanel {
         this.add(deleteScoreButton);
     }
 
-    private void updateScore(int score) {
+    public void updateScore(int score) {
         for (int i = 0; i < starButtonsList.size(); ++i)
             starButtonsList.get(i).setText(i<score? UIStrings.STAR_CHAR_FULL:UIStrings.STAR_CHAR_EMPTY);
         newScore = score;
+    }
+
+    public EventListener getListener() {
+        return listener;
     }
 }

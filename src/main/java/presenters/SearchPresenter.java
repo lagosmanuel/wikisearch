@@ -92,7 +92,7 @@ public class SearchPresenter {
             if (searchView.getSelectedResult() != null) updateSearchResultsModel.updateSearchResult(
                 searchView
                     .getSelectedResult()
-                    .setScore(searchView.getScore())
+                    .setScore(searchView.getSelectedScore())
             );
             else searchView.showMessageDialog(UIStrings.SEARCH_DIALOG_RATEDNULLPAGE);
         }).start();

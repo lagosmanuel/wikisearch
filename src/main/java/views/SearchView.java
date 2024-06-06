@@ -86,7 +86,7 @@ public class SearchView {
         return selectedResult;
     }
 
-    public int getScore() {
+    public int getSelectedScore() {
         return starsPanel.getSelectedScore();
     }
 
@@ -125,8 +125,8 @@ public class SearchView {
         searchButton.doClick();
     }
 
-    public void pressSaveButton() {
-        savepageButton.doClick();
+    public StarsPanel getStarsPanel() {
+        return starsPanel;
     }
 
     public void showOptionsMenu(Collection<SearchResult> results) {

@@ -46,15 +46,18 @@ public class SearchViewIntegrationTest {
     }
 
     @Test
-    public void searchTermSuccess() throws InterruptedException {
+    public void searchTerm() throws InterruptedException {
         String termToSearch = "The X-Files";
-        SearchResult expectedSearchResult = new SearchResult(termToSearch, 30304 ,"la mejor serie del mundo");
+
         Collection<SearchResult> searchResultList = new ArrayList<>();
+        SearchResult expectedSearchResult = new SearchResult(termToSearch, 1 ,"");
         searchResultList.add(expectedSearchResult);
         when(apiHelper.searchTerm(termToSearch)).thenReturn(searchResultList);
+
         searchView.setSearchTextField(termToSearch);
         searchView.pressSearchButton();
         Thread.sleep(500);
+
         Assert.assertEquals(expectedSearchResult, searchView.getSearchResults().iterator().next());
     }
 
@@ -62,14 +65,19 @@ public class SearchViewIntegrationTest {
     public void searchTermWithScore() throws InterruptedException {
         String termToSearch = "The X-Files";
         int expectedScore = 10;
-        SearchResult searchResult = new SearchResult(termToSearch, 30304 ,"la mejor serie del mundo");
+
         Collection<SearchResult> searchResultList = new ArrayList<>();
+        SearchResult searchResult = new SearchResult(termToSearch, 1 ,"");
         searchResultList.add(searchResult);
         when(apiHelper.searchTerm(termToSearch)).thenReturn(searchResultList);
-        when(searchResultDataBase.getSearchResultByTitle(termToSearch)).thenReturn(new SearchResult(termToSearch, 30304, "la mejor serie del mundo", expectedScore, "now"));
+
+        SearchResult savedSearchResult = new SearchResult(termToSearch, 1, "", expectedScore, "");
+        when(searchResultDataBase.getSearchResultByTitle(termToSearch)).thenReturn(savedSearchResult);
+
         searchView.setSearchTextField(termToSearch);
         searchView.pressSearchButton();
         Thread.sleep(500);
+
         Assert.assertEquals(expectedScore, searchView.getSearchResults().iterator().next().getScore());
     }
 
@@ -77,9 +85,22 @@ public class SearchViewIntegrationTest {
     public void searchTermNoResult() throws InterruptedException {
         String termToSearch = "The X-Files";
         when(apiHelper.searchTerm(termToSearch)).thenReturn(new ArrayList<>());
+
         searchView.setSearchTextField(termToSearch);
         searchView.pressSearchButton();
         Thread.sleep(500);
+
         Assert.assertNull(searchView.getSearchResults());
+    }
+
+    @Test
+    public void changeScore() throws InterruptedException {
+        int newscore = 10;
+        SearchResult searchResult = new SearchResult("foo", 1, "", 1, "");
+        searchView.setSelectedResult(searchResult);
+        searchView.getStarsPanel().updateScore(newscore);
+        searchView.getStarsPanel().getListener().onEvent();
+        Thread.sleep(500);
+        Assert.assertEquals(newscore, searchView.getSelectedResult().getScore());
     }
 }

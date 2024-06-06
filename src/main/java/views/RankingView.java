@@ -1,5 +1,4 @@
 package views;
-
 import models.SearchResult;
 import presenters.RankingPresenter;
 import utils.UIStrings;
@@ -41,13 +40,13 @@ public class RankingView {
     private void initListeners() {
         starsPanel.setEventListener(() -> {
             rankingPresenter.onChangedScore();
-            hideStarsPanelDialog();
+            starsPanel.setVisible(false);
         });
         searchButton.addActionListener(actionEvent -> rankingPresenter.onSearch());
         rankingList.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-            if (e.getKeyChar() == UIStrings.RANKINGVIEW_SEARCHBUTTON_KEY) showStarsPanelDialog();
+            if (e.getKeyChar() == UIStrings.RANKINGVIEW_SEARCHBUTTON_KEY) starsPanel.setVisible(true);
             }
         });
     }
@@ -85,11 +84,11 @@ public class RankingView {
         JOptionPane.showMessageDialog(contentPane, dialog);
     }
 
-    private void showStarsPanelDialog() {
-        starsPanelDialog.setVisible(true);
+    public JList<SearchResult> getRankingList() {
+        return rankingList;
     }
 
-    private void hideStarsPanelDialog() {
-        starsPanelDialog.setVisible(false);
+    public void pressSearchButton() {
+        searchButton.doClick();
     }
 }
