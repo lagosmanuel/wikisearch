@@ -17,7 +17,8 @@ public class StoredInfoPresenter {
     private final SavedPageTitlesModel savedPageTitlesModel;
     private PageResult lastPageResult;
 
-    public StoredInfoPresenter(SavePageModel savePageModel, DeletePageModel deletePageModel, LoadPageModel loadPageModel, SavedPageTitlesModel savedPageTitlesModel) {
+    public StoredInfoPresenter(SavePageModel savePageModel, DeletePageModel deletePageModel,
+                               LoadPageModel loadPageModel, SavedPageTitlesModel savedPageTitlesModel) {
         this.savePageModel = savePageModel;
         this.deletePageModel = deletePageModel;
         this.loadPageModel = loadPageModel;
@@ -54,8 +55,7 @@ public class StoredInfoPresenter {
             if (storedInfoView.comboBoxHasItems()) {
                 storedInfoView.setEditable(true);
                 onSelectedItem();
-            }
-            else {
+            } else {
                 storedInfoView.setEditable(false);
                 storedInfoView.setPageTextPane("");
             }

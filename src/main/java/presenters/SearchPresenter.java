@@ -1,6 +1,7 @@
 package presenters;
 
-import models.*;
+import models.SearchResult;
+import models.PageResult;
 import models.search.UpdateSearchResultsModel;
 import models.pages.RetrievePageModel;
 import models.pages.SavePageModel;
@@ -19,7 +20,8 @@ public class SearchPresenter {
     private final UpdateSearchResultsModel updateSearchResultsModel;
     private PageResult lastPageResult;
 
-    public SearchPresenter(SearchTermModel searchTermModel, RetrievePageModel retrievePageModel, SavePageModel savePageModel, UpdateSearchResultsModel updateSearchResultsModel) {
+    public SearchPresenter(SearchTermModel searchTermModel, RetrievePageModel retrievePageModel,
+                           SavePageModel savePageModel, UpdateSearchResultsModel updateSearchResultsModel) {
         this.searchTermModel = searchTermModel;
         this.retrievePageModel = retrievePageModel;
         this.savePageModel = savePageModel;
@@ -96,7 +98,11 @@ public class SearchPresenter {
 
     public void onChangedScore() {
         new Thread(() -> {
-            if (searchView.getSelectedResult() != null) updateSearchResultsModel.updateSearchResult(searchView.getSelectedResult().setScore(searchView.getScore()));
+            if (searchView.getSelectedResult() != null) updateSearchResultsModel.updateSearchResult(
+                searchView
+                    .getSelectedResult()
+                    .setScore(searchView.getScore())
+            );
             else searchView.showMessageDialog(UIStrings.SEARCH_DIALOG_RATEDNULLPAGE);
         }).start();
     }
