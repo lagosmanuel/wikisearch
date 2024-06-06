@@ -98,7 +98,7 @@ public class UIStrings {
     public static final String EVENTLISTENER_TOPIC_DEFAULT = "all";
 
     // Page
-    public static final String PAGE_PAGENOTFOUND_EXTRACT = "no result";
+    public static final String PAGE_PAGENOTFOUND = "no result";
     public static final String PAGE_LINK_MSG = "view in wikipedia";
 
     // ImageCache

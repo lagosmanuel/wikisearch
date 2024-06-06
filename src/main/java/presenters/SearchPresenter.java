@@ -36,9 +36,11 @@ public class SearchPresenter {
         });
         retrievePageModel.addEventListener(() -> {
             lastPageResult = ParserHTML.formatPageResult(retrievePageModel.getLastPageResult());
-            ImagesCache.getInstance().saveImageToCache(lastPageResult.getThumbnail(), String.valueOf(lastPageResult.getPageID()));
-            searchView.setPageTextPane(lastPageResult.getExtract());
-            searchView.setScore(searchView.getSelectedResult().getScore());
+            if (lastPageResult != null) {
+                ImagesCache.getInstance().saveImageToCache(lastPageResult.getThumbnail(), String.valueOf(lastPageResult.getPageID()));
+                searchView.setPageTextPane(lastPageResult.getExtract());
+                searchView.setScore(searchView.getSelectedResult().getScore());
+            } else searchView.showMessageDialog(UIStrings.PAGE_PAGENOTFOUND);
         });
         savePageModel.addEventListener(() -> {
             if (searchView.getComponent().isVisible()) searchView.showMessageDialog(UIStrings.SAVE_DIALOG_SUCCESS);

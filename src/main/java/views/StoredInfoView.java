@@ -75,4 +75,8 @@ public class StoredInfoView {
         comboBox.setEnabled(editable);
         pageTextPane.setEnabled(editable);
     }
+
+    public JComboBox getComboBox() {
+        return comboBox;
+    }
 }

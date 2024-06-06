@@ -111,10 +111,12 @@ public class RankingViewIntegrationTest {
         searchResultList.add(searchResult);
         when(searchResultDataBase.getSearchResults()).thenReturn(new ArrayList<>(searchResultList));
         getSearchResultsModel.getSavedSearchResults();
+
         searchView.setSelectedResult(searchResult);
         searchView.getStarsPanel().updateScore(0);
         searchView.getStarsPanel().getListener().onEvent();
         Thread.sleep(500);
+
         Assert.assertEquals(0, JListToList(rankingView.getRankingList()).size());
     }
 }
