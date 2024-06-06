@@ -40,13 +40,13 @@ public class RankingView {
     private void initListeners() {
         starsPanel.setEventListener(() -> {
             rankingPresenter.onChangedScore();
-            starsPanel.setVisible(false);
+            starsPanelDialog.setVisible(false);
         });
         searchButton.addActionListener(actionEvent -> rankingPresenter.onSearch());
         rankingList.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-            if (e.getKeyChar() == UIStrings.RANKINGVIEW_SEARCHBUTTON_KEY) starsPanel.setVisible(true);
+            if (e.getKeyChar() == UIStrings.RANKINGVIEW_SEARCHBUTTON_KEY) starsPanelDialog.setVisible(true);
             }
         });
     }
