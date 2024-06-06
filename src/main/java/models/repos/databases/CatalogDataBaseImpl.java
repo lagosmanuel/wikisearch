@@ -11,7 +11,7 @@ public class CatalogDataBaseImpl extends DataBase implements CatalogDataBase {
         try (Statement statement = getConnection().createStatement()) {
             statement.setQueryTimeout(UIStrings.DB_QUERY_TIMEOUT);
             statement.executeUpdate("create table if not exists catalog (id integer, title string primary key, extract string, source integer, thumbnail blob, url string)");
-        } catch (SQLException e) {System.err.println(UIStrings.DB_LOADDB_ERROR + e.getMessage());}
+        } catch (SQLException exception) {System.err.println(UIStrings.DB_LOADDB_ERROR + exception.getMessage());}
     }
 
     public PageResult getPageResultByTitle(String title) {
@@ -21,7 +21,7 @@ public class CatalogDataBaseImpl extends DataBase implements CatalogDataBase {
             preparedStatement.setQueryTimeout(UIStrings.DB_QUERY_TIMEOUT);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) pageResult = resultsetToPageResult(resultSet);
-        } catch (SQLException e) {System.err.println(UIStrings.DB_GETPAGEBYTITLE_ERROR + e.getMessage());}
+        } catch (SQLException exception) {System.err.println(UIStrings.DB_GETPAGEBYTITLE_ERROR + exception.getMessage());}
         return pageResult;
     }
 
@@ -32,7 +32,7 @@ public class CatalogDataBaseImpl extends DataBase implements CatalogDataBase {
             statement.setQueryTimeout(UIStrings.DB_QUERY_TIMEOUT);
             ResultSet resultSet = statement.executeQuery("select %s from catalog".formatted(UIStrings.DB_TITLE_KEYWORD));
             while(resultSet.next()) titles.add(resultSet.getString(UIStrings.DB_TITLE_KEYWORD));
-        } catch (SQLException e) {System.err.println(UIStrings.DB_GETPAGETITLES_ERROR + e.getMessage());}
+        } catch (SQLException exception) {System.err.println(UIStrings.DB_GETPAGETITLES_ERROR + exception.getMessage());}
         return titles;
     }
 
@@ -45,7 +45,7 @@ public class CatalogDataBaseImpl extends DataBase implements CatalogDataBase {
             preparedStatement.setBytes(5, pageResult.getThumbnail());
             preparedStatement.setString(6, pageResult.getUrl());
             preparedStatement.executeUpdate();
-        } catch (SQLException e) {System.err.println(UIStrings.DB_UPDATEPAGE_ERROR + e.getMessage());}
+        } catch (SQLException exception) {System.err.println(UIStrings.DB_UPDATEPAGE_ERROR + exception.getMessage());}
     }
 
     public void deletePageByTitle(String title) {
@@ -53,7 +53,7 @@ public class CatalogDataBaseImpl extends DataBase implements CatalogDataBase {
             preparedStatement.setString(1, title);
             preparedStatement.setQueryTimeout(UIStrings.DB_QUERY_TIMEOUT);
             preparedStatement.executeUpdate();
-        } catch (SQLException e) {System.err.println(UIStrings.DB_DELETEPAGE_ERROR + e.getMessage());}
+        } catch (SQLException exception) {System.err.println(UIStrings.DB_DELETEPAGE_ERROR + exception.getMessage());}
     }
 
     private PageResult resultsetToPageResult (ResultSet resultSet) throws SQLException {

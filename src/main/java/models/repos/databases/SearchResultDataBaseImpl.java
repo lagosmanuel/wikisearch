@@ -12,7 +12,7 @@ public class SearchResultDataBaseImpl extends DataBase implements SearchResultDa
             Statement statement = connection.createStatement();
             statement.setQueryTimeout(UIStrings.DB_QUERY_TIMEOUT);
             statement.executeUpdate("create table if not exists searches (id integer, title string primary key, snippet string, score int, lastmodified datetime)");
-        } catch (SQLException e) {System.err.println(UIStrings.DB_LOADDB_ERROR + e.getMessage());}
+        } catch (SQLException exception) {System.err.println(UIStrings.DB_LOADDB_ERROR + exception.getMessage());}
     }
 
     public SearchResult getSearchResultByTitle(String title) {
@@ -22,7 +22,7 @@ public class SearchResultDataBaseImpl extends DataBase implements SearchResultDa
             preparedStatement.setQueryTimeout(UIStrings.DB_QUERY_TIMEOUT);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) searchResult = resultSetToSearchResult(resultSet);
-        } catch (SQLException e) {System.err.println(UIStrings.DB_GETSEARCHRESULTBYTITLE_ERROR + e.getMessage());}
+        } catch (SQLException exception) {System.err.println(UIStrings.DB_GETSEARCHRESULTBYTITLE_ERROR + exception.getMessage());}
         return searchResult;
     }
 
@@ -30,12 +30,9 @@ public class SearchResultDataBaseImpl extends DataBase implements SearchResultDa
         Collection<SearchResult> results = new ArrayList<>();
         try (Statement statement = getConnection().createStatement()) {
             statement.setQueryTimeout(UIStrings.DB_QUERY_TIMEOUT);
-            ResultSet rs = statement.executeQuery("select * from searches");
-
-            while(rs.next())
-                results.add(resultSetToSearchResult(rs));
-
-        } catch (SQLException e) {System.err.println(UIStrings.DB_GETSEARCHRESULTS_ERROR + e.getMessage());}
+            ResultSet resultSet = statement.executeQuery("select * from searches");
+            while(resultSet.next()) results.add(resultSetToSearchResult(resultSet));
+        } catch (SQLException exception) {System.err.println(UIStrings.DB_GETSEARCHRESULTS_ERROR + exception.getMessage());}
         return results;
     }
 
@@ -46,15 +43,15 @@ public class SearchResultDataBaseImpl extends DataBase implements SearchResultDa
             preparedStatement.setString(3, searchResult.getSnippet());
             preparedStatement.setInt(4, searchResult.getScore());
             preparedStatement.executeUpdate();
-        } catch (SQLException e) {System.err.println(UIStrings.DB_UPDATESEARCHRESULT_ERROR + e.getMessage());}
+        } catch (SQLException exception) {System.err.println(UIStrings.DB_UPDATESEARCHRESULT_ERROR + exception.getMessage());}
     }
 
-    private SearchResult resultSetToSearchResult(ResultSet rs) throws SQLException {
+    private SearchResult resultSetToSearchResult(ResultSet resultSet) throws SQLException {
         return new SearchResult(
-                rs.getString(UIStrings.DB_TITLE_KEYWORD),
-                rs.getInt(UIStrings.DB_ID_KEYWORD),
-                rs.getString(UIStrings.DB_SNIPPET_KEYWORD),
-                rs.getInt(UIStrings.DB_SCORE_KEYWORD),
-                rs.getString(UIStrings.DB_LASTMODIFIED_KEYWORD));
+                resultSet.getString(UIStrings.DB_TITLE_KEYWORD),
+                resultSet.getInt(UIStrings.DB_ID_KEYWORD),
+                resultSet.getString(UIStrings.DB_SNIPPET_KEYWORD),
+                resultSet.getInt(UIStrings.DB_SCORE_KEYWORD),
+                resultSet.getString(UIStrings.DB_LASTMODIFIED_KEYWORD));
     }
 }
