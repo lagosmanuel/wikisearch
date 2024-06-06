@@ -73,7 +73,7 @@ public class SearchPresenter {
 
     public void onRetrievePage(SearchResult searchResult) {
         new Thread(() -> {
-            searchView.clearSearchTextField();
+            searchView.setSearchTextField("");
             searchView.setSelectedResult(searchResult);
             onRetrievePage();
         }).start();

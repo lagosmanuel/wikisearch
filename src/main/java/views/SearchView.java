@@ -22,6 +22,7 @@ public class SearchView {
     private JScrollPane resultScrollPane;
     private JPanel scorePanel;
     private final StarsPanel starsPanel;
+    private Collection<SearchResult> searchResults;
     private SearchResult selectedResult;
     private SearchPresenter searchPresenter;
 
@@ -40,6 +41,7 @@ public class SearchView {
         pageTextPane.setContentType("text/html");
         pageTextPane.setEditable(false);
         pageTextPane.getDocument().putProperty("imageCache", ImagesCache.getInstance().getCache());
+        searchTextField.setFont(UIStrings.DEFAULT_FONT);
         ((HTMLEditorKit) pageTextPane.getEditorKit()).getStyleSheet().addRule(ParserHTML.getStyleSheet());
         scorePanel.add(starsPanel);
         initListeners();
@@ -76,6 +78,10 @@ public class SearchView {
         return pageTextPane.getText();
     }
 
+    public Collection<SearchResult> getSearchResults() {
+        return searchResults;
+    }
+
     public SearchResult getSelectedResult() {
         return selectedResult;
     }
@@ -107,19 +113,28 @@ public class SearchView {
         pageTextPane.setEnabled(true);
     }
 
-    public void clearSearchTextField() {
-        searchTextField.setText("");
+    public void setSearchTextField(String text) {
+        searchTextField.setText(text);
     }
 
     public void showMessageDialog(String msg) {
         JOptionPane.showMessageDialog(contentPane, msg);
     }
 
+    public void pressSearchButton() {
+        searchButton.doClick();
+    }
+
+    public void pressSaveButton() {
+        savepageButton.doClick();
+    }
+
     public void showOptionsMenu(Collection<SearchResult> results) {
+        searchResults = results;
         JPopupMenu searchOptionsMenu = new JPopupMenu(UIStrings.SEARCHVIEW_POPUP_LABEL);
-        for (SearchResult result : results)
-            searchOptionsMenu.add(new SearchResultItem(result)).addActionListener(actionEvent -> {
-                selectedResult = result;
+        for (SearchResult searchResult : searchResults)
+            searchOptionsMenu.add(new SearchResultItem(searchResult)).addActionListener(actionEvent -> {
+                selectedResult = searchResult;
                 searchPresenter.onRetrievePage();
             });
         searchOptionsMenu.show(searchTextField, searchTextField.getX(), searchTextField.getY()+searchTextField.getHeight());
