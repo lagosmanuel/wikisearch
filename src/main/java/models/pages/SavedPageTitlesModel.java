@@ -2,7 +2,6 @@ package models.pages;
 
 import models.BaseModel;
 import models.repos.databases.CatalogDataBase;
-
 import java.util.Collection;
 
 public class SavedPageTitlesModel extends BaseModel {

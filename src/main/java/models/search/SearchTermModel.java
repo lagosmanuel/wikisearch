@@ -4,8 +4,7 @@ import models.BaseModel;
 import models.SearchResult;
 import models.repos.apis.APIHelper;
 import models.repos.databases.SearchResultDataBase;
-
-import java.util.*;
+import java.util.Collection;
 
 public class SearchTermModel extends BaseModel {
     private final SearchResultDataBase searchResultDataBase;

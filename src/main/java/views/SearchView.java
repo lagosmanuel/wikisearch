@@ -7,7 +7,6 @@ import utils.ParserHTML;
 import utils.UIStrings;
 import views.components.SearchResultItem;
 import views.components.StarsPanel;
-
 import javax.swing.*;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.text.html.HTMLEditorKit;
@@ -28,7 +27,6 @@ public class SearchView {
     private JScrollPane resultScrollPane;
     private JPanel scorePanel;
     private final StarsPanel starsPanel;
-
     private SearchPresenter searchPresenter;
     private SearchResult selectedResult;
 

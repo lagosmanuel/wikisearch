@@ -2,7 +2,6 @@ package models.repos.databases;
 
 import models.SearchResult;
 import utils.UIStrings;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collection;

@@ -4,7 +4,6 @@ import models.SearchResult;
 import presenters.RankingPresenter;
 import utils.UIStrings;
 import views.components.StarsPanel;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;

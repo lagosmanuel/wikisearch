@@ -3,7 +3,6 @@ package models.search;
 import models.BaseModel;
 import models.SearchResult;
 import models.repos.databases.SearchResultDataBase;
-
 import java.util.ArrayList;
 import java.util.Collection;
 

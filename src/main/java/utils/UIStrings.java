@@ -1,7 +1,5 @@
 package utils;
 
-import views.components.StarsPanel;
-
 import java.awt.*;
 import java.awt.event.KeyEvent;
 

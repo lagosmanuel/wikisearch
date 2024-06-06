@@ -9,8 +9,7 @@ import utils.ImagesCache;
 import utils.ParserHTML;
 import utils.UIStrings;
 import views.SearchView;
-
-import java.util.*;
+import java.util.Collection;
 
 public class SearchPresenter {
     private SearchView searchView;

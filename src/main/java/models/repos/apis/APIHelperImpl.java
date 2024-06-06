@@ -11,10 +11,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 import utils.ImageDownloader;
 import utils.UIStrings;
-
 import java.io.*;
 import java.util.*;
-
 
 public class APIHelperImpl implements APIHelper {
     protected final WikipediaSearchAPI searchAPI;

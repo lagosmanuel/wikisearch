@@ -2,7 +2,6 @@ package views.components;
 
 import models.EventListener;
 import utils.UIStrings;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;

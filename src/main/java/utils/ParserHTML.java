@@ -4,7 +4,6 @@ import models.PageResult;
 import models.SearchResult;
 
 public class ParserHTML {
-
     public static String searchResultToHtml(SearchResult searchResult) {
         String title = searchResult.getTitle();
         String snippet = searchResult.getSnippet();

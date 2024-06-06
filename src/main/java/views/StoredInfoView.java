@@ -4,7 +4,6 @@ import presenters.StoredInfoPresenter;
 import utils.ImagesCache;
 import utils.ParserHTML;
 import utils.UIStrings;
-
 import javax.swing.*;
 import javax.swing.text.html.HTMLEditorKit;
 import java.awt.*;
@@ -14,7 +13,6 @@ public class StoredInfoView {
     private JTextPane resultTextPane;
     private JScrollPane resultScrollPane;
     private JPanel contentPane;
-
     private StoredInfoPresenter storedInfoPresenter;
     private final JMenuItem deleteItem;
     private final JMenuItem saveItem;
