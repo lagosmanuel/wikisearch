@@ -2,7 +2,7 @@ package presenters;
 
 import models.PageResult;
 import models.pages.DeletePageModel;
-import models.pages.LoadPageModel;
+import models.pages.LoadSavedPageModel;
 import models.pages.SavePageModel;
 import models.pages.SavedPageTitlesModel;
 import utils.ImagesCache;
@@ -13,15 +13,15 @@ public class StoredInfoPresenter {
     private StoredInfoView storedInfoView;
     private final SavePageModel savePageModel;
     private final DeletePageModel deletePageModel;
-    private final LoadPageModel loadPageModel;
+    private final LoadSavedPageModel loadSavedPageModel;
     private final SavedPageTitlesModel savedPageTitlesModel;
     private PageResult lastPageResult;
 
     public StoredInfoPresenter(SavePageModel savePageModel, DeletePageModel deletePageModel,
-                               LoadPageModel loadPageModel, SavedPageTitlesModel savedPageTitlesModel) {
+                               LoadSavedPageModel loadSavedPageModel, SavedPageTitlesModel savedPageTitlesModel) {
         this.savePageModel = savePageModel;
         this.deletePageModel = deletePageModel;
-        this.loadPageModel = loadPageModel;
+        this.loadSavedPageModel = loadSavedPageModel;
         this.savedPageTitlesModel = savedPageTitlesModel;
         initListeners();
     }
@@ -43,15 +43,15 @@ public class StoredInfoPresenter {
             savedPageTitlesModel.getSavedPageTitles();
         });
 
-        loadPageModel.addEventListener(() -> {
-            lastPageResult = loadPageModel.getLastResult();
+        loadSavedPageModel.addEventListener(() -> {
+            lastPageResult = loadSavedPageModel.getLastPageResult();
             ImagesCache.getInstance().saveImageToCache(lastPageResult.getThumbnail(), String.valueOf(lastPageResult.getPageID()));
             if (lastPageResult != null) storedInfoView.setPageTextPane(lastPageResult.getExtract());
             else storedInfoView.showMessageDialog(UIStrings.ERROR_DIALOG_EXTRACTEMPTY);
         });
 
         savedPageTitlesModel.addEventListener(() -> {
-            storedInfoView.updateComboBox(savedPageTitlesModel.getLastResults().toArray());
+            storedInfoView.updateComboBox(savedPageTitlesModel.getLastTitleResults().toArray());
             if (storedInfoView.comboBoxHasItems()) {
                 storedInfoView.setEditable(true);
                 onSelectedItem();
@@ -67,7 +67,7 @@ public class StoredInfoPresenter {
     }
 
     public void onSelectedItem() {
-        new Thread(() -> loadPageModel.loadPage(storedInfoView.getSelectedItem().toString())).start();
+        new Thread(() -> loadSavedPageModel.loadPageByTitle(storedInfoView.getSelectedItem().toString())).start();
     }
 
     public void onDeletePage() {

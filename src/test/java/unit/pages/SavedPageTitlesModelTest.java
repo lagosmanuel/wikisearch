@@ -28,14 +28,14 @@ public class SavedPageTitlesModelTest {
         savedTitlesList.add(expectedSearchResult);
         when(catalogDataBase.getPageTitles()).thenReturn(savedTitlesList);
         savedPageTitlesModel.getSavedPageTitles();
-        Assert.assertEquals(expectedSearchResult, savedPageTitlesModel.getLastResults().iterator().next());
+        Assert.assertEquals(expectedSearchResult, savedPageTitlesModel.getLastTitleResults().iterator().next());
     }
 
     @Test
     public void getSavedPageTitlesEmpty() {
         when(catalogDataBase.getPageTitles()).thenReturn(new LinkedList<>());
         savedPageTitlesModel.getSavedPageTitles();
-        Assert.assertEquals(0, savedPageTitlesModel.getLastResults().size());
+        Assert.assertEquals(0, savedPageTitlesModel.getLastTitleResults().size());
     }
 
     @Test

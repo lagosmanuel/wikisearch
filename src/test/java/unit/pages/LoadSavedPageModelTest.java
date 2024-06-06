@@ -1,7 +1,7 @@
 package unit.pages;
 
 import models.PageResult;
-import models.pages.LoadPageModel;
+import models.pages.LoadSavedPageModel;
 import models.repos.databases.CatalogDataBase;
 import org.junit.Assert;
 import org.junit.Before;
@@ -10,18 +10,18 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class LoadPageModelTest {
-    private LoadPageModel loadPageModel;
+public class LoadSavedPageModelTest {
+    private LoadSavedPageModel loadSavedPageModel;
     private CatalogDataBase catalogDataBase;
 
     @Before
     public void setup() {
         catalogDataBase = mock(CatalogDataBase.class);
-        loadPageModel = new LoadPageModel(catalogDataBase);
+        loadSavedPageModel = new LoadSavedPageModel(catalogDataBase);
     }
 
     @Test
-    public void loadPage() {
+    public void loadPageByTitle() {
         String pageTitle = "The X-Files";
         PageResult expectedPageResult = new PageResult(
                 pageTitle,
@@ -32,14 +32,14 @@ public class LoadPageModelTest {
                 "http://en.wikipedia.com/the_x_files"
         );
         when(catalogDataBase.getPageResultByTitle(pageTitle)).thenReturn(expectedPageResult);
-        loadPageModel.loadPage(pageTitle);
-        Assert.assertEquals(expectedPageResult, loadPageModel.getLastResult());
+        loadSavedPageModel.loadPageByTitle(pageTitle);
+        Assert.assertEquals(expectedPageResult, loadSavedPageModel.getLastPageResult());
     }
 
     @Test
     public void loadPageNullTitle() {
-        loadPageModel.loadPage(null);
-        Assert.assertNull(loadPageModel.getLastResult());
+        loadSavedPageModel.loadPageByTitle(null);
+        Assert.assertNull(loadSavedPageModel.getLastPageResult());
     }
 
     @Test
@@ -55,8 +55,8 @@ public class LoadPageModelTest {
                 "http://en.wikipedia.com/the_x_files"
         );
         when(catalogDataBase.getPageResultByTitle(pageTitle)).thenReturn(expectedPageResult);
-        loadPageModel.addEventListener(() -> notified.set(true));
-        loadPageModel.loadPage(pageTitle);
+        loadSavedPageModel.addEventListener(() -> notified.set(true));
+        loadSavedPageModel.loadPageByTitle(pageTitle);
         Assert.assertTrue(notified.get());
     }
 }

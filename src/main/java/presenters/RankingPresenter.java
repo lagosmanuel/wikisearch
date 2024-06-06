@@ -32,7 +32,7 @@ public class RankingPresenter {
 
     private void initListeners() {
         getSearchResultsModel.addEventListener(() ->
-                rankingView.updateRankingList(orderResults(filterResults(getSearchResultsModel.getLastResults()))));
+                rankingView.updateRankingList(orderResults(filterResults(getSearchResultsModel.getLastSearchResults()))));
         updateSearchResultsModel.addEventListener(getSearchResultsModel::getSavedSearchResults);
     }
 

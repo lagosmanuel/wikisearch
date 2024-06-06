@@ -9,7 +9,7 @@ import models.pages.DeletePageModel;
 import models.pages.RetrievePageModel;
 import models.pages.SavePageModel;
 import models.search.SearchTermModel;
-import models.pages.LoadPageModel;
+import models.pages.LoadSavedPageModel;
 import models.search.GetSearchResultsModel;
 import models.pages.SavedPageTitlesModel;
 import models.repos.databases.CatalogDataBaseImpl;
@@ -29,7 +29,7 @@ public class Main {
         RetrievePageModel retrievePageModel = new RetrievePageModel(apiHelper);
         SavePageModel savePageModel = new SavePageModel(catalogDataBase);
         DeletePageModel deletePageModel = new DeletePageModel(catalogDataBase);
-        LoadPageModel loadPageModel = new LoadPageModel(catalogDataBase);
+        LoadSavedPageModel loadSavedPageModel = new LoadSavedPageModel(catalogDataBase);
         SavedPageTitlesModel savedPageTitlesModel = new SavedPageTitlesModel(catalogDataBase);
         GetSearchResultsModel getSearchResultsModel = new GetSearchResultsModel(searchResultDataBase);
         UpdateSearchResultsModel updateSearchResultsModel = new UpdateSearchResultsModel(searchResultDataBase);
@@ -37,7 +37,7 @@ public class Main {
         MainView mainView = new MainView();
 
         SearchPresenter searchPresenter = new SearchPresenter(searchTermModel, retrievePageModel, savePageModel, updateSearchResultsModel);
-        StoredInfoPresenter storedInfoPresenter = new StoredInfoPresenter(savePageModel, deletePageModel, loadPageModel, savedPageTitlesModel);
+        StoredInfoPresenter storedInfoPresenter = new StoredInfoPresenter(savePageModel, deletePageModel, loadSavedPageModel, savedPageTitlesModel);
         RankingPresenter rankingPresenter = new RankingPresenter(getSearchResultsModel, updateSearchResultsModel, searchPresenter);
 
         searchPresenter.setSearchView(mainView.getSearchView());

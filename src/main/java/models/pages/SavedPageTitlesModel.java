@@ -6,18 +6,18 @@ import java.util.Collection;
 
 public class SavedPageTitlesModel extends BaseModel {
     private final CatalogDataBase catalogDataBase;
-    private Collection<String> lastResults;
+    private Collection<String> lastTitleResults;
 
     public SavedPageTitlesModel(CatalogDataBase catalogDataBase) {
         this.catalogDataBase = catalogDataBase;
     }
 
     public void getSavedPageTitles() {
-        lastResults = catalogDataBase.getPageTitles();
+        lastTitleResults = catalogDataBase.getPageTitles();
         notifyListeners();
     }
 
-    public Collection<String> getLastResults() {
-        return lastResults;
+    public Collection<String> getLastTitleResults() {
+        return lastTitleResults;
     }
 }

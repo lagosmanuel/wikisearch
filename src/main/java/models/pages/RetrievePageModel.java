@@ -6,18 +6,18 @@ import models.repos.apis.APIHelper;
 
 public class RetrievePageModel extends BaseModel {
     private final APIHelper apiHelper;
-    private PageResult lastResult;
+    private PageResult lastPageResult;
 
     public RetrievePageModel(APIHelper apiHelper) {
         this.apiHelper = apiHelper;
     }
 
-    public PageResult getLastResult() {
-        return lastResult;
+    public PageResult getLastPageResult() {
+        return lastPageResult;
     }
 
-    public void retrievePage(int pageID) {
-        lastResult = pageID >= 0? apiHelper.retrievePage(pageID):null;
+    public void retrievePageByID(int pageID) {
+        lastPageResult = pageID >= 0? apiHelper.retrievePage(pageID):null;
         notifyListeners();
     }
 }

@@ -30,21 +30,21 @@ public class GetSearchResultsModelTest {
         searchResultsList.add(expectedSearchResult);
         when(searchResultDataBase.getSearchResults()).thenReturn(searchResultsList);
         getSearchResultsModel.getSavedSearchResults();
-        Assert.assertEquals(expectedSearchResult, getSearchResultsModel.getLastResults().iterator().next());
+        Assert.assertEquals(expectedSearchResult, getSearchResultsModel.getLastSearchResults().iterator().next());
     }
 
     @Test
     public void getEmptySearchResults() {
         when(searchResultDataBase.getSearchResults()).thenReturn(new ArrayList<>());
         getSearchResultsModel.getSavedSearchResults();
-        Assert.assertEquals(0, getSearchResultsModel.getLastResults().size());
+        Assert.assertEquals(0, getSearchResultsModel.getLastSearchResults().size());
     }
 
     @Test
     public void getNullSearchResults() {
         when(searchResultDataBase.getSearchResults()).thenReturn(null);
         getSearchResultsModel.getSavedSearchResults();
-        Assert.assertEquals(0, getSearchResultsModel.getLastResults().size());
+        Assert.assertEquals(0, getSearchResultsModel.getLastSearchResults().size());
     }
 
     @Test

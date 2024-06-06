@@ -21,7 +21,7 @@ public class RetrievePageModelTest {
     }
 
     @Test
-    public void retrievePage() {
+    public void retrievePageByID() {
         int pageID = 30304;
         PageResult expectedPageResult = new PageResult(
             "The X-Files",
@@ -32,15 +32,15 @@ public class RetrievePageModelTest {
             "http://en.wikipedia.com/the_x_files"
         );
         when(apiHelper.retrievePage(pageID)).thenReturn(expectedPageResult);
-        retrievePageModel.retrievePage(pageID);
-        Assert.assertEquals(expectedPageResult, retrievePageModel.getLastResult());
+        retrievePageModel.retrievePageByID(pageID);
+        Assert.assertEquals(expectedPageResult, retrievePageModel.getLastPageResult());
     }
 
     @Test
     public void retrievePageNegativeId() {
         int pageID = -1;
-        retrievePageModel.retrievePage(pageID);
-        Assert.assertNull(retrievePageModel.getLastResult());
+        retrievePageModel.retrievePageByID(pageID);
+        Assert.assertNull(retrievePageModel.getLastPageResult());
     }
 
     @Test
@@ -57,7 +57,7 @@ public class RetrievePageModelTest {
         );
         when(apiHelper.retrievePage(pageID)).thenReturn(expectedPageResult);
         retrievePageModel.addEventListener(() -> { notified.set(true); });
-        retrievePageModel.retrievePage(pageID);
+        retrievePageModel.retrievePageByID(pageID);
         Assert.assertTrue(notified.get());
     }
 }

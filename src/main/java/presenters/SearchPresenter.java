@@ -42,7 +42,7 @@ public class SearchPresenter {
         });
 
         retrievePageModel.addEventListener(() -> {
-            lastPageResult = ParserHTML.formatPageResult(retrievePageModel.getLastResult());
+            lastPageResult = ParserHTML.formatPageResult(retrievePageModel.getLastPageResult());
             ImagesCache.getInstance().saveImageToCache(lastPageResult.getThumbnail(), String.valueOf(lastPageResult.getPageID()));
             searchView.setPageTextPane(lastPageResult.getExtract());
             searchView.setScore(searchView.getSelectedResult().getScore());
@@ -74,7 +74,7 @@ public class SearchPresenter {
         new Thread(() -> {
             if (searchView.getSelectedResult() != null) {
                 searchView.setWorkingStatus();
-                retrievePageModel.retrievePage(searchView.getSelectedResult().getPageID());
+                retrievePageModel.retrievePageByID(searchView.getSelectedResult().getPageID());
                 searchView.setWaitingStatus();
             } else searchView.showMessageDialog(UIStrings.RETRIEVE_DIALOG_NOSELECTEDITEM);
         }).start();

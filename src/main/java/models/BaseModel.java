@@ -20,7 +20,8 @@ public abstract class BaseModel {
     }
 
     public void addEventListener(EventListener listener, String topic) {
-        if (!listeners.containsKey(topic)) listeners.put(topic, new ArrayList<>());
+        if (!listeners.containsKey(topic))
+            listeners.put(topic, new ArrayList<>());
         listeners.get(topic).add(listener);
     }
 
@@ -31,7 +32,6 @@ public abstract class BaseModel {
 
     public void notifyListeners() {
         if (!listeners.containsKey(UIStrings.EVENTLISTENER_TOPIC_DEFAULT)) return;
-        for (EventListener listener:listeners.get(UIStrings.EVENTLISTENER_TOPIC_DEFAULT))
-            listener.onEvent();
+        for (EventListener listener:listeners.get(UIStrings.EVENTLISTENER_TOPIC_DEFAULT)) listener.onEvent();
     }
 }

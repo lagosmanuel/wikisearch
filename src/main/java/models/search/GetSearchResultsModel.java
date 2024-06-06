@@ -8,21 +8,21 @@ import java.util.Collection;
 
 public class GetSearchResultsModel extends BaseModel {
     private final SearchResultDataBase searchResultDataBase;
-    private final Collection<SearchResult> lastResults;
+    private final Collection<SearchResult> lastSearchResults;
 
     public GetSearchResultsModel(SearchResultDataBase searchResultDataBase) {
         this.searchResultDataBase = searchResultDataBase;
-        lastResults = new ArrayList<>();
+        lastSearchResults = new ArrayList<>();
     }
 
-    public Collection<SearchResult> getLastResults() {
-        return lastResults;
+    public Collection<SearchResult> getLastSearchResults() {
+        return lastSearchResults;
     }
 
     public void getSavedSearchResults() {
-        lastResults.clear();
+        lastSearchResults.clear();
         Collection<SearchResult> searchResults = searchResultDataBase.getSearchResults();
-        if (searchResults != null) lastResults.addAll(searchResults);
+        if (searchResults != null) lastSearchResults.addAll(searchResults);
         notifyListeners();
     }
 }
