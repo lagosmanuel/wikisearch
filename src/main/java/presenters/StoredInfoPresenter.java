@@ -45,19 +45,19 @@ public class StoredInfoPresenter {
         loadPageModel.addEventListener(() -> {
             lastPageResult = loadPageModel.getLastResult();
             ImagesCache.getInstance().saveImageToCache(lastPageResult.getThumbnail(), String.valueOf(lastPageResult.getPageID()));
-            if (lastPageResult != null) storedInfoView.setResultTextPane(lastPageResult.getExtract());
+            if (lastPageResult != null) storedInfoView.setPageTextPane(lastPageResult.getExtract());
             else storedInfoView.showMessageDialog(UIStrings.ERROR_DIALOG_EXTRACTEMPTY);
         });
 
         savedPageTitlesModel.addEventListener(() -> {
             storedInfoView.updateComboBox(savedPageTitlesModel.getLastResults().toArray());
             if (storedInfoView.comboBoxHasItems()) {
-                storedInfoView.setEnable(true);
+                storedInfoView.setEditable(true);
                 onSelectedItem();
             }
             else {
-                storedInfoView.setEnable(false);
-                storedInfoView.setResultTextPane("");
+                storedInfoView.setEditable(false);
+                storedInfoView.setPageTextPane("");
             }
         });
     }

@@ -6,7 +6,6 @@ import models.search.UpdateSearchResultsModel;
 import utils.UIStrings;
 import views.MainView;
 import views.RankingView;
-
 import java.util.*;
 
 public class RankingPresenter {
@@ -14,6 +13,7 @@ public class RankingPresenter {
     private final SearchPresenter searchPresenter;
     private final GetSearchResultsModel getSearchResultsModel;
     private final UpdateSearchResultsModel updateSearchResultsModel;
+    private MainView mainView;
 
     public RankingPresenter(GetSearchResultsModel getSearchResultsModel, UpdateSearchResultsModel updateSearchResultsModel, SearchPresenter searchPresenter) {
         this.getSearchResultsModel = getSearchResultsModel;
@@ -22,10 +22,10 @@ public class RankingPresenter {
         initListeners();
     }
 
-    public void setRankingView(RankingView view, MainView mainView) {
-        rankingView = view;
-        view.setRankingPresenter(this);
-        view.setMainView(mainView);
+    public void setRankingView(RankingView rankingView, MainView mainView) {
+        this.rankingView = rankingView;
+        this.mainView = mainView;
+        rankingView.setRankingPresenter(this);
         getSearchResultsModel.getSavedSearchResults();
     }
 
@@ -46,7 +46,7 @@ public class RankingPresenter {
         new Thread(() -> {
             if (rankingView.isItemSelected()) {
                 searchPresenter.onRetrievePage(rankingView.getSelectedResult());
-                rankingView.showSearchView();
+                showSearchView();
             } else rankingView.showDialog(UIStrings.RANKINGVIEW_SEARCHNULL_DIALOG);
         }).start();
     }
@@ -62,5 +62,9 @@ public class RankingPresenter {
         for (SearchResult result:results)
             if (result.getScore() > 0) filteredResults.add(result);
         return filteredResults;
+    }
+
+    private void showSearchView() {
+        mainView.changeTab(UIStrings.SEARCHVIEW_TAB_INDEX);
     }
 }

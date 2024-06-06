@@ -18,7 +18,6 @@ public class RankingView {
     private JList<SearchResult> rankingList;
     private final StarsPanel starsPanel;
     private final JDialog starsPanelDialog;
-    private MainView mainView;
 
     public RankingView() {
         starsPanel = new StarsPanel();
@@ -48,8 +47,7 @@ public class RankingView {
         rankingList.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                super.keyPressed(e);
-                if (e.getKeyChar() == UIStrings.RANKINGVIEW_SEARCHBUTTON_KEY) showStarsPanelDialog();
+            if (e.getKeyChar() == UIStrings.RANKINGVIEW_SEARCHBUTTON_KEY) showStarsPanelDialog();
             }
         });
     }
@@ -60,10 +58,6 @@ public class RankingView {
 
     public void setRankingPresenter(RankingPresenter presenter) {
         rankingPresenter = presenter;
-    }
-
-    public void setMainView(MainView view) {
-        mainView = view;
     }
 
     @SuppressWarnings({"unchecked", "rawtypes"})
@@ -89,10 +83,6 @@ public class RankingView {
 
     public void showDialog(String dialog) {
         JOptionPane.showMessageDialog(contentPane, dialog);
-    }
-
-    public void showSearchView() {
-        mainView.changeTab(UIStrings.SEARCHVIEW_TAB_INDEX);
     }
 
     private void showStarsPanelDialog() {

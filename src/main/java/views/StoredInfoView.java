@@ -10,7 +10,7 @@ import java.awt.*;
 
 public class StoredInfoView {
     private JComboBox comboBox;
-    private JTextPane resultTextPane;
+    private JTextPane pageTextPane;
     private JScrollPane resultScrollPane;
     private JPanel contentPane;
     private StoredInfoPresenter storedInfoPresenter;
@@ -23,11 +23,11 @@ public class StoredInfoView {
         deleteItem = new JMenuItem(UIStrings.STOREDINFOVIEW_DELETEITEM_TITLE);
         storedInfoPopup.add(saveItem);
         storedInfoPopup.add(deleteItem);
-        resultTextPane.setContentType("text/html");
-        resultTextPane.setComponentPopupMenu(storedInfoPopup);
-        resultTextPane.getDocument().putProperty("imageCache", ImagesCache.getInstance().getCache());
-        resultTextPane.setBackground(UIManager.getColor("TextPane.disabledBackground"));
-        ((HTMLEditorKit) resultTextPane.getEditorKit()).getStyleSheet().addRule(ParserHTML.getStyleSheet());
+        pageTextPane.setContentType("text/html");
+        pageTextPane.setComponentPopupMenu(storedInfoPopup);
+        pageTextPane.getDocument().putProperty("imageCache", ImagesCache.getInstance().getCache());
+        pageTextPane.setBackground(UIManager.getColor("TextPane.disabledBackground"));
+        ((HTMLEditorKit) pageTextPane.getEditorKit()).getStyleSheet().addRule(ParserHTML.getStyleSheet());
         initListeners();
     }
 
@@ -50,8 +50,8 @@ public class StoredInfoView {
         comboBox.setModel(new DefaultComboBoxModel(items));
     }
 
-    public void setResultTextPane(String text) {
-        resultTextPane.setText(text);
+    public void setPageTextPane(String text) {
+        pageTextPane.setText(text);
     }
 
     public Object getSelectedItem() {
@@ -59,7 +59,7 @@ public class StoredInfoView {
     }
 
     public String getText() {
-        return resultTextPane.getText();
+        return pageTextPane.getText();
     }
 
     public void showMessageDialog(String msg) {
@@ -67,11 +67,11 @@ public class StoredInfoView {
     }
 
     public boolean comboBoxHasItems() {
-        return comboBox.getItemAt(0) != null;
+        return comboBox.getItemCount() > 0;
     }
 
-    public void setEnable(boolean editable) {
+    public void setEditable(boolean editable) {
         comboBox.setEnabled(editable);
-        resultTextPane.setEnabled(editable);
+        pageTextPane.setEnabled(editable);
     }
 }

@@ -53,13 +53,16 @@ public class MainView {
             frame.setResizable(false);
             frame.pack();
             frame.setSize(UIStrings.MAINVIEW_WINDOW_WIDTH, UIStrings.MAINVIEW_WINDOW_HEIGHT);
+            centerComponentOnScreen(frame);
             frame.setVisible(true);
-
-            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-            int x = (screenSize.width - frame.getWidth()) / 2;
-            int y = (screenSize.height - frame.getHeight()) / 2;
-            frame.setLocation(x, y);
         });
+    }
+
+    private void centerComponentOnScreen(Component component) {
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int x = (screenSize.width - component.getWidth()) / 2;
+        int y = (screenSize.height - component.getHeight()) / 2;
+        component.setLocation(x, y);
     }
 
     private void setLookAndFeel() {
@@ -73,13 +76,15 @@ public class MainView {
         SwingUtilities.invokeLater(() -> {
             tabbedPane.insertTab(
                     UIStrings.SEARCHVIEW_TAB_TITLE,
-                    null, searchView.getComponent(),
+                    null,
+                    searchView.getComponent(),
                     null,
                     UIStrings.SEARCHVIEW_TAB_INDEX
             );
             tabbedPane.insertTab(
                     UIStrings.STOREDINFOVIEW_TAB_TITLE,
-                    null, storedInfoView.getComponent(),
+                    null,
+                    storedInfoView.getComponent(),
                     null,
                     UIStrings.STOREDINFOVIEW_TAB_INDEX
             );

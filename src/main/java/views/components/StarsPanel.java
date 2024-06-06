@@ -14,7 +14,7 @@ public class StarsPanel extends JPanel {
     private int lastScore;
     private int newScore;
     EventListener listener;
-    List<JButton> starButtons;
+    List<JButton> starButtonsList;
     JButton deleteScoreButton;
 
     public StarsPanel() {
@@ -27,7 +27,7 @@ public class StarsPanel extends JPanel {
 
     public void setScore(int score) {
         lastScore = score;
-        changeScore(score);
+        updateScore(score);
     }
 
     public int getSelectedScore() {
@@ -42,11 +42,11 @@ public class StarsPanel extends JPanel {
     }
 
     private void createStarButtons() {
-        starButtons = new ArrayList<>();
+        starButtonsList = new ArrayList<>();
         for (int i = 0; i < UIStrings.SCORE_MAXSCORE; ++i) {
             JButton starButton = createStarButton();
             starButton.addMouseListener(createStarButtonMouseAdapter(i+1));
-            starButtons.add(starButton);
+            starButtonsList.add(starButton);
             this.add(starButton);
         }
     }
@@ -66,12 +66,12 @@ public class StarsPanel extends JPanel {
         return new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                changeScore(score);
+                updateScore(score);
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                changeScore(lastScore);
+                updateScore(lastScore);
             }
 
             @Override
@@ -90,16 +90,16 @@ public class StarsPanel extends JPanel {
         deleteScoreButton.setPreferredSize(new Dimension(UIStrings.STAR_FONT_SIZE, UIStrings.STAR_FONT_SIZE));
 
         deleteScoreButton.addActionListener(actionEvent -> {
-            changeScore(0);
+            updateScore(0);
             listener.onEvent();
         });
 
         this.add(deleteScoreButton);
     }
 
-    private void changeScore(int score) {
-        for (int i = 0; i < starButtons.size(); ++i)
-            starButtons.get(i).setText(i<score? UIStrings.STAR_CHAR_FULL:UIStrings.STAR_CHAR_EMPTY);
+    private void updateScore(int score) {
+        for (int i = 0; i < starButtonsList.size(); ++i)
+            starButtonsList.get(i).setText(i<score? UIStrings.STAR_CHAR_FULL:UIStrings.STAR_CHAR_EMPTY);
         newScore = score;
     }
 }

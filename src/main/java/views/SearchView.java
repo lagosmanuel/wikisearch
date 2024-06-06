@@ -21,14 +21,14 @@ import java.util.Collection;
 public class SearchView {
     private JTextField searchTextField;
     private JButton searchButton;
-    private JTextPane resultTextPane;
-    private JButton saveLocallyButton;
+    private JTextPane pageTextPane;
+    private JButton savepageButton;
     private JPanel contentPane;
     private JScrollPane resultScrollPane;
     private JPanel scorePanel;
     private final StarsPanel starsPanel;
-    private SearchPresenter searchPresenter;
     private SearchResult selectedResult;
+    private SearchPresenter searchPresenter;
 
     public SearchView() {
         starsPanel = new StarsPanel();
@@ -39,13 +39,13 @@ public class SearchView {
         searchButton.setText(UIStrings.SEARCHVIEW_SEARCHBUTTON_TEXT);
         searchButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         searchButton.setFont(UIStrings.DEFAULT_FONT);
-        saveLocallyButton.setText(UIStrings.SEARCHVIEW_SAVELOCALLYBUTTON_TEXT);
-        saveLocallyButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        saveLocallyButton.setFont(UIStrings.DEFAULT_FONT);
-        resultTextPane.setContentType("text/html");
-        resultTextPane.setEditable(false);
-        resultTextPane.getDocument().putProperty("imageCache", ImagesCache.getInstance().getCache());
-        ((HTMLEditorKit) resultTextPane.getEditorKit()).getStyleSheet().addRule(ParserHTML.getStyleSheet());
+        savepageButton.setText(UIStrings.SEARCHVIEW_SAVELOCALLYBUTTON_TEXT);
+        savepageButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        savepageButton.setFont(UIStrings.DEFAULT_FONT);
+        pageTextPane.setContentType("text/html");
+        pageTextPane.setEditable(false);
+        pageTextPane.getDocument().putProperty("imageCache", ImagesCache.getInstance().getCache());
+        ((HTMLEditorKit) pageTextPane.getEditorKit()).getStyleSheet().addRule(ParserHTML.getStyleSheet());
         scorePanel.add(starsPanel);
         initListeners();
     }
@@ -60,17 +60,15 @@ public class SearchView {
 
     private void initListeners() {
         searchButton.addActionListener(actionEvent -> searchPresenter.onSearchTerm());
-        saveLocallyButton.addActionListener(actionEvent -> searchPresenter.onSavePage());
+        savepageButton.addActionListener(actionEvent -> searchPresenter.onSavePage());
         starsPanel.setEventListener(() -> searchPresenter.onChangedScore());
         searchTextField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                super.keyPressed(e);
-                if (e.getKeyChar() == UIStrings.SEARCHVIEW_SEARCHBUTTON_KEY)
-                    searchPresenter.onSearchTerm();
+            if (e.getKeyChar() == UIStrings.SEARCHVIEW_SEARCHBUTTON_KEY) searchPresenter.onSearchTerm();
             }
         });
-        resultTextPane.addHyperlinkListener(e -> {
+        pageTextPane.addHyperlinkListener(e -> {
             if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) openLinkInBrowser(e.getURL());
         });
     }
@@ -80,7 +78,7 @@ public class SearchView {
     }
 
     public String getResultText() {
-        return resultTextPane.getText();
+        return pageTextPane.getText();
     }
 
     public SearchResult getSelectedResult() {
@@ -99,19 +97,19 @@ public class SearchView {
         selectedResult = searchResult;
     }
 
-    public void setResultTextPane(String text) {
-        resultTextPane.setText(text);
-        resultTextPane.setCaretPosition(0);
+    public void setPageTextPane(String text) {
+        pageTextPane.setText(text);
+        pageTextPane.setCaretPosition(0);
     }
 
     public void setWorkingStatus() {
         for(Component c: this.contentPane.getComponents()) c.setEnabled(false);
-        resultTextPane.setEnabled(false);
+        pageTextPane.setEnabled(false);
     }
 
     public void setWaitingStatus() {
         for(Component c: this.contentPane.getComponents()) c.setEnabled(true);
-        resultTextPane.setEnabled(true);
+        pageTextPane.setEnabled(true);
     }
 
     public void clearSearchTextField() {
