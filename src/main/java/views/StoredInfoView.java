@@ -23,6 +23,7 @@ public class StoredInfoView {
         deleteItem = new JMenuItem(UIStrings.STOREDINFOVIEW_DELETEITEM_TITLE);
         storedInfoPopup.add(saveItem);
         storedInfoPopup.add(deleteItem);
+        comboBox.setFont(UIStrings.DEFAULT_FONT);
         pageTextPane.setContentType("text/html");
         pageTextPane.setComponentPopupMenu(storedInfoPopup);
         pageTextPane.getDocument().putProperty("imageCache", ImagesCache.getInstance().getCache());

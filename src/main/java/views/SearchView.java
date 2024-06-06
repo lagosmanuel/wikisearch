@@ -2,9 +2,7 @@ package views;
 
 import models.SearchResult;
 import presenters.SearchPresenter;
-import utils.ImagesCache;
-import utils.ParserHTML;
-import utils.UIStrings;
+import utils.*;
 import views.components.SearchResultItem;
 import views.components.StarsPanel;
 import javax.swing.*;
@@ -13,9 +11,6 @@ import javax.swing.text.html.HTMLEditorKit;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.Collection;
 
 public class SearchView {
@@ -69,7 +64,7 @@ public class SearchView {
             }
         });
         pageTextPane.addHyperlinkListener(e -> {
-            if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) openLinkInBrowser(e.getURL());
+            if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) BrowserHelper.openLinkInBrowser(e.getURL());
         });
     }
 
@@ -128,12 +123,5 @@ public class SearchView {
                 searchPresenter.onRetrievePage();
             });
         searchOptionsMenu.show(searchTextField, searchTextField.getX(), searchTextField.getY()+searchTextField.getHeight());
-    }
-
-    private void openLinkInBrowser(URL url) {
-        try {
-            if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) Desktop.getDesktop().browse(url.toURI());
-            else showMessageDialog(UIStrings.SEARCH_DIALOG_NODESKTOP);
-        } catch (IOException | URISyntaxException e) {throw new RuntimeException(e);}
     }
 }
