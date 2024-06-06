@@ -1,14 +1,8 @@
 package presenters;
-
-import models.SearchResult;
-import models.PageResult;
-import models.search.UpdateSearchResultsModel;
-import models.pages.RetrievePageModel;
-import models.pages.SavePageModel;
-import models.search.SearchTermModel;
-import utils.ImagesCache;
-import utils.ParserHTML;
-import utils.UIStrings;
+import utils.*;
+import models.*;
+import models.search.*;
+import models.pages.*;
 import views.SearchView;
 import java.util.Collection;
 
@@ -40,18 +34,15 @@ public class SearchPresenter {
             if (!searchResults.isEmpty()) searchView.showOptionsMenu(searchResults);
             else searchView.showMessageDialog(UIStrings.SEARCH_DIALOG_NORESULT);
         });
-
         retrievePageModel.addEventListener(() -> {
             lastPageResult = ParserHTML.formatPageResult(retrievePageModel.getLastPageResult());
             ImagesCache.getInstance().saveImageToCache(lastPageResult.getThumbnail(), String.valueOf(lastPageResult.getPageID()));
             searchView.setPageTextPane(lastPageResult.getExtract());
             searchView.setScore(searchView.getSelectedResult().getScore());
         });
-
         savePageModel.addEventListener(() -> {
             if (searchView.getComponent().isVisible()) searchView.showMessageDialog(UIStrings.SAVE_DIALOG_SUCCESS);
         });
-
         updateSearchResultsModel.addEventListener(() -> {
             SearchResult selectedSearchResult = searchView.getSelectedResult();
             SearchResult lastUpdatedSearchResult = updateSearchResultsModel.getLastUpdatedSearchResult();
