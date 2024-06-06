@@ -5,15 +5,15 @@ import models.repos.databases.CatalogDataBase;
 
 import java.util.Collection;
 
-public class SavedTitlesModel extends BaseModel {
+public class SavedPageTitlesModel extends BaseModel {
     private final CatalogDataBase catalogDataBase;
     private Collection<String> lastResults;
 
-    public SavedTitlesModel(CatalogDataBase catalogDataBase) {
+    public SavedPageTitlesModel(CatalogDataBase catalogDataBase) {
         this.catalogDataBase = catalogDataBase;
     }
 
-    public void getSavedTitles() {
+    public void getSavedPageTitles() {
         lastResults = catalogDataBase.getPageTitles();
         notifyListeners();
     }

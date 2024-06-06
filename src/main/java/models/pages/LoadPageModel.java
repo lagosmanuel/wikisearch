@@ -16,8 +16,8 @@ public class LoadPageModel extends BaseModel {
         return lastResult;
     }
 
-    public void getPageExtract(String title) {
-        lastResult = catalogDataBase.getPageResultByTitle(title);
+    public void loadPage(String title) {
+        lastResult = title != null? catalogDataBase.getPageResultByTitle(title):null;
         notifyListeners();
     }
 }

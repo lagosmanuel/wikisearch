@@ -17,7 +17,7 @@ public class RetrievePageModel extends BaseModel {
     }
 
     public void retrievePage(int pageID) {
-        lastResult = apiHelper.retrievePage(pageID);
+        lastResult = pageID >= 0? apiHelper.retrievePage(pageID):null;
         notifyListeners();
     }
 }

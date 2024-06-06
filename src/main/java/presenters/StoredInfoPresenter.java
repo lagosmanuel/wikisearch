@@ -4,7 +4,7 @@ import models.PageResult;
 import models.pages.DeletePageModel;
 import models.pages.LoadPageModel;
 import models.pages.SavePageModel;
-import models.pages.SavedTitlesModel;
+import models.pages.SavedPageTitlesModel;
 import utils.ImagesCache;
 import utils.UIStrings;
 import views.StoredInfoView;
@@ -14,32 +14,32 @@ public class StoredInfoPresenter {
     private final SavePageModel savePageModel;
     private final DeletePageModel deletePageModel;
     private final LoadPageModel loadPageModel;
-    private final SavedTitlesModel savedTitlesModel;
+    private final SavedPageTitlesModel savedPageTitlesModel;
     private PageResult lastPageResult;
 
-    public StoredInfoPresenter(SavePageModel savePageModel, DeletePageModel deletePageModel, LoadPageModel loadPageModel, SavedTitlesModel savedTitlesModel) {
+    public StoredInfoPresenter(SavePageModel savePageModel, DeletePageModel deletePageModel, LoadPageModel loadPageModel, SavedPageTitlesModel savedPageTitlesModel) {
         this.savePageModel = savePageModel;
         this.deletePageModel = deletePageModel;
         this.loadPageModel = loadPageModel;
-        this.savedTitlesModel = savedTitlesModel;
+        this.savedPageTitlesModel = savedPageTitlesModel;
         initListeners();
     }
 
     public void setStoredInfoView(StoredInfoView view) {
         storedInfoView = view;
         storedInfoView.setStoredInfoPresenter(this);
-        savedTitlesModel.getSavedTitles();
+        savedPageTitlesModel.getSavedPageTitles();
     }
 
     private void initListeners() {
         savePageModel.addEventListener(() -> {
             if (storedInfoView.getComponent().isVisible()) storedInfoView.showMessageDialog(UIStrings.SAVE_DIALOG_SUCCESS);
-            else savedTitlesModel.getSavedTitles();
+            else savedPageTitlesModel.getSavedPageTitles();
         });
 
         deletePageModel.addEventListener(() -> {
             storedInfoView.showMessageDialog(UIStrings.DELETE_DIALOG_SUCCESS);
-            savedTitlesModel.getSavedTitles();
+            savedPageTitlesModel.getSavedPageTitles();
         });
 
         loadPageModel.addEventListener(() -> {
@@ -49,8 +49,8 @@ public class StoredInfoPresenter {
             else storedInfoView.showMessageDialog(UIStrings.ERROR_DIALOG_EXTRACTEMPTY);
         });
 
-        savedTitlesModel.addEventListener(() -> {
-            storedInfoView.updateComboBox(savedTitlesModel.getLastResults().toArray());
+        savedPageTitlesModel.addEventListener(() -> {
+            storedInfoView.updateComboBox(savedPageTitlesModel.getLastResults().toArray());
             if (storedInfoView.comboBoxHasItems()) {
                 storedInfoView.setEnable(true);
                 onSelectedItem();
@@ -67,10 +67,10 @@ public class StoredInfoPresenter {
     }
 
     public void onSelectedItem() {
-        new Thread(() -> loadPageModel.getPageExtract(storedInfoView.getSelectedItem().toString())).start();
+        new Thread(() -> loadPageModel.loadPage(storedInfoView.getSelectedItem().toString())).start();
     }
 
     public void onDeletePage() {
-        new Thread(() -> deletePageModel.deletePage(storedInfoView.getSelectedItem().toString())).start();
+        new Thread(() -> deletePageModel.deletePageByTitle(storedInfoView.getSelectedItem().toString())).start();
     }
 }

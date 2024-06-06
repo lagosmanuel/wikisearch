@@ -12,7 +12,7 @@ public class SavePageModel extends BaseModel {
     }
 
     public void savePage(PageResult pageResult) {
-        catalogDataBase.updatePage(pageResult);
+        if (pageResult != null) catalogDataBase.updatePage(pageResult);
         notifyListeners();
     }
 }

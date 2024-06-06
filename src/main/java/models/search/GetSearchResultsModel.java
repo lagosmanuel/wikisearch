@@ -22,7 +22,8 @@ public class GetSearchResultsModel extends BaseModel {
 
     public void getSavedSearchResults() {
         lastResults.clear();
-        lastResults.addAll(searchResultDataBase.getSearchResults());
+        Collection<SearchResult> searchResults = searchResultDataBase.getSearchResults();
+        if (searchResults != null) lastResults.addAll(searchResults);
         notifyListeners();
     }
 }

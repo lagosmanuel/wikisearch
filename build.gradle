@@ -18,8 +18,10 @@ dependencies {
     implementation 'org.xerial:sqlite-jdbc:3.41.2.2'
 
     implementation 'com.formdev:flatlaf:3.4.1'
+    implementation 'org.mockito:mockito-core:5.12.0'
 }
 
 test {
     useJUnitPlatform()
+    jvmArgs("-noverify", "-XX:+EnableDynamicAgentLoading", "-Djdk.instrument.traceUsage")
 }

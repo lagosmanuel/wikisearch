@@ -11,7 +11,7 @@ import models.pages.SavePageModel;
 import models.search.SearchTermModel;
 import models.pages.LoadPageModel;
 import models.search.GetSearchResultsModel;
-import models.pages.SavedTitlesModel;
+import models.pages.SavedPageTitlesModel;
 import models.repos.databases.CatalogDataBaseImpl;
 import models.repos.databases.SearchResultDataBaseImpl;
 import presenters.RankingPresenter;
@@ -30,14 +30,14 @@ public class Main {
         SavePageModel savePageModel = new SavePageModel(catalogDataBase);
         DeletePageModel deletePageModel = new DeletePageModel(catalogDataBase);
         LoadPageModel loadPageModel = new LoadPageModel(catalogDataBase);
-        SavedTitlesModel savedTitlesModel = new SavedTitlesModel(catalogDataBase);
+        SavedPageTitlesModel savedPageTitlesModel = new SavedPageTitlesModel(catalogDataBase);
         GetSearchResultsModel getSearchResultsModel = new GetSearchResultsModel(searchResultDataBase);
         UpdateSearchResultsModel updateSearchResultsModel = new UpdateSearchResultsModel(searchResultDataBase);
 
         MainView mainView = new MainView();
 
         SearchPresenter searchPresenter = new SearchPresenter(searchTermModel, retrievePageModel, savePageModel, updateSearchResultsModel);
-        StoredInfoPresenter storedInfoPresenter = new StoredInfoPresenter(savePageModel, deletePageModel, loadPageModel, savedTitlesModel);
+        StoredInfoPresenter storedInfoPresenter = new StoredInfoPresenter(savePageModel, deletePageModel, loadPageModel, savedPageTitlesModel);
         RankingPresenter rankingPresenter = new RankingPresenter(getSearchResultsModel, updateSearchResultsModel, searchPresenter);
 
         searchPresenter.setSearchView(mainView.getSearchView());

@@ -10,8 +10,8 @@ public class DeletePageModel extends BaseModel {
         this.catalogDataBase = catalogDataBase;
     }
 
-    public void deletePage(String title) {
-        catalogDataBase.deletePageByTitle(title);
+    public void deletePageByTitle(String title) {
+        if (title != null) catalogDataBase.deletePageByTitle(title);
         notifyListeners();
     }
 }

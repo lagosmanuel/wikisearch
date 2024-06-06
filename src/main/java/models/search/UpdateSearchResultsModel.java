@@ -17,9 +17,8 @@ public class UpdateSearchResultsModel extends BaseModel {
     }
 
     public void updateSearchResult(SearchResult searchResult) {
-        if (searchResult == null) return;
-        searchResultDataBase.updateSearchResult(searchResult);
         lastUpdatedSearchResult = searchResult;
+        if (searchResult != null) searchResultDataBase.updateSearchResult(searchResult);
         notifyListeners();
     }
 }
