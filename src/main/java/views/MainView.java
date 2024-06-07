@@ -50,7 +50,7 @@ public class MainView {
             frame.setIconImage(new ImageIcon(UIStrings.IMAGEICON_PATH).getImage());
             frame.setContentPane(contentPane);
             frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-            frame.setResizable(false);
+            frame.setResizable(true);
             frame.pack();
             frame.setSize(UIStrings.MAINVIEW_WINDOW_WIDTH, UIStrings.MAINVIEW_WINDOW_HEIGHT);
             centerComponentOnScreen(frame);

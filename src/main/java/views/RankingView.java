@@ -26,11 +26,11 @@ public class RankingView {
 
     private void init() {
         starsPanelDialog.setTitle(UIStrings.RANKINGVIEW_STARSPANEL_TITLE);
-        starsPanelDialog.setSize(UIStrings.RANKINGVIEW_STARSPANEL_WIDTH, UIStrings.RANKINGVIEW_STARSPANEL_HEIGHT);
         starsPanelDialog.setIconImage(new ImageIcon(UIStrings.IMAGEICON_PATH).getImage());
         starsPanelDialog.setLocationRelativeTo(contentPane);
         starsPanelDialog.setContentPane(starsPanel);
         starsPanelDialog.setResizable(false);
+        starsPanelDialog.pack();
         searchButton.setText(UIStrings.RANKINGVIEW_SEARCHBUTTON_LABEL);
         searchButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         searchButton.setFont(UIStrings.DEFAULT_FONT);

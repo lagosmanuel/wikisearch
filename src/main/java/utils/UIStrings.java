@@ -4,7 +4,6 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 
 public class UIStrings {
-    // Dialogs
     public static final String SEARCH_DIALOG_EMPTYTERM = "You must enter a term before searching!";
     public static final String SEARCH_DIALOG_NORESULT = "No results have been found!";
     public static final String SEARCH_DIALOG_RATEDNULLPAGE = "There is no page to rate!";
@@ -19,12 +18,10 @@ public class UIStrings {
     public static final String RANKINGVIEW_SEARCHNULL_DIALOG = "There is no tv serie to search!";
     public static final String IMAGECACHE_DIALOG_SAVEERROR = "Someting went wront saving the thumbnail!";
 
-    // MainView
     public static final String MAINVIEW_WINDOW_TITLE = "TV Series Info Repo";
     public static final int MAINVIEW_WINDOW_WIDTH = 700;
     public static final int MAINVIEW_WINDOW_HEIGHT = 1000;
 
-    // SearchView
     public static final String SEARCHVIEW_TAB_TITLE = "Search!";
     public static final int SEARCHVIEW_TAB_INDEX = 0;
     public static final String SEARCHVIEW_SEARCHBUTTON_TEXT = "Search!";
@@ -32,32 +29,26 @@ public class UIStrings {
     public static final String SEARCHVIEW_POPUP_LABEL = "Search Results";
     public static final int SEARCHVIEW_SEARCHBUTTON_KEY = KeyEvent.VK_ENTER;
 
-    // StoredInfoView
     public static final String STOREDINFOVIEW_TAB_TITLE = "StoredInfo";
     public static final int STOREDINFOVIEW_TAB_INDEX = 1;
     public static final String STOREDINFOVIEW_SAVEITEM_TITLE = "Save!";
     public static final String STOREDINFOVIEW_DELETEITEM_TITLE = "Delete!";
 
-    // Stars
     public static final String STAR_CHAR_EMPTY = "☆";
     public static final String STAR_CHAR_FULL = "★";
     public static final String STAR_CHAR_DELETE = "⌫";
     public static final Color STAR_COLOR = new Color(0xE3C153);
     public static final String STAR_FONT_FAMILY = "Arial";
-    public static final int STAR_FONT_SIZE = 30;
+    public static final int STAR_FONT_SIZE = 25;
     public static final int SCORE_MAXSCORE = 10;
 
-    // RankingView
     public static final String RANKINGVIEW_TAB_TITLE = "Ranking";
     public static final int RANKINGVIEW_TAB_INDEX = 2;
     public static final String RANKINGVIEW_LASTMODIFIED_LABEL = "Last Modified: ";
     public static final String RANKINGVIEW_SEARCHBUTTON_LABEL = "Search!";
     public static final int RANKINGVIEW_SEARCHBUTTON_KEY = KeyEvent.VK_ENTER;
     public static final String RANKINGVIEW_STARSPANEL_TITLE = "Change Score";
-    public static final int RANKINGVIEW_STARSPANEL_WIDTH = STAR_FONT_SIZE * (SCORE_MAXSCORE + 1);
-    public static final int RANKINGVIEW_STARSPANEL_HEIGHT = STAR_FONT_SIZE + 10;
 
-    // Wikipedia API
     public static final String API_BASEURL = "https://en.wikipedia.org/w/";
     public static final String API_FILTER = " (Tv series) articletopic:\"television\"";
     public static final String API_QUERY_KEYWORD = "query";
@@ -73,7 +64,6 @@ public class UIStrings {
     public static final String API_SEARCHTERM_ERROR = "Something went wrong searching the term in the API!";
     public static final String API_RETRIEVEPAGE_ERROR = "Something went wrong retrieving the page!";
 
-    // Database
     public static final String DB_URL = "jdbc:sqlite:./dictionary.db";
     public static final int DB_QUERY_TIMEOUT = 30;
     public static final String DB_TITLE_KEYWORD = "title";
@@ -94,19 +84,14 @@ public class UIStrings {
     public static final String DB_GETPAGEBYTITLE_ERROR = "Something went wrong getting a saved page: ";
     public static final String DB_GETSEARCHRESULTS_ERROR = "Something went wrong getting the saved search results: ";
 
-    // EventListener
     public static final String EVENTLISTENER_TOPIC_DEFAULT = "all";
 
-    // Page
     public static final String PAGE_PAGENOTFOUND = "No page has been found!";
     public static final String PAGE_LINK_MSG = "view in wikipedia";
 
-    // ImageCache
     public static final String IMAGECACHE_BASEURL = "http://buffered";
 
-    // Fonts
     public static final Font DEFAULT_FONT = new Font("arial", Font.BOLD, 18);
 
-    // Icons
     public static final String IMAGEICON_PATH = "images/icon.png";
 }

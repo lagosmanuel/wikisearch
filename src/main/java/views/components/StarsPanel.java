@@ -58,7 +58,6 @@ public class StarsPanel extends JPanel {
         starButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         starButton.setForeground(UIStrings.STAR_COLOR);
         starButton.setContentAreaFilled(false);
-        starButton.setPreferredSize(new Dimension(UIStrings.STAR_FONT_SIZE - 10, UIStrings.STAR_FONT_SIZE));
         return starButton;
     }
 
@@ -87,7 +86,6 @@ public class StarsPanel extends JPanel {
         deleteScoreButton.setBorder(new EmptyBorder(0,0,0,0));
         deleteScoreButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         deleteScoreButton.setContentAreaFilled(false);
-        deleteScoreButton.setPreferredSize(new Dimension(UIStrings.STAR_FONT_SIZE, UIStrings.STAR_FONT_SIZE));
 
         deleteScoreButton.addActionListener(actionEvent -> {
             updateScore(0);
