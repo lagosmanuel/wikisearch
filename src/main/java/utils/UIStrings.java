@@ -14,8 +14,8 @@ public class UIStrings {
     public static final String DELETE_DIALOG_SUCCESS = "The page was deleted successfully!";
     public static final String ERROR_DIALOG_UI = "Something went wrong with UI!";
     public static final String ERROR_DIALOG_EXTRACTEMPTY = "Something went wrong extracting a page from the DB!";
-    public static final String RANKINGVIEW_RATENULLRESULT_DIALOG = "There is no tv serie to rate!";
-    public static final String RANKINGVIEW_SEARCHNULL_DIALOG = "There is no tv serie to search!";
+    public static final String RANKINGVIEW_RATENULLRESULT_DIALOG = "There is no TV serie to rate!";
+    public static final String RANKINGVIEW_SEARCHNULL_DIALOG = "There is no TV serie to search!";
     public static final String IMAGECACHE_DIALOG_SAVEERROR = "Someting went wront saving the thumbnail!";
 
     public static final String MAINVIEW_WINDOW_TITLE = "TV Series Info Repo";
