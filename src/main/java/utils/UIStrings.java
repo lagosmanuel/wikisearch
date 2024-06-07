@@ -5,19 +5,19 @@ import java.awt.event.KeyEvent;
 
 public class UIStrings {
     // Dialogs
-    public static final String SEARCH_DIALOG_EMPTYTERM = "no term to search";
-    public static final String SEARCH_DIALOG_NORESULT = "no term has found";
-    public static final String SEARCH_DIALOG_RATEDNULLPAGE = "no page to rate";
-    public static final String SEARCH_DIALOG_NODESKTOP = "desktop is not supported";
-    public static final String RETRIEVE_DIALOG_NOSELECTEDITEM = "no selected item to retrieve";
-    public static final String SAVE_DIALOG_NOSELECTEDITEM = "no selected item to save";
-    public static final String SAVE_DIALOG_SUCCESS = "the page was saved successfully";
-    public static final String DELETE_DIALOG_SUCCESS = "the page was deleted successfully";
+    public static final String SEARCH_DIALOG_EMPTYTERM = "You must enter a term before searching!";
+    public static final String SEARCH_DIALOG_NORESULT = "No results have been found!";
+    public static final String SEARCH_DIALOG_RATEDNULLPAGE = "There is no page to rate!";
+    public static final String SEARCH_DIALOG_NODESKTOP = "This feature is not available on this system!";
+    public static final String RETRIEVE_DIALOG_NOSELECTEDITEM = "There is no page to retrieve!";
+    public static final String SAVE_DIALOG_NOSELECTEDITEM = "There is no page to save!";
+    public static final String SAVE_DIALOG_SUCCESS = "The page was saved successfully!";
+    public static final String DELETE_DIALOG_SUCCESS = "The page was deleted successfully!";
     public static final String ERROR_DIALOG_UI = "Something went wrong with UI!";
-    public static final String ERROR_DIALOG_EXTRACTEMPTY = "Something went wrong extracting a page from the DB";
-    public static final String RANKINGVIEW_RATENULLRESULT_DIALOG = "cannot rank null search result";
-    public static final String RANKINGVIEW_SEARCHNULL_DIALOG = "cannot search null search result";
-    public static final String IMAGECACHE_DIALOG_SAVEERROR = "error saving the image in the cache";
+    public static final String ERROR_DIALOG_EXTRACTEMPTY = "Something went wrong extracting a page from the DB!";
+    public static final String RANKINGVIEW_RATENULLRESULT_DIALOG = "There is no tv serie to rate!";
+    public static final String RANKINGVIEW_SEARCHNULL_DIALOG = "There is no tv serie to search!";
+    public static final String IMAGECACHE_DIALOG_SAVEERROR = "Someting went wront saving the thumbnail!";
 
     // MainView
     public static final String MAINVIEW_WINDOW_TITLE = "TV Series Info Repo";
@@ -25,10 +25,10 @@ public class UIStrings {
     public static final int MAINVIEW_WINDOW_HEIGHT = 1000;
 
     // SearchView
-    public static final String SEARCHVIEW_TAB_TITLE = "Search";
+    public static final String SEARCHVIEW_TAB_TITLE = "Search!";
     public static final int SEARCHVIEW_TAB_INDEX = 0;
     public static final String SEARCHVIEW_SEARCHBUTTON_TEXT = "Search!";
-    public static final String SEARCHVIEW_SAVELOCALLYBUTTON_TEXT = "Save locally!";
+    public static final String SEARCHVIEW_SAVELOCALLYBUTTON_TEXT = "Save!";
     public static final String SEARCHVIEW_POPUP_LABEL = "Search Results";
     public static final int SEARCHVIEW_SEARCHBUTTON_KEY = KeyEvent.VK_ENTER;
 
@@ -51,9 +51,9 @@ public class UIStrings {
     public static final String RANKINGVIEW_TAB_TITLE = "Ranking";
     public static final int RANKINGVIEW_TAB_INDEX = 2;
     public static final String RANKINGVIEW_LASTMODIFIED_LABEL = "Last Modified: ";
-    public static final String RANKINGVIEW_SEARCHBUTTON_LABEL = "search";
+    public static final String RANKINGVIEW_SEARCHBUTTON_LABEL = "Search!";
     public static final int RANKINGVIEW_SEARCHBUTTON_KEY = KeyEvent.VK_ENTER;
-    public static final String RANKINGVIEW_STARSPANEL_TITLE = "change score";
+    public static final String RANKINGVIEW_STARSPANEL_TITLE = "Change Score";
     public static final int RANKINGVIEW_STARSPANEL_WIDTH = STAR_FONT_SIZE * (SCORE_MAXSCORE + 1);
     public static final int RANKINGVIEW_STARSPANEL_HEIGHT = STAR_FONT_SIZE + 10;
 
@@ -70,8 +70,8 @@ public class UIStrings {
     public static final String API_SNIPPET_KEYWORD = "snippet";
     public static final String API_EXTRACT_KEYWORD = "extract";
     public static final String API_NS_KEYWORD = "ns";
-    public static final String API_SEARCHTERM_ERROR = "error searching term in api";
-    public static final String API_RETRIEVEPAGE_ERROR = "error retrieven page";
+    public static final String API_SEARCHTERM_ERROR = "Something went wrong searching the term in the API!";
+    public static final String API_RETRIEVEPAGE_ERROR = "Something went wrong retrieving the page!";
 
     // Database
     public static final String DB_URL = "jdbc:sqlite:./dictionary.db";
@@ -85,20 +85,20 @@ public class UIStrings {
     public static final String DB_SOURCE_KEYWORD = "source";
     public static final String DB_THUMBNAIL_KEYWORD = "thumbnail";
     public static final String DB_URL_KEYWORD = "url";
-    public static final String DB_LOADDB_ERROR = "error loading the database: ";
-    public static final String DB_UPDATEPAGE_ERROR = "error updating a page: ";
-    public static final String DB_UPDATESEARCHRESULT_ERROR = "error saving the results: ";
-    public static final String DB_DELETEPAGE_ERROR = "error deleting entry: ";
-    public static final String DB_GETSEARCHRESULTBYTITLE_ERROR = "error getting search result by title: ";
-    public static final String DB_GETPAGETITLES_ERROR = "error getting titles: ";
-    public static final String DB_GETPAGEBYTITLE_ERROR = "error getting a page: ";
-    public static final String DB_GETSEARCHRESULTS_ERROR = "error getting search results: ";
+    public static final String DB_LOADDB_ERROR = "Something went wrong loading the database: ";
+    public static final String DB_UPDATEPAGE_ERROR = "Something went wrong updating a page: ";
+    public static final String DB_UPDATESEARCHRESULT_ERROR = "Something went wrong saving a search result: ";
+    public static final String DB_DELETEPAGE_ERROR = "Something went wrong deleting a search result: ";
+    public static final String DB_GETSEARCHRESULTBYTITLE_ERROR = "Something went wrong getting a search result by title: ";
+    public static final String DB_GETPAGETITLES_ERROR = "Something went wrong getting the saved titles: ";
+    public static final String DB_GETPAGEBYTITLE_ERROR = "Something went wrong getting a saved page: ";
+    public static final String DB_GETSEARCHRESULTS_ERROR = "Something went wrong getting the saved search results: ";
 
     // EventListener
     public static final String EVENTLISTENER_TOPIC_DEFAULT = "all";
 
     // Page
-    public static final String PAGE_PAGENOTFOUND = "no result";
+    public static final String PAGE_PAGENOTFOUND = "No page has been found!";
     public static final String PAGE_LINK_MSG = "view in wikipedia";
 
     // ImageCache
